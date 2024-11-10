@@ -1,0 +1,9 @@
+includes:
+	- phpstan-baseline.neon
+parameters:
+    level: 9
+    scanFiles:
+        - ./_ide_helper_models.php
+    paths:
+        - app
+

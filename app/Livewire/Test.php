@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Process;
@@ -8,6 +10,7 @@ use Livewire\Component;
 class Test extends Component
 {
     public string $ipAddress = '';
+
     public string $response = '';
 
     public function fping(): void

@@ -1,14 +1,15 @@
 {
-    "name": "laravel/laravel",
+    "name": "xbnz/osintea",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "GUI for popular network and reconnaissance tools",
     "keywords": [
-        "laravel",
-        "framework"
+        "osint",
+        "reconnaissance",
+        "network"
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
@@ -17,12 +18,15 @@
         "nativephp/laravel": "0.5.2"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.2",
         "fakerphp/faker": "^1.23",
+        "larastan/larastan": "^2.9",
         "laravel/pail": "^1.1",
-        "laravel/pint": "^1.13",
+        "laravel/pint": "^1.18",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
+        "phpstan/extension-installer": "^1.4",
         "phpunit/phpunit": "^11.0.1"
     },
     "autoload": {
@@ -73,7 +77,8 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     },
     "minimum-stability": "stable",
