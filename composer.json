@@ -10,12 +10,18 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "azjezz/psl": "*",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "nativephp/electron": "0.6.3",
-        "nativephp/laravel": "0.5.2"
+        "nativephp/laravel": "0.5.2",
+        "spatie/temporary-directory": "^2.2",
+        "symfony/finder": "^7.0",
+        "webmozart/assert": "^1.1",
+        "xbnz/fping": "*",
+        "xbnz/shared": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",
@@ -26,7 +32,9 @@
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
+        "php-standard-library/phpstan-extension": "^1.1",
         "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-webmozart-assert": "^1.2",
         "phpunit/phpunit": "^11.0.1"
     },
     "autoload": {
@@ -82,5 +90,14 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "app-modules/*",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }

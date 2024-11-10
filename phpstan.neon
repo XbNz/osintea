@@ -6,4 +6,6 @@ parameters:
         - ./_ide_helper_models.php
     paths:
         - app
+        - app-modules/shared/src
+        - app-modules/fping/src
 

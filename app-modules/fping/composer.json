@@ -1,0 +1,22 @@
+{
+	"name": "xbnz/fping",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"XbNz\\Fping\\": "src/",
+			"XbNz\\Fping\\Tests\\": "tests/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"XbNz\\Fping\\Providers\\FpingServiceProvider"
+			]
+		}
+	}
+}
