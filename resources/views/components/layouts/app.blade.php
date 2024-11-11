@@ -29,7 +29,7 @@
 
     @include('partials.sidebar')
 
-    <flux:main container>
+    <flux:main container class="min-w-[80rem]">
         {{ $slot }}
     </flux:main>
 </div>

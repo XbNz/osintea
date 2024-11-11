@@ -8,9 +8,10 @@ use Illuminate\Config\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Process\PendingProcess;
 use Illuminate\Support\Str;
+use RuntimeException;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Webmozart\Assert\Assert;
-use XbNz\Fping\DTOs\FpingResultDTO;
+use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\ValueObjects\Sequence;
 use XbNz\Shared\BinFinder;
 use XbNz\Shared\IpValidator;
@@ -254,7 +255,7 @@ final class Fping
     }
 
     /**
-     * @return array<int, FpingResultDTO>
+     * @return array<int, PingResultDTO>
      */
     public function execute(): array
     {
@@ -330,14 +331,14 @@ final class Fping
             ->toArray();
     }
 
-    private function createFpingDto(string $line, int $index): FpingResultDTO
+    private function createFpingDto(string $line, int $index): PingResultDTO
     {
         $str = Str::of($line);
 
         $ip = $str->before(':')->trim()->toString();
         $sequences = explode(' ', $str->after(':')->trim()->toString());
 
-        return new FpingResultDTO(
+        return new PingResultDTO(
             $ip,
             IpValidator::make($ip)->determineType(),
             array_map(fn (string $sequence, int $index) => $this->createSequence($sequence, $index), $sequences, array_keys($sequences))

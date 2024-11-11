@@ -16,7 +16,7 @@ final class NativeAppServiceProvider implements ProvidesPhpIni
     public function boot(): void
     {
         Window::open()
-            ->route('test');
+            ->route('ping');
     }
 
     /**

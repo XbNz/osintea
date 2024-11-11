@@ -5,7 +5,7 @@ declare(strict_types=1);
 return [
     'binaries' => [
         'prefix' => 'fping',
-        'directory' => __DIR__.'/../bin',
+        'directory' => base_path('app-modules/fping/bin'),
     ],
     'process_timeout' => 3600,
 ];
