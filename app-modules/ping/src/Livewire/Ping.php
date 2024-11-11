@@ -10,6 +10,7 @@ use Livewire\Component;
 final class Ping extends Component
 {
     public string $target = '1.1.1.1';
+
     public int $count = 1;
 
     /**
