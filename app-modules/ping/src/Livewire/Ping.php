@@ -17,6 +17,7 @@ final class Ping extends Component
     public string $target = '1.1.1.1';
 
     public int $count = 1;
+
     public int $timeBetweenRequests = 100;
 
     /**

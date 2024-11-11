@@ -40,8 +40,8 @@ final class PingResults extends Component
     public function averageRoundTripTime(): string
     {
         $roundTripTimes = collect($this->pingResult()->sequences)
-            ->filter(fn($sequence) => ! $sequence->lost)
-            ->map(fn($sequence) => $sequence->roundTripTime);
+            ->filter(fn ($sequence) => ! $sequence->lost)
+            ->map(fn ($sequence) => $sequence->roundTripTime);
 
         return number_format($roundTripTimes->avg(), 2);
     }
@@ -50,8 +50,8 @@ final class PingResults extends Component
     public function minimumRoundTripTime(): string
     {
         $roundTripTimes = collect($this->pingResult()->sequences)
-            ->filter(fn($sequence) => ! $sequence->lost)
-            ->map(fn($sequence) => $sequence->roundTripTime);
+            ->filter(fn ($sequence) => ! $sequence->lost)
+            ->map(fn ($sequence) => $sequence->roundTripTime);
 
         return number_format($roundTripTimes->min(), 2);
     }
@@ -60,8 +60,8 @@ final class PingResults extends Component
     public function maximumRoundTripTime(): string
     {
         $roundTripTimes = collect($this->pingResult()->sequences)
-            ->filter(fn($sequence) => ! $sequence->lost)
-            ->map(fn($sequence) => $sequence->roundTripTime);
+            ->filter(fn ($sequence) => ! $sequence->lost)
+            ->map(fn ($sequence) => $sequence->roundTripTime);
 
         return number_format($roundTripTimes->max(), 2);
     }
@@ -70,7 +70,7 @@ final class PingResults extends Component
     public function packetLossPercentage(): string
     {
         $lostSequences = collect($this->pingResult()->sequences)
-            ->filter(fn($sequence) => $sequence->lost);
+            ->filter(fn ($sequence) => $sequence->lost);
 
         return number_format((count($lostSequences) / count($this->pingResult()->sequences)) * 100, 2);
     }
@@ -79,7 +79,7 @@ final class PingResults extends Component
     public function lossCount(): int
     {
         $lostSequences = collect($this->pingResult()->sequences)
-            ->filter(fn($sequence) => $sequence->lost);
+            ->filter(fn ($sequence) => $sequence->lost);
 
         return count($lostSequences);
     }
@@ -90,16 +90,15 @@ final class PingResults extends Component
         return count($this->pingResult()->sequences);
     }
 
-
     #[Computed]
     public function standardDeviation(): string
     {
         $roundTripTimes = collect($this->pingResult()->sequences)
-            ->filter(fn($sequence) => ! $sequence->lost)
-            ->map(fn($sequence) => $sequence->roundTripTime);
+            ->filter(fn ($sequence) => ! $sequence->lost)
+            ->map(fn ($sequence) => $sequence->roundTripTime);
 
         $mean = $roundTripTimes->avg();
-        $variance = $roundTripTimes->map(fn($roundTripTime) => ($roundTripTime - $mean) ** 2)->avg();
+        $variance = $roundTripTimes->map(fn ($roundTripTime) => ($roundTripTime - $mean) ** 2)->avg();
         $standardDeviation = sqrt($variance);
 
         return number_format($standardDeviation, 2);
