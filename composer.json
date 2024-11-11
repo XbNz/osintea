@@ -11,9 +11,12 @@
     "require": {
         "php": "^8.3",
         "azjezz/psl": "*",
+        "blade-ui-kit/blade-icons": "^1.7",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "livewire/flux": "^1.0",
+        "livewire/flux-pro": "^1.0",
         "livewire/livewire": "^3.5",
         "nativephp/electron": "0.6.3",
         "nativephp/laravel": "0.5.2",
@@ -21,6 +24,7 @@
         "symfony/finder": "^7.0",
         "webmozart/assert": "^1.1",
         "xbnz/fping": "*",
+        "xbnz/ping": "*",
         "xbnz/shared": "*"
     },
     "require-dev": {
@@ -91,13 +95,17 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "repositories": [
-        {
+    "repositories": {
+        "flux-pro": {
+            "type": "composer",
+            "url": "https://composer.fluxui.dev"
+        },
+        "0": {
             "type": "path",
             "url": "app-modules/*",
             "options": {
                 "symlink": true
             }
         }
-    ]
+    }
 }

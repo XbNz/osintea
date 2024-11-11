@@ -9,7 +9,7 @@
         </testsuite>
         <testsuite name="Modules"><directory suffix="Test.php">./app-modules/*/tests/Feature</directory></testsuite>
         <testsuite name="Modules"><directory suffix="Test.php">./app-modules/*/tests/Unit</directory></testsuite>
-    </testsuites>
+    <testsuite name="Modules"><directory suffix="Test.php">./app-modules/*/tests</directory></testsuite></testsuites>
     <source>
         <include>
             <directory>app</directory>
@@ -19,4 +19,4 @@
     <php>
         <env name="APP_ENV" value="testing"/>
     </php>
-</phpunit>
+<formatOutput>1</formatOutput></phpunit>

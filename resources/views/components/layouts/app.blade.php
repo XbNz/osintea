@@ -13,16 +13,32 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+    @fluxStyles
     @stack('styles')
 </head>
 <body>
 <div id="app" class="bg-zinc-50 dark:text-gray-700 dark:bg-zinc-900 min-h-screen">
-    <main>
+    <flux:header container class="border-b border-zinc-200 dark:border-zinc-700">
+        <flux:sidebar.toggle icon="bars-2" inset="left" class="lg:hidden" />
+
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="max-lg:hidden dark:hidden" />
+        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." class="max-lg:!hidden hidden dark:flex" />
+
+        @include('partials.navbar')
+    </flux:header>
+
+    @include('partials.sidebar')
+
+    <flux:main container>
         {{ $slot }}
-    </main>
+    </flux:main>
 </div>
 @livewireScripts
+@fluxScripts
 @stack('scripts')
+@persist('toast')
+<flux:toast />
+@endpersist
 </body>
 
 </html>

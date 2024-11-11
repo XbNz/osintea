@@ -1,0 +1,24 @@
+{
+	"name": "xbnz/ping",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"XbNz\\Ping\\": "src/",
+			"XbNz\\Ping\\Tests\\": "tests/",
+			"XbNz\\Ping\\Database\\Factories\\": "database/factories/",
+			"XbNz\\Ping\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"XbNz\\Ping\\Providers\\PingServiceProvider"
+			]
+		}
+	}
+}
