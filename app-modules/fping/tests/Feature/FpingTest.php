@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Fping\Tests\Feature;
 
 use Generator;
+use Illuminate\Process\PendingProcess;
 use Illuminate\Support\Facades\Process;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Tests\TestCase;
@@ -47,40 +48,92 @@ final class FpingTest extends TestCase
         $this->assertCount(3, $results[1]->sequences);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('optionProvider')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('optionalOptionProvider')]
     #[\PHPUnit\Framework\Attributes\Test]
     public function options_are_applied(string $methodName, mixed $value, $commandLineOptionExpected): void
     {
         // Arrange
-        Process::fake([
-            "*fping --{$commandLineOptionExpected}" => Process::result(exitCode: 0),
-        ])->preventingStrayProcesses();
+        $fake = Process::fake([
+            "*--{$commandLineOptionExpected}*" => Process::result(exitCode: 0),
+        ]);
+
+        $this->swap(PendingProcess::class, $fake->newPendingProcess());
+
         $fping = $this->app->make(Fping::class);
 
-        $path = TemporaryDirectory::make()
+        $inputPath = TemporaryDirectory::make()
             ->force()
             ->create()
             ->path('input.txt');
 
-        touch($path);
+        $outputPath = TemporaryDirectory::make()
+            ->force()
+            ->create()
+            ->path('output.txt');
 
-        $this->assertFileExists($path);
+        touch($inputPath);
+        touch($outputPath);
 
-        file_put_contents(
-            $path,
-            implode(PHP_EOL, [
-                '8.8.8.8',
-            ]),
-        );
+        $this->assertFileExists($inputPath);
 
         // Act
-        $fping
-            ->inputFilePath($path)
+        $results = $fping
+            ->inputFilePath($inputPath)
+            ->outputFilePath($outputPath)
             ->{$methodName}($value)
             ->execute();
+
+        // Assert
+        $fake->assertRan(function (PendingProcess $process) use ($commandLineOptionExpected) {
+            $this->assertStringContainsString("--{$commandLineOptionExpected}", $process->command);
+
+            return true;
+        });
     }
 
-    public static function optionProvider(): Generator
+    #[\PHPUnit\Framework\Attributes\DataProvider('staticOptionProviders')]
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function static_options_are_applied($commandLineOptionExpected): void
+    {
+        // Arrange
+        $fake = Process::fake([
+            "*--{$commandLineOptionExpected}*" => Process::result(exitCode: 0),
+        ]);
+
+        $this->swap(PendingProcess::class, $fake->newPendingProcess());
+
+        $fping = $this->app->make(Fping::class);
+
+        $inputPath = TemporaryDirectory::make()
+            ->force()
+            ->create()
+            ->path('input.txt');
+
+        $outputPath = TemporaryDirectory::make()
+            ->force()
+            ->create()
+            ->path('output.txt');
+
+        touch($inputPath);
+        touch($outputPath);
+
+        $this->assertFileExists($inputPath);
+
+        // Act
+        $results = $fping
+            ->inputFilePath($inputPath)
+            ->outputFilePath($outputPath)
+            ->execute();
+
+        // Assert
+        $fake->assertRan(function (PendingProcess $process) use ($commandLineOptionExpected) {
+            $this->assertStringContainsString("--{$commandLineOptionExpected}", $process->command);
+
+            return true;
+        });
+    }
+
+    public static function optionalOptionProvider(): Generator
     {
         yield from [
             'size' => ['size', 100, 'size'],
@@ -95,8 +148,14 @@ final class FpingTest extends TestCase
             'sendRandomData' => ['sendRandomData', true, 'random'],
             'sourceAddress' => ['sourceAddress', '1.1.1.1', 'src'],
             'timeout' => ['timeout', 1000, 'timeout'],
-            'showByIp' => ['showByIp', false, 'addr'],
-            'quiet' => ['quiet', false, 'quiet'],
+        ];
+    }
+
+    public static function staticOptionProviders(): Generator
+    {
+        yield from [
+            'showByIp' => ['addr'],
+            'quiet' => ['quiet'],
         ];
     }
 }

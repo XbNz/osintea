@@ -68,6 +68,8 @@ final class Fping
 
     public string $inputFilePath;
 
+    public string $outputFilePath;
+
     public int $size = 56;
 
     public float $backoff = 1.5;
@@ -103,7 +105,9 @@ final class Fping
         private readonly BinFinder $binFinder,
         private readonly Repository $config,
         private readonly Filesystem $filesystem,
-    ) {}
+    ) {
+        $this->generateOutputFilePath();
+    }
 
     public function binary(string $binaryPath): self
     {
@@ -123,6 +127,23 @@ final class Fping
         $this->inputFilePath = canonicalize($inputFile);
 
         return $this;
+    }
+
+    public function outputFilePath(string $outputFile): self
+    {
+        Assert::fileExists($outputFile, 'The output file could not be found at the given path');
+
+        $this->outputFilePath = canonicalize($outputFile);
+
+        return $this;
+    }
+
+    private function generateOutputFilePath(): void
+    {
+        $this->outputFilePath = TemporaryDirectory::make()
+            ->force()
+            ->create()
+            ->path('fping_output_'.Str::random(10).'.txt');
     }
 
     public function size(int $bytes): self
@@ -237,12 +258,6 @@ final class Fping
      */
     public function execute(): array
     {
-        $random = Str::random(10);
-        $outputFile = TemporaryDirectory::make()
-            ->force()
-            ->create()
-            ->path("fping_output_{$random}.txt");
-
         $fpingPrefix = $this->config->get('fping.binaries.prefix');
         $fpingBinaryDirectory = $this->config->get('fping.binaries.directory');
 
@@ -304,12 +319,12 @@ final class Fping
 
         $result = $this->process
             ->timeout($this->config->get('fping.process_timeout'))
-            ->command(implode(' ', $command)." 2>&1 | tee {$outputFile}")
+            ->command(implode(' ', $command)." 2>&1 | tee {$this->outputFilePath}")
             ->run()
             ->throw();
 
         return $this->filesystem
-            ->lines($outputFile)
+            ->lines($this->outputFilePath)
             ->reject(fn (string $line) => mb_strlen(trim($line)) === 0)
             ->map($this->createFpingDto(...))
             ->toArray();
