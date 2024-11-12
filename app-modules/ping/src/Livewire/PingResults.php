@@ -114,22 +114,22 @@ final class PingResults extends Component
         return count($this->pingResult()->sequences);
     }
 
-        #[Computed]
-        public function standardDeviation(): string
-        {
-            $roundTripTimes = Collection::make($this->pingResult()->sequences)
-                ->reject(fn ($sequence) => $sequence->lost === true)
-                ->map(fn (Sequence $sequence) => $sequence->roundTripTime);
+    #[Computed]
+    public function standardDeviation(): string
+    {
+        $roundTripTimes = Collection::make($this->pingResult()->sequences)
+            ->reject(fn ($sequence) => $sequence->lost === true)
+            ->map(fn (Sequence $sequence) => $sequence->roundTripTime);
 
-            $mean = $roundTripTimes->avg();
-            $variance = $roundTripTimes->map(fn (float $roundTripTime) => ($roundTripTime - $mean) ** 2)->avg();
+        $mean = $roundTripTimes->avg();
+        $variance = $roundTripTimes->map(fn (float $roundTripTime) => ($roundTripTime - $mean) ** 2)->avg();
 
-            Assert::float($variance);
+        Assert::float($variance);
 
-            $standardDeviation = sqrt($variance);
+        $standardDeviation = sqrt($variance);
 
-            return number_format($standardDeviation, 2);
-        }
+        return number_format($standardDeviation, 2);
+    }
 
     public function render(): View
     {
