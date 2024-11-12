@@ -7,7 +7,6 @@ namespace XbNz\Fping;
 use PHPUnit\Framework\Assert as PHPUnitAssert;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\Contracts\FpingInterface;
-
 use XbNz\Fping\DTOs\PingResultDTO;
 
 use function Psl\Filesystem\canonicalize;
