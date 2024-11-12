@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace XbNz\Ping\Livewire;
 
-use Flux\Flux;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Livewire\Component;
+use Native\Laravel\Facades\Window;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use XbNz\Fping\Contracts\FpingInterface;
 
@@ -36,8 +36,6 @@ final class Ping extends Component
     {
         $this->validate();
 
-        Flux::toast("Pinging {$this->target}");
-
         $temporaryFilePath = TemporaryDirectory::make()
             ->force()
             ->create()
@@ -53,7 +51,14 @@ final class Ping extends Component
 
         Session::put('ping-result', $pingResultDto);
 
-        $this->redirectRoute('ping-results', navigate: true);
+        Window::open('ping-results')
+            ->route('ping-results')
+            ->showDevTools(false)
+            ->titleBarHiddenInset()
+            ->height(490)
+            ->width(775)
+            ->minHeight(490)
+            ->minWidth(775);
     }
 
     public function render(): View

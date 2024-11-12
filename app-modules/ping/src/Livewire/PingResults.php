@@ -9,11 +9,13 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\ValueObjects\Sequence;
 
+#[Layout('components.layouts.secondary-window')]
 final class PingResults extends Component
 {
     #[Computed]

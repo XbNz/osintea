@@ -18,14 +18,9 @@
 </head>
 <body>
 <div id="app" class="bg-zinc-50 dark:text-gray-400 text-gray-800 dark:bg-zinc-900 min-h-screen overflow-hidden">
-    <flux:header container class="border-b border-zinc-200 dark:border-zinc-700">
-        <flux:brand href="#" logo="https://fluxui.dev/img/demo/logo.png" name="Acme Inc." class="max-lg:hidden dark:hidden" />
-        <flux:brand href="#" logo="https://fluxui.dev/img/demo/dark-mode-logo.png" name="Acme Inc." class="max-lg:!hidden hidden dark:flex" />
+    <div style="height: 30px; -webkit-app-region: drag;" class="absolute top-0 left-0 right-0"></div>
 
-        @include('partials.navbar')
-    </flux:header>
-
-    <flux:main container>
+    <flux:main container class="mt-3">
         {{ $slot }}
     </flux:main>
 </div>

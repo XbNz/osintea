@@ -1,4 +1,4 @@
-<div>
+<div class="w-full min-w-[60rem]">
     <flux:card class="space-y-6 w-1/2">
 
         <div>
@@ -11,7 +11,7 @@
             <flux:field>
                 <flux:label class="flex justify-between">Target</flux:label>
 
-                <flux:input type="text" wire:model.live.debounce="target" placeholder="192.168.1.1..." />
+                <flux:input type="text" wire:model.blur="target" placeholder="192.168.1.1..." />
 
                 <flux:error name="target" />
             </flux:field>
@@ -20,7 +20,7 @@
                 <flux:field>
                     <flux:label class="flex justify-between">Count</flux:label>
 
-                    <flux:input type="number" wire:model.live.debounce="count" />
+                    <flux:input type="number" wire:model.blur="count" />
 
                     <flux:error name="count" />
                 </flux:field>
@@ -28,7 +28,7 @@
                 <flux:field>
                     <flux:label class="flex justify-between">Time between requests</flux:label>
 
-                    <flux:input required type="number" wire:model.live.debounce="timeBetweenRequests" />
+                    <flux:input required type="number" wire:model.blur="timeBetweenRequests" />
 
                     <flux:error name="timeBetweenRequests" />
                 </flux:field>

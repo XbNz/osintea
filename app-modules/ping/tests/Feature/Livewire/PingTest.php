@@ -7,12 +7,13 @@ namespace XbNz\Ping\Tests\Feature\Livewire;
 use Generator;
 use Illuminate\Contracts\Session\Session;
 use Livewire\Livewire;
+use Native\Laravel\Facades\Window;
 use Tests\TestCase;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\FakeFping;
 use XbNz\Ping\Livewire\Ping;
-use XbNz\Ping\Livewire\PingResults;
+use Native\Laravel\Windows\Window as WindowClass;
 use XbNz\Shared\ValueObjects\IpType;
 
 final class PingTest extends TestCase
@@ -41,6 +42,10 @@ final class PingTest extends TestCase
             ),
         ]);
 
+        Window::shouldReceive('open')
+            ->once()
+            ->andReturn($fakeWindow = new WindowClass('ping-results'));
+
         $this->swap(FpingInterface::class, $fakeFping);
 
         // Act
@@ -56,12 +61,12 @@ final class PingTest extends TestCase
         $fakeFping->assertIntervalPerHost(500);
         $fakeFping->assertInputFileIncludesTarget('1.1.1.1');
 
-        $response->assertRedirect(PingResults::class);
-
         $this->assertEquals(
             $this->app->make(Session::class)->get('ping-result'),
             $expectedResult
         );
+
+        $this->assertSame(route('ping-results'), invade($fakeWindow)->url);
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('validationProvider')]
