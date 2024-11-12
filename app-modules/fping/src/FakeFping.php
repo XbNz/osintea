@@ -8,6 +8,8 @@ use PHPUnit\Framework\Assert as PHPUnitAssert;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\Contracts\FpingInterface;
 
+use XbNz\Fping\DTOs\PingResultDTO;
+
 use function Psl\Filesystem\canonicalize;
 
 final class FakeFping implements FpingInterface
@@ -20,11 +22,14 @@ final class FakeFping implements FpingInterface
 
     private string $inputFilePath;
 
+    /**
+     * @var array<int, PingResultDTO>
+     */
     private array $forceReturn = [];
 
     public function binary(string $binaryPath): FpingInterface
     {
-        // TODO: Implement binary() method.
+        return $this;
     }
 
     public function inputFilePath(string $inputFile): FpingInterface
@@ -42,17 +47,17 @@ final class FakeFping implements FpingInterface
 
     public function outputFilePath(string $outputFile): FpingInterface
     {
-        // TODO: Implement outputFilePath() method.
+        return $this;
     }
 
     public function size(int $bytes): FpingInterface
     {
-        // TODO: Implement size() method.
+        return $this;
     }
 
     public function backoffFactor(float $backoff): FpingInterface
     {
-        // TODO: Implement backoffFactor() method.
+        return $this;
     }
 
     public function count(int $count): FpingInterface
@@ -64,27 +69,27 @@ final class FakeFping implements FpingInterface
 
     public function timeToLive(int $ttl): FpingInterface
     {
-        // TODO: Implement timeToLive() method.
+        return $this;
     }
 
     public function interval(float $interval): FpingInterface
     {
-        // TODO: Implement interval() method.
+        return $this;
     }
 
     public function resolveAllHostnameIpAddresses(bool $bool = true): FpingInterface
     {
-        // TODO: Implement resolveAllHostnameIpAddresses() method.
+        return $this;
     }
 
     public function dontFragment(bool $bool = true): FpingInterface
     {
-        // TODO: Implement dontFragment() method.
+        return $this;
     }
 
     public function typeOfService(string $tos): FpingInterface
     {
-        // TODO: Implement typeOfService() method.
+        return $this;
     }
 
     public function intervalPerHost(float $interval): FpingInterface
@@ -96,24 +101,27 @@ final class FakeFping implements FpingInterface
 
     public function retries(int $retries): FpingInterface
     {
-        // TODO: Implement retries() method.
+        return $this;
     }
 
     public function sendRandomData(bool $bool = true): FpingInterface
     {
-        // TODO: Implement sendRandomData() method.
+        return $this;
     }
 
     public function sourceAddress(string $sourceAddress): FpingInterface
     {
-        // TODO: Implement sourceAddress() method.
+        return $this;
     }
 
     public function timeout(int $timeout): FpingInterface
     {
-        // TODO: Implement timeout() method.
+        return $this;
     }
 
+    /**
+     * @return array<int, PingResultDTO>
+     */
     public function execute(): array
     {
         $this->executed = true;
@@ -121,6 +129,9 @@ final class FakeFping implements FpingInterface
         return $this->forceReturn;
     }
 
+    /**
+     * @param  array<int, PingResultDTO>  $forceReturn
+     */
     public function forceReturn(array $forceReturn): void
     {
         $this->forceReturn = $forceReturn;
@@ -144,6 +155,8 @@ final class FakeFping implements FpingInterface
     public function assertInputFileIncludesTarget(string $target): void
     {
         $contents = file_get_contents($this->inputFilePath);
+
+        PHPUnitAssert::assertIsString($contents);
 
         PHPUnitAssert::assertStringContainsString($target, $contents);
     }

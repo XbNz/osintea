@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Contracts;
 
+use XbNz\Fping\DTOs\PingResultDTO;
+
 interface FpingInterface
 {
     public function binary(string $binaryPath): self;
@@ -38,5 +40,8 @@ interface FpingInterface
 
     public function timeout(int $timeout): self;
 
+    /**
+     * @return array<int, PingResultDTO>
+     */
     public function execute(): array;
 }
