@@ -8,12 +8,12 @@ use Generator;
 use Illuminate\Contracts\Session\Session;
 use Livewire\Livewire;
 use Native\Laravel\Facades\Window;
+use Native\Laravel\Windows\Window as WindowClass;
 use Tests\TestCase;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\FakeFping;
 use XbNz\Ping\Livewire\Ping;
-use Native\Laravel\Windows\Window as WindowClass;
 use XbNz\Shared\ValueObjects\IpType;
 
 final class PingTest extends TestCase
