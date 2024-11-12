@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use RuntimeException;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Webmozart\Assert\Assert;
+use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\ValueObjects\Sequence;
 use XbNz\Shared\BinFinder;
@@ -63,7 +64,7 @@ use function Psl\Filesystem\canonicalize;
  * -x, --reachable=N  shows if >=N hosts are reachable or not
  * -X, --fast-reachable=N exits true immediately when N hosts are found
  */
-final class Fping
+final class Fping implements FpingInterface
 {
     public string $binaryPath;
 
@@ -116,7 +117,11 @@ final class Fping
 
         is_executable($binaryPath) || throw new RuntimeException("The fping binary at {$binaryPath} is not executable");
 
-        $this->binaryPath = canonicalize($binaryPath);
+        $canonicalized = canonicalize($binaryPath);
+
+        Assert::string($canonicalized);
+
+        $this->binaryPath = $canonicalized;
 
         return $this;
     }
@@ -125,7 +130,11 @@ final class Fping
     {
         Assert::fileExists($inputFile, 'The input file could not be found at the given path');
 
-        $this->inputFilePath = canonicalize($inputFile);
+        $canonicalized = canonicalize($inputFile);
+
+        Assert::string($canonicalized);
+
+        $this->inputFilePath = $canonicalized;
 
         return $this;
     }
@@ -134,7 +143,11 @@ final class Fping
     {
         Assert::fileExists($outputFile, 'The output file could not be found at the given path');
 
-        $this->outputFilePath = canonicalize($outputFile);
+        $canonicalized = canonicalize($outputFile);
+
+        Assert::string($canonicalized);
+
+        $this->outputFilePath = $canonicalized;
 
         return $this;
     }
@@ -318,17 +331,23 @@ final class Fping
             $command[] = '--quiet';
         }
 
+        Assert::integer($timeout = $this->config->get('fping.process_timeout'));
+
         $result = $this->process
-            ->timeout($this->config->get('fping.process_timeout'))
+            ->timeout($timeout)
             ->command(implode(' ', $command)." 2>&1 | tee {$this->outputFilePath}")
             ->run()
             ->throw();
 
-        return $this->filesystem
+        $return = $this->filesystem
             ->lines($this->outputFilePath)
             ->reject(fn (string $line) => mb_strlen(trim($line)) === 0)
             ->map($this->createFpingDto(...))
             ->toArray();
+
+        Assert::allIsInstanceOf($return, PingResultDTO::class);
+
+        return $return;
     }
 
     private function createFpingDto(string $line, int $index): PingResultDTO

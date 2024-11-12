@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Livewire\Component;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use XbNz\Fping\Fping;
+use XbNz\Fping\Contracts\FpingInterface;
 
 final class Ping extends Component
 {
     public string $target = '1.1.1.1';
 
-    public int $count = 1;
+    public int $count = 5;
 
-    public int $timeBetweenRequests = 100;
+    public int $timeBetweenRequests = 500;
 
     /**
      * @return array<string, mixed>
@@ -26,9 +26,7 @@ final class Ping extends Component
     public function rules(): array
     {
         return [
-            'target' => [
-                'required',
-            ],
+            'target' => ['required', 'string'],
             'count' => ['integer', 'min:1', 'max:100'],
             'timeBetweenRequests' => ['integer', 'min:100', 'max:50000'],
         ];
@@ -47,7 +45,7 @@ final class Ping extends Component
 
         file_put_contents($temporaryFilePath, $this->target);
 
-        $pingResultDto = App::make(Fping::class)
+        $pingResultDto = App::make(FpingInterface::class)
             ->inputFilePath($temporaryFilePath)
             ->count($this->count)
             ->intervalPerHost($this->timeBetweenRequests)
