@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad9b5f05247e1c7c70f403185a355f47",
+    "content-hash": "e5f4d3077f8abf8a906b4ef5eea1cfec",
     "packages": [
         {
             "name": "asantibanez/livewire-charts",
@@ -2256,21 +2256,21 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.1.25",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "7b4029a84c37cb2725fc7f011586e2997040bc95"
+                "reference": "0f3848a445562dac376b27968f753c65e7e1036e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/7b4029a84c37cb2725fc7f011586e2997040bc95",
-                "reference": "7b4029a84c37cb2725fc7f011586e2997040bc95",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/0f3848a445562dac376b27968f753c65e7e1036e",
+                "reference": "0f3848a445562dac376b27968f753c65e7e1036e",
                 "shasum": ""
             },
             "require": {
+                "composer-runtime-api": "^2.2",
                 "ext-mbstring": "*",
-                "illuminate/collections": "^10.0|^11.0",
                 "php": "^8.1",
                 "symfony/console": "^6.2|^7.0"
             },
@@ -2279,6 +2279,7 @@
                 "laravel/framework": ">=10.17.0 <10.25.0"
             },
             "require-dev": {
+                "illuminate/collections": "^10.0|^11.0",
                 "mockery/mockery": "^1.5",
                 "pestphp/pest": "^2.3",
                 "phpstan/phpstan": "^1.11",
@@ -2290,7 +2291,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.1.x-dev"
+                    "dev-main": "0.3.x-dev"
                 }
             },
             "autoload": {
@@ -2308,9 +2309,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.1.25"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.1"
             },
-            "time": "2024-08-12T22:06:33+00:00"
+            "time": "2024-10-09T19:42:26+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -3114,23 +3115,23 @@
         },
         {
             "name": "nativephp/electron",
-            "version": "0.6.3",
+            "version": "0.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/electron.git",
-                "reference": "82691987e271bf39ac074c4fa92356a135b54dd1"
+                "reference": "b1a66e31a4b58e189938ce348e2b2382c6fa29e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/electron/zipball/82691987e271bf39ac074c4fa92356a135b54dd1",
-                "reference": "82691987e271bf39ac074c4fa92356a135b54dd1",
+                "url": "https://api.github.com/repos/NativePHP/electron/zipball/b1a66e31a4b58e189938ce348e2b2382c6fa29e7",
+                "reference": "b1a66e31a4b58e189938ce348e2b2382c6fa29e7",
                 "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^10.0|^11.0",
-                "laravel/prompts": "^0.1.1",
+                "laravel/prompts": "^0.1.1|^0.2|^0.3",
                 "nativephp/laravel": "*",
-                "nativephp/php-bin": "^0.4",
+                "nativephp/php-bin": "^0.5",
                 "php": "^8.1",
                 "spatie/laravel-package-tools": "^1.14.0"
             },
@@ -3139,7 +3140,7 @@
                 "nunomaduro/collision": "^7.9",
                 "nunomaduro/larastan": "^2.0.1",
                 "orchestra/testbench": "^8.18",
-                "pestphp/pest": "^2.0",
+                "pestphp/pest": "^2.7",
                 "pestphp/pest-plugin-arch": "^2.0",
                 "pestphp/pest-plugin-laravel": "^2.0",
                 "phpstan/extension-installer": "^1.1",
@@ -3172,6 +3173,11 @@
                     "name": "Marcel Pociot",
                     "email": "marcel@beyondco.de",
                     "role": "Developer"
+                },
+                {
+                    "name": "Simon Hamp",
+                    "email": "simon.hamp@me.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Electron wrapper for the NativePHP framework.",
@@ -3182,22 +3188,32 @@
                 "nativephp"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/electron/tree/0.6.3"
+                "source": "https://github.com/NativePHP/electron/tree/0.8.4"
             },
-            "time": "2024-05-06T10:11:14+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/simonhamp",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/nativephp",
+                    "type": "opencollective"
+                }
+            ],
+            "time": "2024-11-11T12:41:01+00:00"
         },
         {
             "name": "nativephp/laravel",
-            "version": "0.5.2",
+            "version": "0.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/laravel.git",
-                "reference": "485835c3dd00396cb76bccc941663822c5341ef3"
+                "reference": "d0e0b123a6a7cb05f02d3f2674d79854dde07529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/485835c3dd00396cb76bccc941663822c5341ef3",
-                "reference": "485835c3dd00396cb76bccc941663822c5341ef3",
+                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/d0e0b123a6a7cb05f02d3f2674d79854dde07529",
+                "reference": "d0e0b123a6a7cb05f02d3f2674d79854dde07529",
                 "shasum": ""
             },
             "require": {
@@ -3266,22 +3282,28 @@
             ],
             "support": {
                 "issues": "https://github.com/NativePHP/laravel/issues",
-                "source": "https://github.com/NativePHP/laravel/tree/0.5.2"
+                "source": "https://github.com/NativePHP/laravel/tree/0.5.7"
             },
-            "time": "2024-05-02T15:45:00+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/simonhamp",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-09-15T10:26:14+00:00"
         },
         {
             "name": "nativephp/php-bin",
-            "version": "0.4.0",
+            "version": "0.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/php-bin.git",
-                "reference": "ce010463b07fb62a2cd5c298db26df6b84605f1f"
+                "reference": "16e565a42f24f3cf96f9736cc5d0d8f4a1c291e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/ce010463b07fb62a2cd5c298db26df6b84605f1f",
-                "reference": "ce010463b07fb62a2cd5c298db26df6b84605f1f",
+                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/16e565a42f24f3cf96f9736cc5d0d8f4a1c291e1",
+                "reference": "16e565a42f24f3cf96f9736cc5d0d8f4a1c291e1",
                 "shasum": ""
             },
             "type": "library",
@@ -3311,9 +3333,19 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/php-bin/tree/0.4.0"
+                "source": "https://github.com/NativePHP/php-bin/tree/0.5.4"
             },
-            "time": "2024-04-26T14:32:29+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/simonhamp",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/nativephp",
+                    "type": "opencollective"
+                }
+            ],
+            "time": "2024-09-29T11:47:10+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -8131,16 +8163,16 @@
         },
         {
             "name": "larastan/larastan",
-            "version": "v2.9.10",
+            "version": "v2.9.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/larastan/larastan.git",
-                "reference": "9e7233d88f4f10796fadb8a2d85c5f2b55277c76"
+                "reference": "54eccd35d1732b9ee4392c25aec606a6a9c521e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/larastan/larastan/zipball/9e7233d88f4f10796fadb8a2d85c5f2b55277c76",
-                "reference": "9e7233d88f4f10796fadb8a2d85c5f2b55277c76",
+                "url": "https://api.github.com/repos/larastan/larastan/zipball/54eccd35d1732b9ee4392c25aec606a6a9c521e7",
+                "reference": "54eccd35d1732b9ee4392c25aec606a6a9c521e7",
                 "shasum": ""
             },
             "require": {
@@ -8158,9 +8190,11 @@
             },
             "require-dev": {
                 "doctrine/coding-standard": "^12.0",
+                "laravel/framework": "^9.52.16 || ^10.28.0 || ^11.16",
+                "mockery/mockery": "^1.5.1",
                 "nikic/php-parser": "^4.19.1",
                 "orchestra/canvas": "^7.11.1 || ^8.11.0 || ^9.0.2",
-                "orchestra/testbench": "^7.33.0 || ^8.13.0 || ^9.0.3",
+                "orchestra/testbench-core": "^7.33.0 || ^8.13.0 || ^9.0.9",
                 "phpstan/phpstan-deprecation-rules": "^1.2",
                 "phpunit/phpunit": "^9.6.13 || ^10.5.16"
             },
@@ -8210,7 +8244,7 @@
             ],
             "support": {
                 "issues": "https://github.com/larastan/larastan/issues",
-                "source": "https://github.com/larastan/larastan/tree/v2.9.10"
+                "source": "https://github.com/larastan/larastan/tree/v2.9.11"
             },
             "funding": [
                 {
@@ -8230,7 +8264,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-10-19T23:04:40+00:00"
+            "time": "2024-11-11T23:11:00+00:00"
         },
         {
             "name": "laravel/pail",
@@ -8963,16 +8997,16 @@
         },
         {
             "name": "phpmyadmin/sql-parser",
-            "version": "5.10.0",
+            "version": "5.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpmyadmin/sql-parser.git",
-                "reference": "91d980ab76c3f152481e367f62b921adc38af451"
+                "reference": "b14fd66496a22d8dd7f7e2791edd9e8674422f17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpmyadmin/sql-parser/zipball/91d980ab76c3f152481e367f62b921adc38af451",
-                "reference": "91d980ab76c3f152481e367f62b921adc38af451",
+                "url": "https://api.github.com/repos/phpmyadmin/sql-parser/zipball/b14fd66496a22d8dd7f7e2791edd9e8674422f17",
+                "reference": "b14fd66496a22d8dd7f7e2791edd9e8674422f17",
                 "shasum": ""
             },
             "require": {
@@ -9046,7 +9080,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2024-08-29T20:56:34+00:00"
+            "time": "2024-11-10T04:10:31+00:00"
         },
         {
             "name": "phpstan/extension-installer",
@@ -9145,16 +9179,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.8",
+            "version": "1.12.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "f6a60a4d66142b8156c9da923f1972657bc4748c"
+                "reference": "fc463b5d0fe906dcf19689be692c65c50406a071"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/f6a60a4d66142b8156c9da923f1972657bc4748c",
-                "reference": "f6a60a4d66142b8156c9da923f1972657bc4748c",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/fc463b5d0fe906dcf19689be692c65c50406a071",
+                "reference": "fc463b5d0fe906dcf19689be692c65c50406a071",
                 "shasum": ""
             },
             "require": {
@@ -9199,7 +9233,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-06T19:06:49+00:00"
+            "time": "2024-11-11T15:37:09+00:00"
         },
         {
             "name": "phpstan/phpstan-webmozart-assert",

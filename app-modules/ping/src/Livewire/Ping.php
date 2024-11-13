@@ -7,11 +7,13 @@ namespace XbNz\Ping\Livewire;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Laravel\Facades\Window;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use XbNz\Fping\Contracts\FpingInterface;
 
+#[Layout('components.layouts.secondary-window')]
 final class Ping extends Component
 {
     public string $target = '1.1.1.1';

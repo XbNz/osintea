@@ -7,6 +7,7 @@ namespace XbNz\Ping\Tests\Feature\Livewire;
 use Generator;
 use Illuminate\Contracts\Session\Session;
 use Livewire\Livewire;
+use Native\Laravel\Client\Client;
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Windows\Window as WindowClass;
 use Tests\TestCase;
@@ -42,9 +43,12 @@ final class PingTest extends TestCase
             ),
         ]);
 
+        $fakeWindow = new WindowClass('ping-results');
+        //        $fakeWindow->setClient(new Client);
+
         Window::shouldReceive('open')
             ->once()
-            ->andReturn($fakeWindow = new WindowClass('ping-results'));
+            ->andReturn($fakeWindow);
 
         $this->swap(FpingInterface::class, $fakeFping);
 

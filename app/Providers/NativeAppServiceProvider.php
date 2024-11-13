@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Events\OpenCommandPaletteEvent;
 use Native\Laravel\Contracts\ProvidesPhpIni;
+use Native\Laravel\Facades\GlobalShortcut;
 use Native\Laravel\Facades\Window;
+use XbNz\Shared\Enums\NativePhpWindow;
 
 final class NativeAppServiceProvider implements ProvidesPhpIni
 {
@@ -15,7 +18,11 @@ final class NativeAppServiceProvider implements ProvidesPhpIni
      */
     public function boot(): void
     {
-        Window::open('main')
+        GlobalShortcut::key('CmdOrCtrl+Shift+A')
+            ->event(OpenCommandPaletteEvent::class)
+            ->register();
+
+        Window::open(NativePhpWindow::Main->value)
             ->route('ping')
             ->rememberState()
             ->showDevTools(false)

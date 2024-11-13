@@ -37,7 +37,6 @@
             <div class="flex justify-center mt-5">
                 <flux:button type="submit" variant="primary">Ping</flux:button>
             </div>
-
         </form>
     </flux:card>
 </div>
