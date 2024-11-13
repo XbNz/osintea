@@ -57,6 +57,7 @@ final class Ping extends Component
             ->route('ping-results')
             ->showDevTools(false)
             ->titleBarHiddenInset()
+            ->transparent()
             ->height(490)
             ->width(775)
             ->minHeight(490)

@@ -1,4 +1,6 @@
-<div wire:keydown.escape="closeCommandPalette">
+<div
+    wire:keydown.escape="closeCommandPalette"
+>
     <flux:command>
         <flux:command.input autofocus placeholder="Search..." />
 
