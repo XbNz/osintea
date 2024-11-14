@@ -8,5 +8,4 @@ use XbNz\Ping\Livewire\PingResults;
 Route::middleware(['web'])->group(function (): void {
     Route::get('/ping', Ping::class)->name('ping');
     Route::get('/ping-results', PingResults::class)->name('ping-results');
-
 });

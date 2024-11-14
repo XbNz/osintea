@@ -1,7 +1,7 @@
 <div class="w-full min-w-[90rem]">
     @livewireChartsScripts
 
-    <flux:heading size="lg">{{ $this->pingResult->ip }}</flux:heading>
+    <flux:heading size="lg">{{ $this->ip }}</flux:heading>
 
     <div class="mt-5">
         <div class="w-1/2 grid grid-cols-5 gap-3">

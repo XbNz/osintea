@@ -12,6 +12,7 @@ use Livewire\Component;
 use Native\Laravel\Facades\Window;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use XbNz\Fping\Contracts\FpingInterface;
+use XbNz\Ping\Jobs\PingJob;
 
 #[Layout('components.layouts.secondary-window')]
 final class Ping extends Component
@@ -22,38 +23,40 @@ final class Ping extends Component
 
     public int $timeBetweenRequests = 500;
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function rules(): array
-    {
-        return [
-            'target' => ['required', 'string'],
-            'count' => ['integer', 'min:1', 'max:100'],
-            'timeBetweenRequests' => ['integer', 'min:100', 'max:50000'],
-        ];
-    }
+    //    /**
+    //     * @return array<string, mixed>
+    //     */
+    //    public function rules(): array
+    //    {
+    //        return [
+    //            'target' => ['required', 'string'],
+    //            'count' => ['integer', 'min:1', 'max:100'],
+    //            'timeBetweenRequests' => ['integer', 'min:100', 'max:50000'],
+    //        ];
+    //    }
 
     public function ping(): void
     {
-        $this->validate();
+        //        $this->validate();
 
-        $temporaryFilePath = TemporaryDirectory::make()
-            ->force()
-            ->create()
-            ->path('ping.txt');
+        //        $temporaryFilePath = TemporaryDirectory::make()
+        //            ->force()
+        //            ->create()
+        //            ->path('ping.txt');
+        //
+        //        file_put_contents($temporaryFilePath, $this->target);
+        //
+        //        $pingResultDto = App::make(FpingInterface::class)
+        //            ->inputFilePath($temporaryFilePath)
+        //            ->count($this->count)
+        //            ->intervalPerHost($this->timeBetweenRequests)
+        //            ->execute()[0];
+        //
+        //        Session::put('ping-result', $pingResultDto);
 
-        file_put_contents($temporaryFilePath, $this->target);
+        PingJob::dispatch($this->target, $this->timeBetweenRequests);
 
-        $pingResultDto = App::make(FpingInterface::class)
-            ->inputFilePath($temporaryFilePath)
-            ->count($this->count)
-            ->intervalPerHost($this->timeBetweenRequests)
-            ->execute()[0];
-
-        Session::put('ping-result', $pingResultDto);
-
-        Window::open('ping-results')
+        Window::open('ping-results-'.$this->target)
             ->route('ping-results')
             ->showDevTools(false)
             ->titleBarHiddenInset()

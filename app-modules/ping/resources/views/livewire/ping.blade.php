@@ -1,6 +1,5 @@
 <div class="w-full min-w-[60rem]">
     <flux:card class="space-y-6 w-1/2">
-
         <div>
             <flux:heading size="lg">Ping a host!</flux:heading>
             <flux:subheading>Type an IP or hostname</flux:subheading>

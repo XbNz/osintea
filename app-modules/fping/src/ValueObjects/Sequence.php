@@ -11,4 +11,22 @@ final class Sequence
         public readonly bool $lost,
         public readonly ?float $roundTripTime,
     ) {}
+
+    public function toArray(): array
+    {
+        return [
+            'sequence' => $this->sequence,
+            'lost' => $this->lost,
+            'roundTripTime' => $this->roundTripTime,
+        ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        return new self(
+            sequence: $data['sequence'],
+            lost: $data['lost'],
+            roundTripTime: $data['roundTripTime'],
+        );
+    }
 }

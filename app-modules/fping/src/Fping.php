@@ -272,6 +272,23 @@ final class Fping implements FpingInterface
      */
     public function execute(): array
     {
+        $this->pendingProcess()
+            ->run()
+            ->throw();
+
+        $return = $this->filesystem
+            ->lines($this->outputFilePath)
+            ->reject(fn (string $line) => mb_strlen(trim($line)) === 0)
+            ->map($this->createFpingDto(...))
+            ->toArray();
+
+        Assert::allIsInstanceOf($return, PingResultDTO::class);
+
+        return $return;
+    }
+
+    public function pendingProcess(): PendingProcess
+    {
         $fpingPrefix = $this->config->get('fping.binaries.prefix');
         $fpingBinaryDirectory = $this->config->get('fping.binaries.directory');
 
@@ -333,21 +350,9 @@ final class Fping implements FpingInterface
 
         Assert::integer($timeout = $this->config->get('fping.process_timeout'));
 
-        $result = $this->process
+        return $this->process
             ->timeout($timeout)
-            ->command(implode(' ', $command)." 2>&1 | tee {$this->outputFilePath}")
-            ->run()
-            ->throw();
-
-        $return = $this->filesystem
-            ->lines($this->outputFilePath)
-            ->reject(fn (string $line) => mb_strlen(trim($line)) === 0)
-            ->map($this->createFpingDto(...))
-            ->toArray();
-
-        Assert::allIsInstanceOf($return, PingResultDTO::class);
-
-        return $return;
+            ->command(implode(' ', $command)." 2>&1 | tee {$this->outputFilePath}");
     }
 
     private function createFpingDto(string $line, int $index): PingResultDTO
@@ -373,5 +378,10 @@ final class Fping implements FpingInterface
             ! $healthy,
             $healthy ? (float) $trimmed : null
         );
+    }
+
+    public function __destruct()
+    {
+        $this->filesystem->delete($this->outputFilePath);
     }
 }

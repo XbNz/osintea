@@ -48,6 +48,29 @@ final class FpingTest extends TestCase
         $this->assertCount(3, $results[1]->sequences);
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function the_output_file_is_destroyed_when_the_object_is_garbage_collected(): void
+    {
+        // Arrange
+        $fping = $this->app->make(Fping::class);
+        $path = TemporaryDirectory::make()
+            ->force()
+            ->create()
+            ->path('output.txt');
+
+        touch($path);
+
+        $this->assertFileExists($path);
+
+        $fping->outputFilePath($path);
+
+        // Act
+        unset($fping);
+
+        // Assert
+        $this->assertFileDoesNotExist($path);
+    }
+
     #[\PHPUnit\Framework\Attributes\DataProvider('optionalOptionProvider')]
     #[\PHPUnit\Framework\Attributes\Test]
     public function options_are_applied(string $methodName, mixed $value, $commandLineOptionExpected): void

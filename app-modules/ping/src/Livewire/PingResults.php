@@ -6,18 +6,34 @@ namespace XbNz\Ping\Livewire;
 
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\ValueObjects\Sequence;
+use XbNz\Ping\Events\PingUpdateEvent;
 
 #[Layout('components.layouts.secondary-window')]
 final class PingResults extends Component
 {
+    /**
+     * @var array<int, PingResultDTO>
+     */
+    private array $pingResults;
+
+    #[On('native:'.PingUpdateEvent::class)]
+    public function updatePingResult(array $pingResult): void
+    {
+        if (isset($this->pingResults) && count($this->pingResults) > 100) {
+            unset($this->pingResults[max(array_keys($this->pingResults))]);
+        }
+
+        $this->pingResults[] = PingResultDTO::fromArray($pingResult);
+    }
+
     #[Computed]
     public function lineChartModel(): LineChartModel
     {
@@ -25,9 +41,15 @@ final class PingResults extends Component
             ->sparklined()
             ->setSmoothCurve();
 
-        foreach ($this->pingResult()->sequences as $sequence) {
+        if (isset($this->pingResults) === false) {
+            return $lineChart;
+        }
+
+        $sequences = Collection::make($this->pingResults)->pluck('sequences')->flatten();
+
+        foreach ($sequences as $sequence) {
             $lineChart->addPoint(
-                $sequence->sequence,
+                null,
                 $sequence->lost ? null : $sequence->roundTripTime
             );
         }
@@ -36,18 +58,25 @@ final class PingResults extends Component
     }
 
     #[Computed]
-    public function pingResult(): PingResultDTO
+    public function ip(): string
     {
-        $dto = Session::get('ping-result');
-        Assert::isInstanceOf($dto, PingResultDTO::class);
+        if (isset($this->pingResults) === false) {
+            return '-';
+        }
 
-        return $dto;
+        return $this->pingResults[0]->ip;
     }
 
     #[Computed]
     public function averageRoundTripTime(): string
     {
-        $roundTripTimes = Collection::make($this->pingResult()->sequences)
+        if (isset($this->pingResults) === false) {
+            return '-';
+        }
+
+        $roundTripTimes = Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
             ->reject(fn (Sequence $sequence) => $sequence->lost === true)
             ->map(fn (Sequence $sequence) => $sequence->roundTripTime);
 
@@ -63,7 +92,13 @@ final class PingResults extends Component
     #[Computed]
     public function minimumRoundTripTime(): string
     {
-        $roundTripTimes = Collection::make($this->pingResult()->sequences)
+        if (isset($this->pingResults) === false) {
+            return '-';
+        }
+
+        $roundTripTimes = Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
             ->reject(fn (Sequence $sequence) => $sequence->lost === true)
             ->map(fn (Sequence $sequence) => $sequence->roundTripTime);
 
@@ -79,7 +114,13 @@ final class PingResults extends Component
     #[Computed]
     public function maximumRoundTripTime(): string
     {
-        $roundTripTimes = Collection::make($this->pingResult()->sequences)
+        if (isset($this->pingResults) === false) {
+            return '-';
+        }
+
+        $roundTripTimes = Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
             ->reject(fn (Sequence $sequence) => $sequence->lost === true)
             ->map(fn (Sequence $sequence) => $sequence->roundTripTime);
 
@@ -95,16 +136,28 @@ final class PingResults extends Component
     #[Computed]
     public function packetLossPercentage(): string
     {
-        $lostSequences = Collection::make($this->pingResult()->sequences)
+        if (isset($this->pingResults) === false) {
+            return '-';
+        }
+
+        $lostSequences = Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
             ->filter(fn (Sequence $sequence) => $sequence->lost);
 
-        return number_format((count($lostSequences) / count($this->pingResult()->sequences)) * 100, 2);
+        return number_format((count($lostSequences) / $this->totalCount()) * 100, 2);
     }
 
     #[Computed]
     public function lossCount(): int
     {
-        $lostSequences = Collection::make($this->pingResult()->sequences)
+        if (isset($this->pingResults) === false) {
+            return 0;
+        }
+
+        $lostSequences = Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
             ->filter(fn (Sequence $sequence) => $sequence->lost);
 
         return count($lostSequences);
@@ -113,14 +166,27 @@ final class PingResults extends Component
     #[Computed]
     public function totalCount(): int
     {
-        return count($this->pingResult()->sequences);
+        if (isset($this->pingResults) === false) {
+            return 0;
+        }
+
+        return Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
+            ->count();
     }
 
     #[Computed]
     public function standardDeviation(): string
     {
-        $roundTripTimes = Collection::make($this->pingResult()->sequences)
-            ->reject(fn ($sequence) => $sequence->lost === true)
+        if (isset($this->pingResults) === false) {
+            return '-';
+        }
+
+        $roundTripTimes = Collection::make($this->pingResults)
+            ->pluck('sequences')
+            ->flatten()
+            ->reject(fn (Sequence $sequence) => $sequence->lost === true)
             ->map(fn (Sequence $sequence) => $sequence->roundTripTime);
 
         $mean = $roundTripTimes->avg();
