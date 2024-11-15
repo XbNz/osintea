@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Subscribers\NativePhpSubscriber;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use XbNz\Shared\Actions\ResolveListenersAction;
@@ -28,6 +29,8 @@ final class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Model::unguard();
+
         $eventDispatcher = $this->app->make(Dispatcher::class);
 
         foreach ($this->subscribers as $subscriber) {

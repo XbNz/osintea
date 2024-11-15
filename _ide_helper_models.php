@@ -40,6 +40,55 @@ namespace App\Models{
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
-	class IdeHelperUser {}
+	final class IdeHelperUser {}
+}
+
+namespace XbNz\Ip\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property string $ip
+ * @property \XbNz\Shared\ValueObjects\IpType|null $type
+ * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \XbNz\Ping\Models\PingSequence> $pingSequences
+ * @property-read int|null $ping_sequences_count
+ * @method static \XbNz\Ip\Database\Factories\IpAddressFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress whereIp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress whereType($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	final class IdeHelperIpAddress {}
+}
+
+namespace XbNz\Ping\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $ip_id
+ * @property float|null $round_trip_time
+ * @property bool $loss
+ * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Ip\Models\IpAddress|null $ipAddress
+ * @method static \XbNz\Ping\Database\Factories\PingSequenceFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereIpId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereLoss($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereRoundTripTime($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	final class IdeHelperPingSequence {}
 }
 

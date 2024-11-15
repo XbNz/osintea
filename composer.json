@@ -11,7 +11,7 @@
     "require": {
         "php": "^8.3",
         "asantibanez/livewire-charts": "^4.1",
-        "azjezz/psl": "*",
+        "azjezz/psl": "^3.0",
         "blade-ui-kit/blade-icons": "^1.7",
         "internachi/modular": "^2.2",
         "laravel/framework": "^11.9",
@@ -23,16 +23,19 @@
         "nativephp/electron": "0.8.5",
         "nativephp/laravel": "0.6.2",
         "react/event-loop": "^1.5",
+        "spatie/laravel-data": "^4.11",
         "spatie/temporary-directory": "^2.2",
         "symfony/finder": "^7.0",
         "webmozart/assert": "^1.1",
         "xbnz/fping": "*",
+        "xbnz/ip": "*",
         "xbnz/ping": "*",
         "xbnz/shared": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",
         "fakerphp/faker": "^1.23",
+        "jetbrains/phpstorm-attributes": "^1.2",
         "larastan/larastan": "^2.9",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.18",

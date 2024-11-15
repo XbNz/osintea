@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Contracts;
 
-use XbNz\Fping\DTOs\PingResultDTO;
+use XbNz\Ping\DTOs\PingResultDTO;
 
 interface FpingInterface
 {

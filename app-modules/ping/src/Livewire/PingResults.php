@@ -12,9 +12,9 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Webmozart\Assert\Assert;
-use XbNz\Fping\DTOs\PingResultDTO;
-use XbNz\Fping\ValueObjects\Sequence;
-use XbNz\Ping\Events\PingUpdateEvent;
+use XbNz\Ping\DTOs\PingResultDTO;
+use XbNz\Ping\Events\PingSequenceInsertedEvent;
+use XbNz\Ping\ValueObjects\Sequence;
 
 #[Layout('components.layouts.secondary-window')]
 final class PingResults extends Component
@@ -24,7 +24,7 @@ final class PingResults extends Component
      */
     private array $pingResults;
 
-    #[On('native:'.PingUpdateEvent::class)]
+    #[On('native:'.PingSequenceInsertedEvent::class)]
     public function updatePingResult(array $pingResult): void
     {
         if (isset($this->pingResults) && count($this->pingResults) > 100) {

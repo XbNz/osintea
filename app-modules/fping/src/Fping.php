@@ -12,8 +12,8 @@ use RuntimeException;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\Contracts\FpingInterface;
-use XbNz\Fping\DTOs\PingResultDTO;
-use XbNz\Fping\ValueObjects\Sequence;
+use XbNz\Ping\DTOs\PingResultDTO;
+use XbNz\Ping\ValueObjects\Sequence;
 use XbNz\Shared\BinFinder;
 use XbNz\Shared\IpValidator;
 

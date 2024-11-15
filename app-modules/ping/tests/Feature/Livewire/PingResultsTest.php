@@ -7,9 +7,9 @@ namespace XbNz\Ping\Tests\Feature\Livewire;
 use Illuminate\Contracts\Session\Session;
 use Livewire\Livewire;
 use Tests\TestCase;
-use XbNz\Fping\DTOs\PingResultDTO;
-use XbNz\Fping\ValueObjects\Sequence;
+use XbNz\Ping\DTOs\PingResultDTO;
 use XbNz\Ping\Livewire\PingResults;
+use XbNz\Ping\ValueObjects\Sequence;
 use XbNz\Shared\ValueObjects\IpType;
 
 final class PingResultsTest extends TestCase

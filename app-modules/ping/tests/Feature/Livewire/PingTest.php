@@ -7,13 +7,12 @@ namespace XbNz\Ping\Tests\Feature\Livewire;
 use Generator;
 use Illuminate\Contracts\Session\Session;
 use Livewire\Livewire;
-use Native\Laravel\Client\Client;
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Windows\Window as WindowClass;
 use Tests\TestCase;
 use XbNz\Fping\Contracts\FpingInterface;
-use XbNz\Fping\DTOs\PingResultDTO;
 use XbNz\Fping\FakeFping;
+use XbNz\Ping\DTOs\PingResultDTO;
 use XbNz\Ping\Livewire\Ping;
 use XbNz\Shared\ValueObjects\IpType;
 

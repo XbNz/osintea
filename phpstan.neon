@@ -9,4 +9,5 @@ parameters:
         - app-modules/shared/src
         - app-modules/fping/src
         - app-modules/ping/src
+        - app-modules/ip/src
 

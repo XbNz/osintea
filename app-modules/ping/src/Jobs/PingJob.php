@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\App;
 use React\EventLoop\Factory;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use XbNz\Fping\Contracts\FpingInterface;
-use XbNz\Ping\Events\PingUpdateEvent;
+use XbNz\Ping\Events\PingSequenceInsertedEvent;
 
 final class PingJob implements ShouldQueue
 {
@@ -48,7 +48,7 @@ final class PingJob implements ShouldQueue
                 ->intervalPerHost(1)
                 ->execute()[0];
 
-            $dispatcher->dispatch(new PingUpdateEvent($pingResultDto->toArray()));
+            $dispatcher->dispatch(new PingSequenceInsertedEvent($pingResultDto->toArray()));
         });
 
         // Stop the loop after 30 seconds (optional)
