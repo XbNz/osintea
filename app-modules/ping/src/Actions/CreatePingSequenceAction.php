@@ -14,8 +14,7 @@ final class CreatePingSequenceAction
 {
     public function __construct(
         private readonly Dispatcher $dispatcher
-    ) {
-    }
+    ) {}
 
     public function handle(CreatePingSequenceDto $dto): PingSequenceDto
     {
@@ -24,7 +23,7 @@ final class CreatePingSequenceAction
                 'ip_address_id' => $dto->ip_address_dto->ip,
                 'round_trip_time' => $dto->sequence->roundTripTime,
                 'loss' => $dto->sequence->lost,
-                'created_at' => $dto->created_at->format('U.u')
+                'created_at' => $dto->created_at->format('U.u'),
             ])
             ->getData();
 

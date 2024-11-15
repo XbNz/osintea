@@ -33,7 +33,6 @@ final class PingSequence extends Model
      */
     protected string $dataClass = PingSequenceDto::class;
 
-
     /**
      * @return array<string, string>
      */

@@ -17,5 +17,4 @@ final class PingResultDTO
         public readonly IpType $ipType,
         public readonly array $sequences
     ) {}
-
 }
