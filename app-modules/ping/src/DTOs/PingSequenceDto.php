@@ -13,6 +13,7 @@ use XbNz\Ping\Models\PingSequence;
 final class PingSequenceDto extends Data
 {
     public function __construct(
+        public readonly int $id,
         public readonly Lazy|IpAddressDto $ip,
         public readonly ?float $round_trip_time,
         public readonly bool $loss,
@@ -22,6 +23,7 @@ final class PingSequenceDto extends Data
     public static function fromModel(PingSequence $pingSequence): self
     {
         return new self(
+            $pingSequence->id,
             Lazy::whenLoaded('ipAddress', $pingSequence, fn () => IpAddressDto::fromModel($pingSequence->ipAddress)),
             $pingSequence->round_trip_time,
             $pingSequence->loss,

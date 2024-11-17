@@ -12,6 +12,7 @@ use XbNz\Shared\ValueObjects\IpType;
 final class IpAddressDto extends Data
 {
     public function __construct(
+        public readonly int $id,
         public readonly string $ip,
         public readonly IpType $type,
         public readonly CarbonImmutable $created_at,
@@ -20,6 +21,7 @@ final class IpAddressDto extends Data
     public static function fromModel(IpAddress $ipAddress): self
     {
         return new self(
+            $ipAddress->id,
             $ipAddress->ip,
             $ipAddress->type,
             $ipAddress->created_at,

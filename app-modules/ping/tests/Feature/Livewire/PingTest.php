@@ -90,6 +90,16 @@ final class PingTest extends TestCase
         $response->assertHasErrors($errors);
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function unresolvable_host_throws_exception(): void
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
     public static function validationProvider(): Generator
     {
         $default = self::sampleData();

@@ -10,7 +10,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "asantibanez/livewire-charts": "^4.1",
         "azjezz/psl": "^3.0",
         "blade-ui-kit/blade-icons": "^1.7",
         "internachi/modular": "^2.2",

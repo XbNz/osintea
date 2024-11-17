@@ -8,7 +8,7 @@ use Illuminate\Contracts\Session\Session;
 use Livewire\Livewire;
 use Tests\TestCase;
 use XbNz\Ping\DTOs\PingResultDTO;
-use XbNz\Ping\Livewire\PingResults;
+use XbNz\Ping\Livewire\Ping;
 use XbNz\Ping\ValueObjects\Sequence;
 use XbNz\Shared\ValueObjects\IpType;
 
@@ -31,7 +31,7 @@ final class PingResultsTest extends TestCase
         $this->app->make(Session::class)->put('ping-result', $pingResultDto);
 
         // Act
-        $response = Livewire::test(PingResults::class);
+        $response = Livewire::test(Ping::class);
 
         // Assert
         $response->assertSet('pingResult', $pingResultDto);
