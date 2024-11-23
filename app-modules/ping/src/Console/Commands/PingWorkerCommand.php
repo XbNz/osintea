@@ -10,7 +10,6 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use React\EventLoop\Loop;
-use React\EventLoop\StreamSelectLoop;
 use React\Stream\ReadableResourceStream;
 use React\Stream\WritableResourceStream;
 use XbNz\Ip\DTOs\IpAddressDto;
