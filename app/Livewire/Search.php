@@ -23,14 +23,16 @@ final class Search extends Component
     {
         Window::close(NativePhpWindow::CommandPalette->value);
 
-        Window::open(NativePhpWindow::Ping->value.Str::random(8))
+        $uniqueId = Str::random(8);
+
+        Window::open(NativePhpWindow::Ping->value.':'.$uniqueId)
             ->route('ping')
             ->showDevTools(false)
             ->titleBarHiddenInset()
             ->transparent()
-            ->height(495)
+            ->height(500)
             ->width(775)
-            ->minHeight(495)
+            ->minHeight(500)
             ->minWidth(775);
     }
 

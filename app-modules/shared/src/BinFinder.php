@@ -68,7 +68,7 @@ final class BinFinder
             );
         }
 
-        if ($targetBinaries->count() > 1) {
+        if (count(iterator_to_array($targetBinaries)) > 1) {
             throw new RuntimeException('Multiple binaries found with the same prefix, OS and architecture');
         }
 

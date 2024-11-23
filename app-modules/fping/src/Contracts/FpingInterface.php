@@ -10,6 +10,8 @@ interface FpingInterface
 {
     public function binary(string $binaryPath): self;
 
+    public function target(string $target): self;
+
     public function inputFilePath(string $inputFile): self;
 
     public function outputFilePath(string $outputFile): self;

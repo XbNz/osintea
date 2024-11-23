@@ -6,7 +6,9 @@ namespace App\Providers;
 
 use App\Events\OpenCommandPaletteEvent;
 use Native\Laravel\Contracts\ProvidesPhpIni;
+use Native\Laravel\Facades\ChildProcess;
 use Native\Laravel\Facades\GlobalShortcut;
+use XbNz\Shared\Enums\NativePhpChildProcess;
 
 final class NativeAppServiceProvider implements ProvidesPhpIni
 {
@@ -19,6 +21,8 @@ final class NativeAppServiceProvider implements ProvidesPhpIni
         GlobalShortcut::key('CmdOrCtrl+Shift+A')
             ->event(OpenCommandPaletteEvent::class)
             ->register();
+
+        ChildProcess::artisan('ping:work', NativePhpChildProcess::PingWorker->value, persistent: true);
     }
 
     /**

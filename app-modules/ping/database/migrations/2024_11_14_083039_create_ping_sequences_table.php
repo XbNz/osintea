@@ -15,7 +15,7 @@ return new class() extends Migration
             $table->foreignId('ip_address_id')->index();
             $table->float('round_trip_time')->nullable();
             $table->boolean('loss');
-            $table->timestamp('created_at', 6);
+            $table->timestamp('created_at', 6)->index();
         });
     }
 

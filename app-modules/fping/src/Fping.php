@@ -102,6 +102,8 @@ final class Fping implements FpingInterface
 
     public bool $quiet = true;
 
+    public string $target;
+
     public function __construct(
         private readonly PendingProcess $process,
         private readonly BinFinder $binFinder,
@@ -109,6 +111,19 @@ final class Fping implements FpingInterface
         private readonly Filesystem $filesystem,
     ) {
         $this->generateOutputFilePath();
+    }
+
+    public function target(string $target): self
+    {
+        $expectedIp = gethostbyname($target);
+
+        if (filter_var($expectedIp, FILTER_VALIDATE_IP) === false) {
+            throw new RuntimeException('The target must resolve to a valid IP address');
+        }
+
+        $this->target = $target;
+
+        return $this;
     }
 
     public function binary(string $binaryPath): self
@@ -301,8 +316,6 @@ final class Fping implements FpingInterface
 
         $command = [
             $fpingBinary,
-            '--file',
-            $this->inputFilePath,
             '--size',
             $this->size,
             '--backoff',
@@ -322,6 +335,15 @@ final class Fping implements FpingInterface
             '--timeout',
             $this->timeout,
         ];
+
+        if (isset($this->inputFilePath) === true) {
+            $command[] = '--file';
+            $command[] = $this->inputFilePath;
+        }
+
+        if (isset($this->target) === true) {
+            $command[] = $this->target;
+        }
 
         if ($this->resolveAllHostnameIpAddresses === true) {
             $command[] = '--all';

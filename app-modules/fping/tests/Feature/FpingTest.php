@@ -114,6 +114,21 @@ final class FpingTest extends TestCase
         });
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_can_accept_an_ip_address_string(): void
+    {
+        // Arrange
+        $fping = $this->app->make(Fping::class);
+
+        // Act
+        $results = $fping
+            ->target('1.1.1.1')
+            ->execute();
+
+        // Assert
+        $this->assertCount(1, $results);
+    }
+
     #[\PHPUnit\Framework\Attributes\DataProvider('staticOptionProviders')]
     #[\PHPUnit\Framework\Attributes\Test]
     public function static_options_are_applied($commandLineOptionExpected): void

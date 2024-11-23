@@ -15,7 +15,7 @@ return new class() extends Migration
             $table->id();
             $table->string('ip', 39)->index()->unique();
             $table->tinyInteger('type')->virtualAs(DB::raw('CASE WHEN LENGTH(ip) > 19 THEN 6 ELSE 4 END'));
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('created_at')->useCurrent()->index();
         });
     }
 

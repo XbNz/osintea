@@ -4,28 +4,108 @@ declare(strict_types=1);
 
 namespace XbNz\Ping\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Native\Laravel\Facades\ChildProcess;
+use Native\Laravel\Facades\Notification;
 use Webmozart\Assert\Assert;
+use XbNz\Ip\Actions\CreateIpAddressAction;
+use XbNz\Ip\DTOs\IpAddressDto;
+use XbNz\Ip\Models\IpAddress;
 use XbNz\Ip\Rules\StringResolvesToIpAddressRule;
 use XbNz\Ping\DTOs\PingSequenceDto;
 use XbNz\Ping\Events\PingSequenceInsertedEvent;
-use XbNz\Ping\Jobs\PingJob;
 use XbNz\Ping\Models\PingSequence;
+use XbNz\Shared\Actions\StandardDeviationAction;
+use XbNz\Shared\Enums\NativePhpChildProcess;
 
 #[Layout('components.layouts.secondary-window')]
 final class Ping extends Component
 {
-    public string $target = '';
+    protected $listeners = [
+        'refreshComponent' => '$refresh',
+    ];
 
-    protected $listeners = ['refreshComponent' => '$refresh'];
+    public string $target;
+
+    public int $interval = 1000;
+
+    public string $averageRoundTripTime = '-';
+
+    public string $minimumRoundTripTime = '-';
+
+    public string $maximumRoundTripTime = '-';
+
+    public string $packetLossPercentage = '-';
+
+    public string $standardDeviation = '-';
+
+    public int $lossCount = 0;
+
+    public int $totalCount = 0;
+
+    private array $defaultChartData = [
+        'labels' => [],
+        'datasets' => [
+            [
+                'label' => 'Round trip',
+                'data' => [],
+                'borderWidth' => 2,
+                'borderColor' => 'rgba(75, 192, 192, 1)',
+                'fill' => false,
+                'tension' => 0.4,
+                'pointBackgroundColor' => 'rgba(75, 192, 192, 1)',
+                'pointRadius' => 5,
+            ],
+        ],
+    ];
+
+    public array $chartOptions = [
+        'responsive' => true,
+        'plugins' => [
+            'legend' => [
+                'display' => false,
+            ],
+            'tooltip' => [
+                'enabled' => true,
+            ],
+            'zoom' => [
+                'enabled' => true,
+                'mode' => 'x',
+                'zoom' => [
+                    'wheel' => [
+                        'enabled' => true,
+                    ],
+                    'mode' => 'x',
+                ],
+                'pan' => [
+                    'enabled' => true,
+                    'mode' => 'x',
+                ],
+            ],
+        ],
+        'scales' => [
+            'x' => [
+                'display' => false,
+            ],
+            'y' => [
+                'display' => false,
+            ],
+        ],
+        'elements' => [
+            'line' => [
+                'borderWidth' => 2,
+            ],
+            'point' => [
+                'radius' => 5,
+                'hoverRadius' => 7,
+            ],
+        ],
+    ];
 
     /**
      * @return array<string, mixed>
@@ -34,6 +114,7 @@ final class Ping extends Component
     {
         return [
             'target' => ['required', 'string', new StringResolvesToIpAddressRule()],
+            'interval' => ['required', 'integer', 'min:100'],
         ];
     }
 
@@ -41,86 +122,61 @@ final class Ping extends Component
     #[Renderless]
     public function updatePingResult(array $record): void
     {
+        if (isset($this->target) === false) {
+            return;
+        }
+
         $sequence = PingSequence::query()
             ->with(['ipAddress'])
             ->findOrFail($record['id'])
             ->getData();
 
-        $ip = gethostbyname($this->target);
-
-        if ($sequence->ip->ip !== $ip) {
+        if ($sequence->ip->ip !== $this->ipAddress()->ip) {
             return;
         }
-
-        $this->dispatch('refreshComponent');
 
         $this->dispatch('newDataPoint', [
             'label' => $sequence->created_at->format('H:i:s'),
             'newData' => $sequence->round_trip_time,
         ]);
+
+        $this->recalculateStatistics();
+        $this->dispatch('refreshComponent');
     }
 
-    #[Computed]
-    public function options(): array
+    public function recalculateStatistics(): void
     {
-        return [
-            'responsive' => true,
-            'plugins' => [
-                'legend' => [
-                    'display' => false,
-                ],
-                'tooltip' => [
-                    'enabled' => true,
-                ],
-                'zoom' => [
-                    'enabled' => true,
-                    'mode' => 'x',
-                    'zoom' => [
-                        'wheel' => [
-                            'enabled' => true,
-                        ],
-                        'mode' => 'x',
-                    ],
-                    'pan' => [
-                        'enabled' => true,
-                        'mode' => 'x',
-                    ],
-                ],
-            ],
-            'scales' => [
-                'x' => [
-                    'display' => false,
-                ],
-                'y' => [
-                    'display' => false,
-                ],
-            ],
-            'elements' => [
-                'line' => [
-                    'borderWidth' => 2,
-                ],
-                'point' => [
-                    'radius' => 5,
-                    'hoverRadius' => 7,
-                ],
-            ],
-        ];
+        $this->averageRoundTripTime = $this->averageRoundTripTime();
+        $this->minimumRoundTripTime = $this->minimumRoundTripTime();
+        $this->maximumRoundTripTime = $this->maximumRoundTripTime();
+        $this->packetLossPercentage = $this->packetLossPercentage();
+        $this->standardDeviation = $this->standardDeviation();
+        $this->lossCount = $this->lossCount();
+        $this->totalCount = $this->totalCount();
     }
 
-    #[Computed]
-    public function dataset(): array
+    private function data(): array
     {
-        $sequences = $this->sequences(20);
+        if (isset($this->target) === false) {
+            Notification::new()
+                ->title('Cannot load chart')
+                ->message('No target has been entered')
+                ->show();
+
+            return $this->defaultChartData;
+        }
 
         return [
-            'labels' => $sequences
+            'labels' => $this->ipAddress()
+                ->ping_sequences
                 ->map(fn (PingSequenceDto $pingSequence) => $pingSequence->created_at->format('H:i:s'))
                 ->values()
                 ->toArray(),
             'datasets' => [
                 [
                     'label' => 'Round trip',
-                    'data' => $sequences
+                    'data' => $this->ipAddress()
+                        ->ping_sequences
                         ->pluck('round_trip_time')
                         ->values()
                         ->toArray(),
@@ -135,46 +191,51 @@ final class Ping extends Component
         ];
     }
 
-    private function sequences(?int $limit = null): Collection
-    {
-        return PingSequence::query()
-            ->with(['ipAddress'])
-            ->whereHas('ipAddress', fn (Builder $query) => $query->where('ip', $this->target))
-            ->orderBy('created_at', 'desc')
-            ->when($limit !== null, fn (Builder $query) => $query->limit($limit))
-            ->get()
-            ->reverse()
-            ->map(fn (PingSequence $pingSequence) => $pingSequence->getData());
-    }
-
     public function deleteSequences(): void
     {
-        $this->dispatch('resetChart');
+        if (isset($this->target) === false) {
+            Notification::new()
+                ->title('No target to stop')
+                ->message('Please enter a target to stop the ping')
+                ->show();
 
-        PingSequence::query()
-            ->whereHas('ipAddress', fn (Builder $query) => $query->where('ip', $this->target))
-            ->delete();
+            return;
+        }
+
+        $this->ipAddress()
+            ->ping_sequences
+            ->each(fn (PingSequenceDto $sequence) => PingSequence::query()
+                ->findOrFail($sequence->id)
+                ->delete()
+            );
 
         $this->reset();
     }
 
-    public function ping(): void
-    {
+    public function ping(
+        Request $request,
+        CreateIpAddressAction $createIpAddress,
+    ): void {
         $this->validate();
 
-        $ip = gethostbyname($this->target);
+        $result = $createIpAddress->handle($this->target);
 
-        $this->target = $ip;
-
-        $this->dispatch('resetChart');
-
-        PingJob::dispatch($ip, 1);
+        ChildProcess::get(NativePhpChildProcess::PingWorker->value)->message('target-add:'.$this->ipAddress()->ip.'::'.$this->interval);
     }
 
-    #[Computed]
-    public function averageRoundTripTime(): string
+    private function ipAddress(): IpAddressDto
     {
-        $roundTripTimes = $this->sequences()
+        return IpAddress::query()
+            ->with(['pingSequences'])
+            ->where('ip', $this->target)
+            ->firstOrFail()
+            ->getData();
+    }
+
+    private function averageRoundTripTime(): string
+    {
+        $roundTripTimes = $this->ipAddress()
+            ->ping_sequences
             ->reject(fn (PingSequenceDto $sequence) => $sequence->loss)
             ->map(fn (PingSequenceDto $sequence) => $sequence->round_trip_time);
 
@@ -187,10 +248,10 @@ final class Ping extends Component
         return number_format($avg, 2);
     }
 
-    #[Computed]
-    public function minimumRoundTripTime(): string
+    private function minimumRoundTripTime(): string
     {
-        $roundTripTimes = $this->sequences()
+        $roundTripTimes = $this->ipAddress()
+            ->ping_sequences
             ->reject(fn (PingSequenceDto $sequence) => $sequence->loss)
             ->map(fn (PingSequenceDto $sequence) => $sequence->round_trip_time);
 
@@ -203,10 +264,10 @@ final class Ping extends Component
         return number_format($min, 2);
     }
 
-    #[Computed]
-    public function maximumRoundTripTime(): string
+    private function maximumRoundTripTime(): string
     {
-        $roundTripTimes = $this->sequences()
+        $roundTripTimes = $this->ipAddress()
+            ->ping_sequences
             ->reject(fn (PingSequenceDto $sequence) => $sequence->loss)
             ->map(fn (PingSequenceDto $sequence) => $sequence->round_trip_time);
 
@@ -219,42 +280,43 @@ final class Ping extends Component
         return number_format($max, 2);
     }
 
-    #[Computed]
-    public function packetLossPercentage(): string
+    private function packetLossPercentage(): string
     {
-        if ($this->totalCount() === 0) {
+        if ($this->ipAddress()->ping_sequences->count() === 0) {
             return '0.00';
         }
 
-        $lostSequences = $this->sequences()
+        $lostSequences = $this->ipAddress()
+            ->ping_sequences
             ->filter(fn (PingSequenceDto $sequence) => $sequence->loss);
 
         return number_format((count($lostSequences) / $this->totalCount()) * 100, 2);
     }
 
-    #[Computed]
-    public function lossCount(): int
+    private function lossCount(): int
     {
-        $lostSequences = $this->sequences()
+        $lostSequences = $this->ipAddress()
+            ->ping_sequences
             ->filter(fn (PingSequenceDto $sequence) => $sequence->loss);
 
         return count($lostSequences);
     }
 
-    #[Computed]
     public function totalCount(): int
     {
-        return $this->sequences()->count();
+        return $this->ipAddress()->ping_sequences->count();
     }
 
-    #[Computed]
-    public function standardDeviation(): string
+    private function standardDeviation(): string
     {
         if ($this->totalCount() === 0) {
             return '-';
         }
 
-        $roundTripTimes = $this->sequences()
+        $standardDeviationAction = app(StandardDeviationAction::class);
+
+        $roundTripTimes = $this->ipAddress()
+            ->ping_sequences
             ->reject(fn (PingSequenceDto $sequence) => $sequence->loss)
             ->map(fn (PingSequenceDto $sequence) => $sequence->round_trip_time);
 
@@ -262,33 +324,60 @@ final class Ping extends Component
             return '-';
         }
 
-        $mean = $roundTripTimes->avg();
-        $variance = $roundTripTimes->map(fn (float $roundTripTime) => ($roundTripTime - $mean) ** 2)->avg();
-
-        Assert::float($variance);
-
-        $standardDeviation = sqrt($variance);
+        $standardDeviation = $standardDeviationAction->handle($roundTripTimes->toArray());
 
         return number_format($standardDeviation, 2);
     }
 
-    public function mount(Request $request): void
+    public function stop(): void
     {
-        if ($request->has('target')) {
-            $this->target = $request->get('target');
+        if (isset($this->target) === false) {
+            Notification::new()
+                ->title('No target to stop')
+                ->message('Please enter a target to stop the ping')
+                ->show();
 
             return;
         }
 
-        $this->target = PingSequence::query()
-            ->with(['ipAddress'])
-            ->orderBy('created_at', 'desc')
-            ->limit(1)
-            ->first()
-            ?->getData()
-            ->ip
-            ->ip
-            ?? '1.1.1.1';
+        ChildProcess::get(NativePhpChildProcess::PingWorker->value)->message('target-remove:'.$this->ipAddress()->ip);
+    }
+
+    public function mount(Request $request): void
+    {
+        $this->dispatch('populateChart', [
+            'data' => $this->defaultChartData,
+            'options' => $this->chartOptions,
+        ]);
+
+        if ($request->has('target')) {
+            $this->target = $request->string('target')->toString();
+
+            $this->validate();
+
+            $this->target = gethostbyname($this->target);
+
+            $this->recalculateStatistics();
+
+            return;
+        }
+    }
+
+    public function populateChart(): void
+    {
+        $this->dispatch('populateChart', [
+            'data' => $this->data(),
+            'options' => $this->chartOptions,
+        ]);
+    }
+
+    public function updated(string $property, mixed $value): void
+    {
+        if ($property !== 'target') {
+            return;
+        }
+
+        $this->target = gethostbyname($value);
     }
 
     public function render(): View

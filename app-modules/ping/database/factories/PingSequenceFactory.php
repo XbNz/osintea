@@ -15,7 +15,7 @@ final class PingSequenceFactory extends Factory
     public function definition(): array
     {
         return [
-            'ip' => IpAddress::factory(),
+            'ip_address_id' => IpAddress::factory(),
             'round_trip_time' => $this->faker->randomFloat(),
             'loss' => $this->faker->boolean(),
             'created_at' => (int) microtime(true),

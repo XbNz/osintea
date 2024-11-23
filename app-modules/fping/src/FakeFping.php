@@ -21,6 +21,8 @@ final class FakeFping implements FpingInterface
 
     private string $inputFilePath;
 
+    private array $targets = [];
+
     /**
      * @var array<int, PingResultDTO>
      */
@@ -28,6 +30,13 @@ final class FakeFping implements FpingInterface
 
     public function binary(string $binaryPath): FpingInterface
     {
+        return $this;
+    }
+
+    public function target(string $target): FpingInterface
+    {
+        $this->targets[] = $target;
+
         return $this;
     }
 
@@ -158,5 +167,10 @@ final class FakeFping implements FpingInterface
         PHPUnitAssert::assertIsString($contents);
 
         PHPUnitAssert::assertStringContainsString($target, $contents);
+    }
+
+    public function assertTarget(string $target): void
+    {
+        PHPUnitAssert::assertContains($target, $this->targets);
     }
 }
