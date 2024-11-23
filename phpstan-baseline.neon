@@ -1,0 +1,61 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property XbNz\\\\Fping\\\\FakeFping\\:\\:\\$targets type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: app-modules/fping/src/FakeFping.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of method Illuminate\\\\Support\\\\LazyCollection\\<int,Illuminate\\\\Support\\\\LazyCollection\\<\\(int\\|string\\), array\\<string, string\\>\\>\\>\\:\\:each\\(\\) expects callable\\(Illuminate\\\\Support\\\\LazyCollection\\<int\\|string, array\\{ip\\: string\\}\\>, int\\)\\: mixed, Closure\\(Illuminate\\\\Support\\\\LazyCollection\\<int, array\\<string, string\\>\\>\\)\\: void given\\.$#"
+			count: 1
+			path: app-modules/ip/src/Actions/ImportIpAddressesAction.php
+
+		-
+			message: "#^Method XbNz\\\\Ip\\\\Models\\\\IpAddress\\:\\:pingSequences\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<XbNz\\\\Ping\\\\Models\\\\PingSequence, XbNz\\\\Ip\\\\Models\\\\IpAddress\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<XbNz\\\\Ping\\\\Models\\\\PingSequence, \\$this\\(XbNz\\\\Ip\\\\Models\\\\IpAddress\\)\\>\\.$#"
+			count: 1
+			path: app-modules/ip/src/Models/IpAddress.php
+
+		-
+			message: "#^Parameter \\#1 \\$ipAddress of static method XbNz\\\\Ip\\\\DTOs\\\\IpAddressDto\\:\\:fromModel\\(\\) expects XbNz\\\\Ip\\\\Models\\\\IpAddress, XbNz\\\\Ip\\\\Models\\\\IpAddress\\|null given\\.$#"
+			count: 1
+			path: app-modules/ping/src/DTOs/PingSequenceDto.php
+
+		-
+			message: "#^Access to an undefined property Spatie\\\\LaravelData\\\\Lazy\\|XbNz\\\\Ip\\\\DTOs\\\\IpAddressDto\\:\\:\\$ip\\.$#"
+			count: 1
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Collection\\<int, XbNz\\\\Ping\\\\DTOs\\\\PingSequenceDto\\>\\|Spatie\\\\LaravelData\\\\Lazy\\:\\:count\\(\\)\\.$#"
+			count: 2
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Collection\\<int, XbNz\\\\Ping\\\\DTOs\\\\PingSequenceDto\\>\\|Spatie\\\\LaravelData\\\\Lazy\\:\\:each\\(\\)\\.$#"
+			count: 1
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Collection\\<int, XbNz\\\\Ping\\\\DTOs\\\\PingSequenceDto\\>\\|Spatie\\\\LaravelData\\\\Lazy\\:\\:filter\\(\\)\\.$#"
+			count: 2
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Collection\\<int, XbNz\\\\Ping\\\\DTOs\\\\PingSequenceDto\\>\\|Spatie\\\\LaravelData\\\\Lazy\\:\\:map\\(\\)\\.$#"
+			count: 1
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Collection\\<int, XbNz\\\\Ping\\\\DTOs\\\\PingSequenceDto\\>\\|Spatie\\\\LaravelData\\\\Lazy\\:\\:pluck\\(\\)\\.$#"
+			count: 1
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Collection\\<int, XbNz\\\\Ping\\\\DTOs\\\\PingSequenceDto\\>\\|Spatie\\\\LaravelData\\\\Lazy\\:\\:reject\\(\\)\\.$#"
+			count: 4
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
+			message: "#^Method XbNz\\\\Ping\\\\Models\\\\PingSequence\\:\\:ipAddress\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<XbNz\\\\Ip\\\\Models\\\\IpAddress, XbNz\\\\Ping\\\\Models\\\\PingSequence\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<XbNz\\\\Ip\\\\Models\\\\IpAddress, \\$this\\(XbNz\\\\Ping\\\\Models\\\\PingSequence\\)\\>\\.$#"
+			count: 1
+			path: app-modules/ping/src/Models/PingSequence.php

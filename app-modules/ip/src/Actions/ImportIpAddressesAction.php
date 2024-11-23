@@ -22,6 +22,7 @@ final class ImportIpAddressesAction
     {
         $realPath = canonicalize($filePath);
 
+        Assert::string($realPath);
         Assert::fileExists($realPath);
 
         $this->fileSystem
@@ -35,6 +36,9 @@ final class ImportIpAddressesAction
             ->each($this->insertChunk(...));
     }
 
+    /**
+     * @param  LazyCollection<int, array<string, string>>  $chunk
+     */
     private function insertChunk(LazyCollection $chunk): void
     {
         $this->database

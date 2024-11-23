@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Lazy;
+use Webmozart\Assert\Assert;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\DTOs\PingSequenceDto;
 use XbNz\Shared\ValueObjects\IpType;
@@ -27,6 +28,8 @@ final class IpAddressDto extends Data
 
     public static function fromModel(IpAddress $ipAddress): self
     {
+        Assert::notNull($ipAddress->type);
+
         return new self(
             $ipAddress->id,
             $ipAddress->ip,

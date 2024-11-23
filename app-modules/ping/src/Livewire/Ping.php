@@ -12,6 +12,7 @@ use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Native\Laravel\Facades\ChildProcess;
 use Native\Laravel\Facades\Notification;
+use Psl\Type;
 use Webmozart\Assert\Assert;
 use XbNz\Ip\Actions\CreateIpAddressAction;
 use XbNz\Ip\DTOs\IpAddressDto;
@@ -26,6 +27,9 @@ use XbNz\Shared\Enums\NativePhpChildProcess;
 #[Layout('components.layouts.secondary-window')]
 final class Ping extends Component
 {
+    /**
+     * @var array<string, string>
+     */
     protected $listeners = [
         'refreshComponent' => '$refresh',
     ];
@@ -48,6 +52,9 @@ final class Ping extends Component
 
     public int $totalCount = 0;
 
+    /**
+     * @var array<string, mixed>
+     */
     private array $defaultChartData = [
         'labels' => [],
         'datasets' => [
@@ -64,6 +71,9 @@ final class Ping extends Component
         ],
     ];
 
+    /**
+     * @var array<string, mixed>
+     */
     public array $chartOptions = [
         'responsive' => true,
         'plugins' => [
@@ -118,17 +128,24 @@ final class Ping extends Component
         ];
     }
 
+    /**
+     * @param  array<string, mixed>  $record
+     */
     #[On('native:'.PingSequenceInsertedEvent::class)]
     #[Renderless]
     public function updatePingResult(array $record): void
     {
+        $sanitized = Type\shape([
+            'id' => Type\int(),
+        ])->coerce($record);
+
         if (isset($this->target) === false) {
             return;
         }
 
         $sequence = PingSequence::query()
             ->with(['ipAddress'])
-            ->findOrFail($record['id'])
+            ->findOrFail($sanitized['id'])
             ->getData();
 
         if ($sequence->ip->ip !== $this->ipAddress()->ip) {
@@ -155,6 +172,9 @@ final class Ping extends Component
         $this->totalCount = $this->totalCount();
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     private function data(): array
     {
         if (isset($this->target) === false) {

@@ -19,6 +19,9 @@ final class PingSequenceInsertedEvent implements ShouldBroadcastNow
         public readonly PingSequenceDto $record
     ) {}
 
+    /**
+     * @return array<int, Channel>
+     */
     public function broadcastOn(): array
     {
         return [

@@ -16,6 +16,6 @@ final class CreateIpAddressAction
 
         return IpAddress::query()->createOrFirst([
             'ip' => $ip,
-        ])->fresh()->getData();
+        ])->refresh()->getData();
     }
 }

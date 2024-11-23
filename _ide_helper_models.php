@@ -72,7 +72,7 @@ namespace XbNz\Ping\Models{
  * 
  *
  * @property int $id
- * @property int $ip_id
+ * @property int $ip_address_id
  * @property float|null $round_trip_time
  * @property bool $loss
  * @property \Carbon\CarbonImmutable $created_at
@@ -83,7 +83,7 @@ namespace XbNz\Ping\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereIpId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereIpAddressId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereLoss($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence whereRoundTripTime($value)
  * @mixin \Eloquent
