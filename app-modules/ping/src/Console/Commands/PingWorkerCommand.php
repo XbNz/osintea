@@ -47,7 +47,7 @@ final class PingWorkerCommand extends Command
                 GatherTargetToRemove::class,
             ];
 
-            $transporter = new Transporter(trim($data));
+            $transporter = new Transporter(mb_trim($data));
 
             /** @var Transporter $transporterReturned */
             $transporterReturned = Pipeline::make()
