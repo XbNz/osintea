@@ -9,6 +9,7 @@ use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use React\EventLoop\Loop;
 use React\EventLoop\StreamSelectLoop;
 use React\Stream\ReadableResourceStream;
 use React\Stream\WritableResourceStream;
@@ -25,7 +26,6 @@ final class PingWorkerCommand extends Command
 {
     public function __construct(
         private readonly FulfillSequenceAction $fulfillSequenceAction,
-        private readonly StreamSelectLoop $loop,
     ) {
         parent::__construct();
     }
@@ -36,8 +36,10 @@ final class PingWorkerCommand extends Command
 
     public function handle(): void
     {
-        $input = new ReadableResourceStream(STDIN, $this->loop);
-        $output = new WritableResourceStream(STDOUT, $this->loop);
+        $loop = Loop::get();
+
+        $input = new ReadableResourceStream(STDIN, $loop);
+        $output = new WritableResourceStream(STDOUT, $loop);
 
         $requests = [];
 
@@ -69,7 +71,7 @@ final class PingWorkerCommand extends Command
             $requests = Collection::make($requests)->unique('target')->toArray();
         });
 
-        $this->loop->addPeriodicTimer(0.1, function () use (&$requests): void {
+        $loop->addPeriodicTimer(0.1, function () use (&$requests): void {
             Collection::make($requests)
                 ->filter(function (AddTargetRequestDto $addTargetRequestDto) {
                     $pingSequenceDto = PingSequence::query()
