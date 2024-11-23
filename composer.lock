@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fc87a225031b6de66c533265db2b49f7",
+    "content-hash": "687158227d9ba7f7a12136ca118e2256",
     "packages": [
         {
             "name": "amphp/amp",
@@ -867,16 +867,16 @@
         },
         {
             "name": "azjezz/psl",
-            "version": "3.0.2",
+            "version": "3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/azjezz/psl.git",
-                "reference": "6683d60ba4d3abf8b4a4a9d94c39d0d08caa0214"
+                "reference": "4a9a6698d98a7dcbd679be8100d6935ff45e622b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/azjezz/psl/zipball/6683d60ba4d3abf8b4a4a9d94c39d0d08caa0214",
-                "reference": "6683d60ba4d3abf8b4a4a9d94c39d0d08caa0214",
+                "url": "https://api.github.com/repos/azjezz/psl/zipball/4a9a6698d98a7dcbd679be8100d6935ff45e622b",
+                "reference": "4a9a6698d98a7dcbd679be8100d6935ff45e622b",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,7 @@
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-sodium": "*",
-                "php": "~8.2.0 || ~8.3.0",
+                "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
                 "revolt/event-loop": "^1.0.6"
             },
             "require-dev": {
@@ -930,7 +930,7 @@
             "description": "PHP Standard Library",
             "support": {
                 "issues": "https://github.com/azjezz/psl/issues",
-                "source": "https://github.com/azjezz/psl/tree/3.0.2"
+                "source": "https://github.com/azjezz/psl/tree/3.1.0"
             },
             "funding": [
                 {
@@ -938,7 +938,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-13T10:34:56+00:00"
+            "time": "2024-11-21T13:15:46+00:00"
         },
         {
             "name": "blade-ui-kit/blade-icons",
@@ -4248,16 +4248,16 @@
         },
         {
             "name": "livewire/flux",
-            "version": "v1.0.23",
+            "version": "v1.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/flux.git",
-                "reference": "cb0fb8ebeca6c1c7ce7135a34191b1282452a2b0"
+                "reference": "b8d93466878ad36c47c294839f27292a26f7fec8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/flux/zipball/cb0fb8ebeca6c1c7ce7135a34191b1282452a2b0",
-                "reference": "cb0fb8ebeca6c1c7ce7135a34191b1282452a2b0",
+                "url": "https://api.github.com/repos/livewire/flux/zipball/b8d93466878ad36c47c294839f27292a26f7fec8",
+                "reference": "b8d93466878ad36c47c294839f27292a26f7fec8",
                 "shasum": ""
             },
             "require": {
@@ -4305,25 +4305,25 @@
             ],
             "support": {
                 "issues": "https://github.com/livewire/flux/issues",
-                "source": "https://github.com/livewire/flux/tree/v1.0.23"
+                "source": "https://github.com/livewire/flux/tree/v1.0.24"
             },
-            "time": "2024-11-12T15:48:38+00:00"
+            "time": "2024-11-22T19:51:05+00:00"
         },
         {
             "name": "livewire/flux-pro",
-            "version": "1.0.23",
+            "version": "1.0.24",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.fluxui.dev/download/9d78f7fd-cd66-45ec-90b6-0dc325de05ca/flux-pro-1.0.23.zip",
-                "reference": "7f63d13b1a45dcc02e9969e136587a2ad4ebe3af",
-                "shasum": "0f8caec657b5c5b467d9023aad3b6adfdba45a86"
+                "url": "https://composer.fluxui.dev/download/9d8d99cc-0e95-4bbf-9a07-9da3a5bdd6da/flux-pro-1.0.24.zip",
+                "reference": "7befb1c82855010fe780de634156f819baa712cf",
+                "shasum": "cafb92056bda2573bef8a5492a546ded20080866"
             },
             "require": {
                 "illuminate/console": "^10.0|^11.0",
                 "illuminate/support": "^10.0|^11.0",
                 "illuminate/view": "^10.0|^11.0",
                 "laravel/prompts": "^0.1.24|^0.2|^0.3",
-                "livewire/flux": "1.0.23",
+                "livewire/flux": "1.0.24",
                 "livewire/livewire": "^3.5.12",
                 "php": "^8.1",
                 "symfony/console": "^6.0|^7.0"
@@ -4364,7 +4364,7 @@
                 "livewire",
                 "ui"
             ],
-            "time": "2024-11-12T16:27:03+00:00"
+            "time": "2024-11-22T22:36:03+00:00"
         },
         {
             "name": "livewire/livewire",
@@ -4551,12 +4551,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/electron.git",
-                "reference": "91bbbec57e65c39187e21661ea70d5cc5084fd75"
+                "reference": "124756b1cac4831df3044f22b55104b635c1591a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/electron/zipball/91bbbec57e65c39187e21661ea70d5cc5084fd75",
-                "reference": "91bbbec57e65c39187e21661ea70d5cc5084fd75",
+                "url": "https://api.github.com/repos/NativePHP/electron/zipball/124756b1cac4831df3044f22b55104b635c1591a",
+                "reference": "124756b1cac4831df3044f22b55104b635c1591a",
                 "shasum": ""
             },
             "require": {
@@ -4633,15 +4633,21 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-19T16:48:59+00:00"
+            "time": "2024-11-22T09:42:18+00:00"
         },
         {
             "name": "nativephp/laravel",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NativePHP/laravel.git",
+                "reference": "7b9096955bd033bd57e1665d01372a4c65ac812f"
+            },
             "dist": {
-                "type": "path",
-                "url": "../nativephp-laravel",
-                "reference": "2726ceb4f49db6e43b8414a40f3e6d6e2c456027"
+                "type": "zip",
+                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/7b9096955bd033bd57e1665d01372a4c65ac812f",
+                "reference": "7b9096955bd033bd57e1665d01372a4c65ac812f",
+                "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^10.0|^11.0",
@@ -4663,6 +4669,7 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.26"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -4684,28 +4691,7 @@
                     "Native\\Laravel\\Database\\Factories\\": "database/factories/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Native\\Laravel\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "post-autoload-dump": [
-                    "@php ./vendor/bin/testbench package:discover --ansi"
-                ],
-                "analyse": [
-                    "vendor/bin/phpstan analyse"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ],
-                "test-coverage": [
-                    "vendor/bin/pest --coverage"
-                ],
-                "format": [
-                    "vendor/bin/pint"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4728,20 +4714,21 @@
                 "nativephp",
                 "nativephp-laravel"
             ],
+            "support": {
+                "issues": "https://github.com/NativePHP/laravel/issues",
+                "source": "https://github.com/NativePHP/laravel/tree/main"
+            },
             "funding": [
                 {
-                    "type": "github",
-                    "url": "https://github.com/sponsors/simonhamp"
+                    "url": "https://github.com/sponsors/simonhamp",
+                    "type": "github"
                 },
                 {
-                    "type": "opencollective",
-                    "url": "https://opencollective.com/nativephp"
+                    "url": "https://opencollective.com/nativephp",
+                    "type": "opencollective"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "time": "2024-11-22T11:26:17+00:00"
         },
         {
             "name": "nativephp/php-bin",
@@ -5112,31 +5099,31 @@
         },
         {
             "name": "nunomaduro/termwind",
-            "version": "v2.2.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/termwind.git",
-                "reference": "42c84e4e8090766bbd6445d06cd6e57650626ea3"
+                "reference": "52915afe6a1044e8b9cee1bcff836fb63acf9cda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/42c84e4e8090766bbd6445d06cd6e57650626ea3",
-                "reference": "42c84e4e8090766bbd6445d06cd6e57650626ea3",
+                "url": "https://api.github.com/repos/nunomaduro/termwind/zipball/52915afe6a1044e8b9cee1bcff836fb63acf9cda",
+                "reference": "52915afe6a1044e8b9cee1bcff836fb63acf9cda",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": "^8.2",
-                "symfony/console": "^7.1.5"
+                "symfony/console": "^7.1.8"
             },
             "require-dev": {
-                "illuminate/console": "^11.28.0",
-                "laravel/pint": "^1.18.1",
+                "illuminate/console": "^11.33.2",
+                "laravel/pint": "^1.18.2",
                 "mockery/mockery": "^1.6.12",
                 "pestphp/pest": "^2.36.0",
-                "phpstan/phpstan": "^1.12.6",
+                "phpstan/phpstan": "^1.12.11",
                 "phpstan/phpstan-strict-rules": "^1.6.1",
-                "symfony/var-dumper": "^7.1.5",
+                "symfony/var-dumper": "^7.1.8",
                 "thecodingmachine/phpstan-strict-rules": "^1.0.0"
             },
             "type": "library",
@@ -5179,7 +5166,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nunomaduro/termwind/issues",
-                "source": "https://github.com/nunomaduro/termwind/tree/v2.2.0"
+                "source": "https://github.com/nunomaduro/termwind/tree/v2.3.0"
             },
             "funding": [
                 {
@@ -5195,7 +5182,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-15T16:15:16+00:00"
+            "time": "2024-11-21T10:39:51+00:00"
         },
         {
             "name": "paragonie/sodium_compat",
@@ -5290,21 +5277,21 @@
         },
         {
             "name": "phpdocumentor/reflection",
-            "version": "6.0.0",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/Reflection.git",
-                "reference": "61e2f1fe7683e9647b9ed8d9e53d08699385267d"
+                "reference": "bb4dea805a645553d6d989b23dad9f8041f39502"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/Reflection/zipball/61e2f1fe7683e9647b9ed8d9e53d08699385267d",
-                "reference": "61e2f1fe7683e9647b9ed8d9e53d08699385267d",
+                "url": "https://api.github.com/repos/phpDocumentor/Reflection/zipball/bb4dea805a645553d6d989b23dad9f8041f39502",
+                "reference": "bb4dea805a645553d6d989b23dad9f8041f39502",
                 "shasum": ""
             },
             "require": {
                 "nikic/php-parser": "~4.18 || ^5.0",
-                "php": "8.1.*|8.2.*|8.3.*",
+                "php": "8.1.*|8.2.*|8.3.*|8.4.*",
                 "phpdocumentor/reflection-common": "^2.1",
                 "phpdocumentor/reflection-docblock": "^5",
                 "phpdocumentor/type-resolver": "^1.2",
@@ -5351,9 +5338,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpDocumentor/Reflection/issues",
-                "source": "https://github.com/phpDocumentor/Reflection/tree/6.0.0"
+                "source": "https://github.com/phpDocumentor/Reflection/tree/6.1.0"
             },
-            "time": "2024-05-23T19:28:12+00:00"
+            "time": "2024-11-22T15:11:54+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -10204,16 +10191,16 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "2.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "b56450eed252f6801410d810c8e1727224ae0743"
+                "reference": "b1d923f88091c6bf09699efcd7c8a1b1bfd7351d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/b56450eed252f6801410d810c8e1727224ae0743",
-                "reference": "b56450eed252f6801410d810c8e1727224ae0743",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/b1d923f88091c6bf09699efcd7c8a1b1bfd7351d",
+                "reference": "b1d923f88091c6bf09699efcd7c8a1b1bfd7351d",
                 "shasum": ""
             },
             "require": {
@@ -10238,7 +10225,7 @@
             "authors": [
                 {
                     "name": "Lars Moelleken",
-                    "homepage": "http://www.moelleken.org/"
+                    "homepage": "https://www.moelleken.org/"
                 }
             ],
             "description": "Portable ASCII library - performance optimized (ascii) string functions for php.",
@@ -10250,7 +10237,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-ascii/issues",
-                "source": "https://github.com/voku/portable-ascii/tree/2.0.1"
+                "source": "https://github.com/voku/portable-ascii/tree/2.0.3"
             },
             "funding": [
                 {
@@ -10274,7 +10261,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-08T17:03:00+00:00"
+            "time": "2024-11-21T01:49:47+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -10608,16 +10595,16 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.24.0",
+            "version": "v1.24.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "a136842a532bac9ecd8a1c723852b09915d7db50"
+                "reference": "e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/a136842a532bac9ecd8a1c723852b09915d7db50",
-                "reference": "a136842a532bac9ecd8a1c723852b09915d7db50",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5",
+                "reference": "e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5",
                 "shasum": ""
             },
             "require": {
@@ -10665,9 +10652,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.24.0"
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.24.1"
             },
-            "time": "2024-11-07T15:11:20+00:00"
+            "time": "2024-11-21T13:46:39+00:00"
         },
         {
             "name": "filp/whoops",
