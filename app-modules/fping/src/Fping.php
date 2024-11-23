@@ -293,7 +293,7 @@ final class Fping implements FpingInterface
 
         $return = $this->filesystem
             ->lines($this->outputFilePath)
-            ->reject(fn (string $line) => mb_strlen(trim($line)) === 0)
+            ->reject(fn (string $line) => mb_strlen(mb_trim($line)) === 0)
             ->map($this->createFpingDto(...))
             ->toArray();
 
@@ -393,7 +393,7 @@ final class Fping implements FpingInterface
 
     private function createSequence(string $sequence, int $index): Sequence
     {
-        $healthy = is_numeric($trimmed = trim($sequence));
+        $healthy = is_numeric($trimmed = mb_trim($sequence));
 
         return new Sequence(
             $index + 1,

@@ -51,8 +51,8 @@ final class BinFinder
             $this->process->command(['uname', '-m'])->start(),
         ]))->wait();
 
-        $strippedOs = mb_strtolower(trim($os->output()));
-        $strippedArch = mb_strtolower(trim($arch->output()));
+        $strippedOs = mb_strtolower(mb_trim($os->output()));
+        $strippedArch = mb_strtolower(mb_trim($arch->output()));
 
         $targetBinaries = $this->finder
             ->files()

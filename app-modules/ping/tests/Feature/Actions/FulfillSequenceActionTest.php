@@ -32,7 +32,7 @@ final class FulfillSequenceActionTest extends TestCase
                 [
                     new Sequence(1, false, 1.11),
                 ]
-            )
+            ),
         ]);
 
         // Act
@@ -64,7 +64,7 @@ final class FulfillSequenceActionTest extends TestCase
                 [
                     new Sequence(1, true, null),
                 ]
-            )
+            ),
         ]);
 
         // Act
