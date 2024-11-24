@@ -31,7 +31,9 @@
         "webmozart/assert": "^1.1",
         "xbnz/fping": "*",
         "xbnz/ip": "*",
+        "xbnz/masscan": "*",
         "xbnz/ping": "*",
+        "xbnz/port": "*",
         "xbnz/shared": "*"
     },
     "require-dev": {

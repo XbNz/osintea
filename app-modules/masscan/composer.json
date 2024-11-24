@@ -1,0 +1,24 @@
+{
+	"name": "xbnz/masscan",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"XbNz\\Masscan\\": "src/",
+			"XbNz\\Masscan\\Tests\\": "tests/",
+			"XbNz\\Masscan\\Database\\Factories\\": "database/factories/",
+			"XbNz\\Masscan\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"XbNz\\Masscan\\Providers\\MasscanServiceProvider"
+			]
+		}
+	}
+}
