@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Ping\Tests\Feature\Actions;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\FakeFping;
@@ -15,6 +16,8 @@ use XbNz\Ping\ValueObjects\Sequence;
 
 final class FulfillSequenceActionTest extends TestCase
 {
+    use RefreshDatabase;
+
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_takes_an_ip_address_dto_and_hits_fping_with_the_given_ip(): void
     {

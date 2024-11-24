@@ -14,4 +14,5 @@
 
 ### ICMP Ping (powered by [fping](https://fping.org/))
 
-![PNG](/art/ping_window.png)
+<img src="/art/ping_window.png" width="379">
+<img src="/art/ping_window_light.png" width="379" style="margin-left: 10px;">
