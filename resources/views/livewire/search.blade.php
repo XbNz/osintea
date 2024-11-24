@@ -5,7 +5,18 @@
         <flux:command.input autofocus placeholder="Search..." />
 
         <flux:command.items>
-            <flux:command.item wire:click="openPing" icon="wifi">Ping</flux:command.item>
+            <flux:command.item wire:click="openPing">
+                <div class="flex items-center">
+                    @svg('fad-wifi', 'h-5 w-5')
+                    <span class="ml-2">Ping</span>
+                </div>
+            </flux:command.item>
+            <flux:command.item wire:click="openIpAddresses">
+                <div class="flex items-center">
+                    @svg('fad-chart-network', 'h-5 w-5')
+                    <span class="ml-2">My IP Addresses</span>
+                </div>
+            </flux:command.item>
             <flux:command.empty />
             <flux:command.empty />
         </flux:command.items>

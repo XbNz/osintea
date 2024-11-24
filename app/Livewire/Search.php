@@ -36,6 +36,21 @@ final class Search extends Component
             ->minWidth(775);
     }
 
+    public function openIpAddresses(): void
+    {
+        Window::close(NativePhpWindow::CommandPalette->value);
+
+        Window::open(NativePhpWindow::IpAddresses->value)
+            ->route('ip-addresses.index')
+            ->showDevTools(false)
+            ->titleBarHiddenInset()
+            ->transparent()
+            ->height(1000)
+            ->width(900)
+            ->minHeight(1000)
+            ->minWidth(900);
+    }
+
     public function render(): View
     {
         return view('livewire.search');

@@ -125,6 +125,26 @@ final class PingTest extends TestCase
         $livewire->assertNotDispatched('newDataPoint');
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function can_delete_ip_results(): void
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function can_stop_ongoing_ping(): void
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
+
     #[\PHPUnit\Framework\Attributes\DataProvider('validationProvider')]
     #[\PHPUnit\Framework\Attributes\Test]
     public function validation_tests(array $payload, array $errors): void

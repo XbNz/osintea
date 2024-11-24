@@ -7,7 +7,7 @@ namespace XbNz\Shared\Enums;
 enum NativePhpWindow: string
 {
     case CommandPalette = 'command-palette';
-    case Main = 'main';
 
     case Ping = 'ping';
+    case IpAddresses = 'ip-addresses';
 }
