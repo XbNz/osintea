@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "687158227d9ba7f7a12136ca118e2256",
+    "content-hash": "b7e872d9665c5fccf71155ce9f45413b",
     "packages": [
         {
             "name": "amphp/amp",
@@ -10384,6 +10384,38 @@
             }
         },
         {
+            "name": "xbnz/masscan",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/masscan",
+                "reference": "6bfc2ec1f1a79b61671c568837602acb965a23a6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XbNz\\Masscan\\Providers\\MasscanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XbNz\\Masscan\\": "src/",
+                    "XbNz\\Masscan\\Tests\\": "tests/",
+                    "XbNz\\Masscan\\Database\\Factories\\": "database/factories/",
+                    "XbNz\\Masscan\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "xbnz/ping",
             "version": "1.0",
             "dist": {
@@ -10405,6 +10437,38 @@
                     "XbNz\\Ping\\Tests\\": "tests/",
                     "XbNz\\Ping\\Database\\Factories\\": "database/factories/",
                     "XbNz\\Ping\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "xbnz/port",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/port",
+                "reference": "1286902ffbd8909392c0b606ad8243f4c557d25b"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XbNz\\Port\\Providers\\PortServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XbNz\\Port\\": "src/",
+                    "XbNz\\Port\\Tests\\": "tests/",
+                    "XbNz\\Port\\Database\\Factories\\": "database/factories/",
+                    "XbNz\\Port\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "license": [
