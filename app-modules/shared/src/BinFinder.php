@@ -11,8 +11,8 @@ use RuntimeException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Webmozart\Assert\Assert;
-use XbNz\Shared\Exception\BinaryNotExecutableException;
-use XbNz\Shared\Exception\BinaryNotFoundException;
+use XbNz\Shared\Exceptions\BinaryNotExecutableException;
+use XbNz\Shared\Exceptions\BinaryNotFoundException;
 
 use function Psl\Filesystem\canonicalize;
 

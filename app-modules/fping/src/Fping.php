@@ -66,43 +66,43 @@ use function Psl\Filesystem\canonicalize;
  */
 final class Fping implements FpingInterface
 {
-    public string $binaryPath;
+    private string $binaryPath;
 
-    public string $inputFilePath;
+    private string $inputFilePath;
 
-    public string $outputFilePath;
+    private string $outputFilePath;
 
-    public int $size = 56;
+    private int $size = 56;
 
-    public float $backoff = 1.5;
+    private float $backoff = 1.5;
 
-    public int $count = 1;
+    private int $count = 1;
 
-    public int $timeToLive = 64;
+    private int $timeToLive = 64;
 
-    public float $interval = 0.1;
+    private float $interval = 0.1;
 
-    public bool $resolveAllHostnameIpAddresses = false;
+    private bool $resolveAllHostnameIpAddresses = false;
 
-    public bool $dontFragment = false;
+    private bool $dontFragment = false;
 
-    public string $typeOfService = '0x00';
+    private string $typeOfService = '0x00';
 
-    public float $intervalPerHost = 1000;
+    private float $intervalPerHost = 1000;
 
-    public int $retries = 1;
+    private int $retries = 1;
 
-    public bool $sendRandomData = false;
+    private bool $sendRandomData = false;
 
-    public string $sourceAddress;
+    private string $sourceAddress;
 
-    public int $timeout = 500;
+    private int $timeout = 500;
 
-    public bool $showByIp = true;
+    private bool $showByIp = true;
 
-    public bool $quiet = true;
+    private bool $quiet = true;
 
-    public string $target;
+    private string $target;
 
     public function __construct(
         private readonly PendingProcess $process,

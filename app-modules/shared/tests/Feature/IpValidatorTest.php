@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Shared\Tests\Feature;
 
 use Tests\TestCase;
-use XbNz\Shared\Exception\InvalidIpAddressException;
+use XbNz\Shared\Exceptions\InvalidIpAddressException;
 use XbNz\Shared\IpValidator;
 use XbNz\Shared\ValueObjects\IpType;
 

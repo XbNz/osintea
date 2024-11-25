@@ -6,8 +6,8 @@ namespace XbNz\Shared\Tests\Feature;
 
 use Tests\TestCase;
 use XbNz\Shared\BinFinder;
-use XbNz\Shared\Exception\BinaryNotExecutableException;
-use XbNz\Shared\Exception\BinaryNotFoundException;
+use XbNz\Shared\Exceptions\BinaryNotExecutableException;
+use XbNz\Shared\Exceptions\BinaryNotFoundException;
 
 final class BinFinderTest extends TestCase
 {

@@ -8,7 +8,10 @@ use Illuminate\Support\ServiceProvider;
 
 final class MasscanServiceProvider extends ServiceProvider
 {
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'masscan');
+    }
 
     public function boot(): void {}
 }

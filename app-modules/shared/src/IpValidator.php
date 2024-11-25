@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Shared;
 
-use XbNz\Shared\Exception\InvalidIpAddressException;
+use XbNz\Shared\Exceptions\InvalidIpAddressException;
 use XbNz\Shared\ValueObjects\IpType;
 
 final class IpValidator

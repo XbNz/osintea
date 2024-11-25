@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace XbNz\Shared\Exception;
+namespace XbNz\Shared\Exceptions;
 
 use Exception;
 
-final class BinaryNotExecutableException extends Exception
+final class BinaryNotFoundException extends Exception
 {
     public static function for(
         string $prefix,
@@ -16,7 +16,7 @@ final class BinaryNotExecutableException extends Exception
     ): self {
         return new self(
             sprintf(
-                'File found with prefix `%s` in directory `%s` for OS `%s` and architecture `%s`, but it is not executable',
+                'No binary found with prefix `%s` in directory `%s` for OS `%s` and architecture `%s`',
                 $prefix,
                 $directory,
                 $os,

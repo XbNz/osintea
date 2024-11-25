@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b7e872d9665c5fccf71155ce9f45413b",
+    "content-hash": "f43eea2666c5761f06094eca0765e3d1",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4248,16 +4248,16 @@
         },
         {
             "name": "livewire/flux",
-            "version": "v1.0.24",
+            "version": "v1.0.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/flux.git",
-                "reference": "b8d93466878ad36c47c294839f27292a26f7fec8"
+                "reference": "356c307ed902a0023dadbaa821baa19c048f6148"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/flux/zipball/b8d93466878ad36c47c294839f27292a26f7fec8",
-                "reference": "b8d93466878ad36c47c294839f27292a26f7fec8",
+                "url": "https://api.github.com/repos/livewire/flux/zipball/356c307ed902a0023dadbaa821baa19c048f6148",
+                "reference": "356c307ed902a0023dadbaa821baa19c048f6148",
                 "shasum": ""
             },
             "require": {
@@ -4305,25 +4305,25 @@
             ],
             "support": {
                 "issues": "https://github.com/livewire/flux/issues",
-                "source": "https://github.com/livewire/flux/tree/v1.0.24"
+                "source": "https://github.com/livewire/flux/tree/v1.0.25"
             },
-            "time": "2024-11-22T19:51:05+00:00"
+            "time": "2024-11-23T13:16:02+00:00"
         },
         {
             "name": "livewire/flux-pro",
-            "version": "1.0.24",
+            "version": "1.0.25",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.fluxui.dev/download/9d8d99cc-0e95-4bbf-9a07-9da3a5bdd6da/flux-pro-1.0.24.zip",
-                "reference": "7befb1c82855010fe780de634156f819baa712cf",
-                "shasum": "cafb92056bda2573bef8a5492a546ded20080866"
+                "url": "https://composer.fluxui.dev/download/9d8ed7a2-acfb-4405-9d6d-703ccad80101/flux-pro-1.0.25.zip",
+                "reference": "578c529f6a4a3281ee608a6d67f3ae620dd7a420",
+                "shasum": "7c0dbf8e5e85db2671c683b84fc3daeecb1ee6da"
             },
             "require": {
                 "illuminate/console": "^10.0|^11.0",
                 "illuminate/support": "^10.0|^11.0",
                 "illuminate/view": "^10.0|^11.0",
                 "laravel/prompts": "^0.1.24|^0.2|^0.3",
-                "livewire/flux": "1.0.24",
+                "livewire/flux": "1.0.25",
                 "livewire/livewire": "^3.5.12",
                 "php": "^8.1",
                 "symfony/console": "^6.0|^7.0"
@@ -4364,7 +4364,7 @@
                 "livewire",
                 "ui"
             ],
-            "time": "2024-11-22T22:36:03+00:00"
+            "time": "2024-11-23T13:24:48+00:00"
         },
         {
             "name": "livewire/livewire",
@@ -4641,12 +4641,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/laravel.git",
-                "reference": "7b9096955bd033bd57e1665d01372a4c65ac812f"
+                "reference": "98405aee00259d2ee80251f5cd6c204ef7eb9042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/7b9096955bd033bd57e1665d01372a4c65ac812f",
-                "reference": "7b9096955bd033bd57e1665d01372a4c65ac812f",
+                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/98405aee00259d2ee80251f5cd6c204ef7eb9042",
+                "reference": "98405aee00259d2ee80251f5cd6c204ef7eb9042",
                 "shasum": ""
             },
             "require": {
@@ -4728,22 +4728,23 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-22T11:26:17+00:00"
+            "time": "2024-11-23T10:27:07+00:00"
         },
         {
             "name": "nativephp/php-bin",
-            "version": "0.5.5",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/php-bin.git",
-                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b"
+                "reference": "435194a06caf79f8d0ffa4593fd8a720409c8e1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/77f1048f191d6602fcbe29472409ac23eb4fd06b",
-                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b",
+                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/435194a06caf79f8d0ffa4593fd8a720409c8e1c",
+                "reference": "435194a06caf79f8d0ffa4593fd8a720409c8e1c",
                 "shasum": ""
             },
+            "default-branch": true,
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4771,7 +4772,7 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/php-bin/tree/0.5.5"
+                "source": "https://github.com/NativePHP/php-bin/tree/main"
             },
             "funding": [
                 {
@@ -4783,7 +4784,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-17T15:10:47+00:00"
+            "time": "2024-11-24T09:52:26+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -13379,16 +13380,24 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "nativephp/php-bin",
+            "version": "dev-main",
+            "alias": "0.5.5",
+            "alias_normalized": "0.5.5.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "nativephp/electron": 20,
-        "nativephp/laravel": 20
+        "nativephp/laravel": 20,
+        "nativephp/php-bin": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.3"
+        "php": "^8.4"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
