@@ -60,9 +60,9 @@ final class Search extends Component
             ->showDevTools(false)
             ->titleBarHiddenInset()
             ->transparent()
-            ->height(500)
+            ->height(550)
             ->width(500)
-            ->minHeight(500)
+            ->minHeight(550)
             ->minWidth(500);
     }
 
