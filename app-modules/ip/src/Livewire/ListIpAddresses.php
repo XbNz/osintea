@@ -19,7 +19,9 @@ final class ListIpAddresses extends Component
     public string $sortBy = 'created_at';
 
     public string $sortDirection = 'desc';
+
     public int $rowAmount = 100;
+
     public int $seedCount = 0;
 
     public function sort(string $column): void

@@ -19,7 +19,7 @@ final class RangesToIpTest extends TestCase
     {
         // Act
         $response = Livewire::test(RangeToIp::class)
-            ->set('rangeList', <<<RANGES
+            ->set('rangeList', <<<'RANGES'
             1.1.1.1/30
             8.8.8.8-8.8.8.10
             2002::1234:abcd:ffff:c0a8:101/128
