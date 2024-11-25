@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace XbNz\Masscan;
 
+use Exception;
 use Illuminate\Config\Repository;
-use Illuminate\Filesystem\FilesystemManager;
-use Illuminate\Process\Exceptions\ProcessFailedException;
 use Illuminate\Process\PendingProcess;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Webmozart\Assert\Assert;
+use XbNz\Ip\Contracts\RapidParserInterface;
+use XbNz\Ip\Exceptions\IpParserException;
 use XbNz\Shared\BinFinder;
-use XbNz\Shared\Contracts\RapidParserInterface;
-use XbNz\Shared\Exceptions\IpParserException;
 
 use function Psl\Filesystem\canonicalize;
 
@@ -29,7 +28,6 @@ final class MasscanRapidParser implements RapidParserInterface
         private readonly Repository $config,
         private readonly BinFinder $binFinder,
         private readonly PendingProcess $process,
-        private readonly FilesystemManager $filesystem,
     ) {
         $this->generateOutputFilePath();
     }
@@ -69,7 +67,7 @@ final class MasscanRapidParser implements RapidParserInterface
         return $this;
     }
 
-    public function parse(): void
+    public function parse(): string
     {
         $masscanPrefix = $this->config->get('masscan.binaries.prefix');
         $masscanBinaryDirectory = $this->config->get('masscan.binaries.directory');
@@ -94,9 +92,11 @@ final class MasscanRapidParser implements RapidParserInterface
                 ->command(implode(' ', $command)." > {$this->outputFilePath}")
                 ->run()
                 ->throw();
-        } catch (ProcessFailedException $exception) {
+        } catch (Exception $exception) {
             throw new IpParserException($exception->getMessage());
         }
+
+        return $this->outputFilePath;
     }
 
     private function generateOutputFilePath(): void

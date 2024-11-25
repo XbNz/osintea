@@ -8,8 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Tests\TestCase;
+use XbNz\Ip\Exceptions\IpParserException;
 use XbNz\Masscan\MasscanRapidParser;
-use XbNz\Shared\Exceptions\IpParserException;
 
 final class MasscanRapidParserTest extends TestCase
 {

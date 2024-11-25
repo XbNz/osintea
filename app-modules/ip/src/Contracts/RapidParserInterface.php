@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XbNz\Shared\Contracts;
+namespace XbNz\Ip\Contracts;
 
 interface RapidParserInterface
 {
@@ -12,5 +12,5 @@ interface RapidParserInterface
 
     public function timeout(int $seconds): self;
 
-    public function parse(): void;
+    public function parse(): string;
 }

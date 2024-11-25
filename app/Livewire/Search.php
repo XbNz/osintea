@@ -51,6 +51,21 @@ final class Search extends Component
             ->minWidth(900);
     }
 
+    public function openRangeToIp(): void
+    {
+        Window::close(NativePhpWindow::CommandPalette->value);
+
+        Window::open(NativePhpWindow::RangeToIp->value)
+            ->route('range-to-ip')
+            ->showDevTools(false)
+            ->titleBarHiddenInset()
+            ->transparent()
+            ->height(500)
+            ->width(500)
+            ->minHeight(500)
+            ->minWidth(500);
+    }
+
     public function render(): View
     {
         return view('livewire.search');

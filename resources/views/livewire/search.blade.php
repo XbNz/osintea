@@ -17,8 +17,12 @@
                     <span class="ml-2">My IP Addresses</span>
                 </div>
             </flux:command.item>
-            <flux:command.empty />
-            <flux:command.empty />
+            <flux:command.item wire:click="openRangeToIp">
+                <div class="flex items-center">
+                    @svg('fad-swap', 'h-5 w-5')
+                    <span class="ml-2">Range to IP</span>
+                </div>
+            </flux:command.item>
         </flux:command.items>
     </flux:command>
 </div>

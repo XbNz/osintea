@@ -12,6 +12,7 @@ use Mockery;
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Windows\Window as WindowImplementation;
 use Tests\TestCase;
+use XbNz\Shared\Enums\NativePhpWindow;
 
 final class SearchTest extends TestCase
 {
@@ -46,5 +47,49 @@ final class SearchTest extends TestCase
 
         // Assert
         Window::assertOpened(fn (string $windowId) => Str::startsWith($windowId, ['ping']));
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_opens_a_new_nativephp_ip_list_window(): void
+    {
+        // Arrange
+        Http::fake();
+        Window::fake();
+        Window::alwaysReturnWindows([
+            $mockWindow = Mockery::mock(WindowImplementation::class)->makePartial(),
+        ]);
+
+        $mockWindow->shouldReceive('route')->once()->with('ip-addresses.index')->andReturnSelf();
+        $mockWindow->shouldReceive('showDevTools')->once()->with(false)->andReturnSelf();
+        $mockWindow->shouldReceive('titleBarHiddenInset')->once()->andReturnSelf();
+        $mockWindow->shouldReceive('transparent')->once()->andReturnSelf();
+
+        // Act
+        Livewire::test(Search::class)->call('openIpAddresses');
+
+        // Assert
+        Window::assertOpened(NativePhpWindow::IpAddresses->value);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_opens_a_new_nativephp_range_to_ip_window(): void
+    {
+        // Arrange
+        Http::fake();
+        Window::fake();
+        Window::alwaysReturnWindows([
+            $mockWindow = Mockery::mock(WindowImplementation::class)->makePartial(),
+        ]);
+
+        $mockWindow->shouldReceive('route')->once()->with('range-to-ip')->andReturnSelf();
+        $mockWindow->shouldReceive('showDevTools')->once()->with(false)->andReturnSelf();
+        $mockWindow->shouldReceive('titleBarHiddenInset')->once()->andReturnSelf();
+        $mockWindow->shouldReceive('transparent')->once()->andReturnSelf();
+
+        // Act
+        Livewire::test(Search::class)->call('openRangeToIp');
+
+        // Assert
+        Window::assertOpened(NativePhpWindow::RangeToIp->value);
     }
 }

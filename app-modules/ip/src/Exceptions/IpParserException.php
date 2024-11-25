@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XbNz\Shared\Exceptions;
+namespace XbNz\Ip\Exceptions;
 
 use Exception;
 

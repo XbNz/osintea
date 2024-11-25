@@ -10,4 +10,5 @@ enum NativePhpWindow: string
 
     case Ping = 'ping';
     case IpAddresses = 'ip-addresses';
+    case RangeToIp = 'range-to-ip';
 }

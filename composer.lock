@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f43eea2666c5761f06094eca0765e3d1",
+    "content-hash": "e3de0839aa99e9a32e8672f13fe4e8da",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4732,19 +4732,18 @@
         },
         {
             "name": "nativephp/php-bin",
-            "version": "dev-main",
+            "version": "0.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/php-bin.git",
-                "reference": "435194a06caf79f8d0ffa4593fd8a720409c8e1c"
+                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/435194a06caf79f8d0ffa4593fd8a720409c8e1c",
-                "reference": "435194a06caf79f8d0ffa4593fd8a720409c8e1c",
+                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/77f1048f191d6602fcbe29472409ac23eb4fd06b",
+                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b",
                 "shasum": ""
             },
-            "default-branch": true,
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -4772,7 +4771,7 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/php-bin/tree/main"
+                "source": "https://github.com/NativePHP/php-bin/tree/0.5.5"
             },
             "funding": [
                 {
@@ -4784,7 +4783,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-24T09:52:26+00:00"
+            "time": "2024-11-17T15:10:47+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -13380,24 +13379,16 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "nativephp/php-bin",
-            "version": "dev-main",
-            "alias": "0.5.5",
-            "alias_normalized": "0.5.5.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "nativephp/electron": 20,
-        "nativephp/laravel": 20,
-        "nativephp/php-bin": 20
+        "nativephp/laravel": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.4"
+        "php": "^8.3"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
