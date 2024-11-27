@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XbNz\Ip\Livewire\Filters;
+namespace XbNz\Ip\Filters;
 
 use Illuminate\Support\Collection;
 use Livewire\Wireable;

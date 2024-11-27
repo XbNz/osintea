@@ -4,22 +4,31 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Livewire;
 
+use Carbon\CarbonImmutable;
 use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Laravel\Facades\Window;
-use XbNz\Ip\Livewire\Filters\RoundTripTimeFilter;
+use Spatie\TemporaryDirectory\TemporaryDirectory;
+use XbNz\Fping\Contracts\FpingInterface;
+use XbNz\Ip\Filters\PacketLossFilter;
+use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPacketLoss;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterRoundTripTime;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv4;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAverageRtt;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
-use XbNz\Ip\ViewModels\ListIpAddressesViewModel;
+use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
+use XbNz\Ping\Actions\CreatePingSequenceAction;
+use XbNz\Ping\DTOs\CreatePingSequenceDto;
 use XbNz\Shared\Enums\NativePhpWindow;
 
 #[Layout('components.layouts.secondary-window')]
@@ -42,18 +51,9 @@ final class ListIpAddresses extends Component
 
     public RoundTripTimeFilter $roundTripTimeFilter;
 
-    public function sort(string $column): void
-    {
-        if ($this->sortBy === $column) {
-            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
-        } else {
-            $this->sortBy = $column;
-            $this->sortDirection = 'asc';
-        }
-    }
+    public PacketLossFilter $packetLossFilter;
 
-    #[Computed]
-    public function ipAddresses(): CursorPaginator
+    private function query(): Builder
     {
         $query = IpAddress::query()->with(['pingSequences']);
 
@@ -66,20 +66,75 @@ final class ListIpAddresses extends Component
         }
 
         if (empty($pipes) === true) {
-            return ListIpAddressesViewModel::collect($query->cursorPaginate($this->rowAmount));
+            return $query;
         }
 
-        $query = Pipeline::make()
+        return Pipeline::make()
             ->send(new Transporter(
                 $this->sortDirection,
                 $query,
                 $this->roundTripTimeFilter,
+                $this->packetLossFilter,
             ))
             ->through($pipes)
             ->thenReturn()
             ->query;
+    }
 
-        return ListIpAddressesViewModel::collect($query->cursorPaginate($this->rowAmount));
+    public function sort(string $column): void
+    {
+        if ($this->sortBy === $column) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortBy = $column;
+            $this->sortDirection = 'asc';
+        }
+    }
+
+    #[Computed]
+    public function ipAddressCount(): string
+    {
+        $ipAddress = Str::plural('IP Address', $this->query()->count());
+        return number_format($this->query()->count(), thousands_separator: ',') . ' ' . $ipAddress;
+    }
+
+    #[Computed]
+    public function ipAddresses(): CursorPaginator
+    {
+        return ListIpAddressesTableViewModel::collect($this->query()->cursorPaginate($this->rowAmount));
+    }
+
+    public function pingActive(FpingInterface $fping, CreatePingSequenceAction $createPingSequenceAction): void
+    {
+        $inputFile = TemporaryDirectory::make()
+            ->force()
+            ->create()
+            ->path('input_'.Str::random(5).'.txt');
+
+        touch($inputFile);
+
+        $this->query()
+            ->clone()
+            ->select('ip')
+            ->lazyById(50_000)
+            ->pluck('ip')
+            ->chunk(50_000)
+            ->each(fn (LazyCollection $chunk) => file_put_contents($inputFile, $chunk->implode(PHP_EOL).PHP_EOL, FILE_APPEND));
+
+        foreach ($fping->inputFilePath($inputFile)->execute() as $pingResult) {
+            $createPingSequenceAction->handle(
+                new CreatePingSequenceDto(
+                    IpAddress::query()->where('ip', $pingResult->ip)->sole()->getData(),
+                    $pingResult->sequences[0],
+                    CarbonImmutable::now(),
+                )
+            );
+        }
+    }
+
+    public function deleteActive(): void
+    {
+        $this->query()->delete();
     }
 
     public function goToPingWindow(string $ipAddress): void
@@ -113,8 +168,11 @@ final class ListIpAddresses extends Component
 
     public function applyFilters(): void
     {
+        $this->clearFilters();
+
         $toApply = [
             FilterRoundTripTime::class => $this->roundTripTimeFilter->canBeApplied(),
+            FilterPacketLoss::class => $this->packetLossFilter->canBeApplied(),
         ];
 
         Collection::make($toApply)
@@ -136,6 +194,7 @@ final class ListIpAddresses extends Component
     {
         $toRemove = [
             FilterRoundTripTime::class,
+            FilterPacketLoss::class,
         ];
 
         $this->manipulations = array_filter($this->manipulations, fn (string $manipulation) => in_array($manipulation, $toRemove) === false);
@@ -149,6 +208,7 @@ final class ListIpAddresses extends Component
     public function mount(): void
     {
         $this->roundTripTimeFilter = new RoundTripTimeFilter();
+        $this->packetLossFilter = new PacketLossFilter();
     }
 
     public function render()

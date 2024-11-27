@@ -1,12 +1,15 @@
 <div>
     <div class="w-full">
-
-        <div class="flex justify-between gap-2">
+        <div class="flex justify-between items-center gap-2">
             <flux:tabs variant="segmented">
                 <flux:tab wire:click="limitV4" name="ipv4">IPv4</flux:tab>
                 <flux:tab wire:click="limitV6" name="ipv6">IPv6</flux:tab>
                 <flux:tab selected wire:click="clearIpTypeLimits" name="all">Both</flux:tab>
             </flux:tabs>
+
+            <flux:heading>
+                {{ $this->ipAddressCount }}
+            </flux:heading>
 
             <flux:dropdown>
                 <flux:button>
@@ -39,6 +42,16 @@
                                 </div>
                             </flux:menu.submenu>
 
+                            <flux:menu.submenu heading="Packet loss">
+                                <div class="flex flex-col gap-2">
+                                    <flux:input.group>
+                                        <flux:input placeholder="50" type="number" wire:model="packetLossFilter.minPercent" />
+                                        <flux:input placeholder="50" type="number" wire:model="packetLossFilter.maxPercent" />
+                                        <flux:input.group.suffix>%</flux:input.group.suffix>
+                                    </flux:input.group>
+                                </div>
+                            </flux:menu.submenu>
+
                             <div class="flex justify-between gap-2">
                                 <flux:button type="submit" size="sm" class="my-2">
                                     @svg('fad-filter', 'h-5 w-5')
@@ -51,12 +64,10 @@
                         </form>
                     </flux:menu.group>
                     <flux:menu.group heading="Tools">
-                        <flux:menu.item>Transactions</flux:menu.item>
-                        <flux:menu.item>Payouts</flux:menu.item>
-                        <flux:menu.item>Refunds</flux:menu.item>
+                        <flux:menu.item wire:click="pingActive">Ping selected</flux:menu.item>
                     </flux:menu.group>
 
-                    <flux:menu.item>Logout</flux:menu.item>
+                    <flux:menu.item wire:click="deleteActive">Delete selected</flux:menu.item>
                 </flux:menu>
             </flux:dropdown>
         </div>

@@ -7,7 +7,7 @@ namespace XbNz\Ip\ViewModels;
 use Spatie\LaravelData\Data;
 use XbNz\Ip\Models\IpAddress;
 
-final class ListIpAddressesViewModel extends Data
+final class ListIpAddressesTableViewModel extends Data
 {
     public function __construct(
         public readonly int $id,
