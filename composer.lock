@@ -1409,16 +1409,16 @@
         },
         {
             "name": "composer/class-map-generator",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/class-map-generator.git",
-                "reference": "98bbf6780e56e0fd2404fe4b82eb665a0f93b783"
+                "reference": "4b0a223cf5be7c9ee7e0ef1bc7db42b4a97c9915"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/98bbf6780e56e0fd2404fe4b82eb665a0f93b783",
-                "reference": "98bbf6780e56e0fd2404fe4b82eb665a0f93b783",
+                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/4b0a223cf5be7c9ee7e0ef1bc7db42b4a97c9915",
+                "reference": "4b0a223cf5be7c9ee7e0ef1bc7db42b4a97c9915",
                 "shasum": ""
             },
             "require": {
@@ -1427,10 +1427,10 @@
                 "symfony/finder": "^4.4 || ^5.3 || ^6 || ^7"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.6",
-                "phpstan/phpstan-deprecation-rules": "^1",
-                "phpstan/phpstan-phpunit": "^1",
-                "phpstan/phpstan-strict-rules": "^1.1",
+                "phpstan/phpstan": "^1.12 || ^2",
+                "phpstan/phpstan-deprecation-rules": "^1 || ^2",
+                "phpstan/phpstan-phpunit": "^1 || ^2",
+                "phpstan/phpstan-strict-rules": "^1.1 || ^2",
                 "phpunit/phpunit": "^8",
                 "symfony/filesystem": "^5.4 || ^6"
             },
@@ -1462,7 +1462,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/class-map-generator/issues",
-                "source": "https://github.com/composer/class-map-generator/tree/1.4.0"
+                "source": "https://github.com/composer/class-map-generator/tree/1.5.0"
             },
             "funding": [
                 {
@@ -1478,7 +1478,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-10-03T18:14:00+00:00"
+            "time": "2024-11-25T16:11:06+00:00"
         },
         {
             "name": "composer/composer",
@@ -4248,16 +4248,16 @@
         },
         {
             "name": "livewire/flux",
-            "version": "v1.0.25",
+            "version": "v1.0.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/flux.git",
-                "reference": "356c307ed902a0023dadbaa821baa19c048f6148"
+                "reference": "e787bb0ceef61b092cf1030943ef8355cd8261b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/flux/zipball/356c307ed902a0023dadbaa821baa19c048f6148",
-                "reference": "356c307ed902a0023dadbaa821baa19c048f6148",
+                "url": "https://api.github.com/repos/livewire/flux/zipball/e787bb0ceef61b092cf1030943ef8355cd8261b5",
+                "reference": "e787bb0ceef61b092cf1030943ef8355cd8261b5",
                 "shasum": ""
             },
             "require": {
@@ -4305,25 +4305,25 @@
             ],
             "support": {
                 "issues": "https://github.com/livewire/flux/issues",
-                "source": "https://github.com/livewire/flux/tree/v1.0.25"
+                "source": "https://github.com/livewire/flux/tree/v1.0.27"
             },
-            "time": "2024-11-23T13:16:02+00:00"
+            "time": "2024-11-25T12:36:38+00:00"
         },
         {
             "name": "livewire/flux-pro",
-            "version": "1.0.25",
+            "version": "1.0.27",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.fluxui.dev/download/9d8ed7a2-acfb-4405-9d6d-703ccad80101/flux-pro-1.0.25.zip",
-                "reference": "578c529f6a4a3281ee608a6d67f3ae620dd7a420",
-                "shasum": "7c0dbf8e5e85db2671c683b84fc3daeecb1ee6da"
+                "url": "https://composer.fluxui.dev/download/9d92e7db-c037-4ca6-9899-bdfdb22ac336/flux-pro-1.0.27.zip",
+                "reference": "4d7af10ddaf58daf67c8af08ba1d9743a543ee45",
+                "shasum": "0c38f3534c09b37665eb4df71de213fe6458acce"
             },
             "require": {
                 "illuminate/console": "^10.0|^11.0",
                 "illuminate/support": "^10.0|^11.0",
                 "illuminate/view": "^10.0|^11.0",
                 "laravel/prompts": "^0.1.24|^0.2|^0.3",
-                "livewire/flux": "1.0.25",
+                "livewire/flux": "1.0.27",
                 "livewire/livewire": "^3.5.12",
                 "php": "^8.1",
                 "symfony/console": "^6.0|^7.0"
@@ -4364,7 +4364,7 @@
                 "livewire",
                 "ui"
             ],
-            "time": "2024-11-23T13:24:48+00:00"
+            "time": "2024-11-25T13:53:28+00:00"
         },
         {
             "name": "livewire/livewire",
@@ -4551,12 +4551,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/electron.git",
-                "reference": "124756b1cac4831df3044f22b55104b635c1591a"
+                "reference": "1cdb27a1e7ad816f68c21639b5e6ce1ffea044a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/electron/zipball/124756b1cac4831df3044f22b55104b635c1591a",
-                "reference": "124756b1cac4831df3044f22b55104b635c1591a",
+                "url": "https://api.github.com/repos/NativePHP/electron/zipball/1cdb27a1e7ad816f68c21639b5e6ce1ffea044a1",
+                "reference": "1cdb27a1e7ad816f68c21639b5e6ce1ffea044a1",
                 "shasum": ""
             },
             "require": {
@@ -4633,7 +4633,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-22T09:42:18+00:00"
+            "time": "2024-11-25T13:56:55+00:00"
         },
         {
             "name": "nativephp/laravel",
@@ -4641,12 +4641,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/laravel.git",
-                "reference": "98405aee00259d2ee80251f5cd6c204ef7eb9042"
+                "reference": "41459c2a9df696741febf960cfd46f669f89f636"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/98405aee00259d2ee80251f5cd6c204ef7eb9042",
-                "reference": "98405aee00259d2ee80251f5cd6c204ef7eb9042",
+                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/41459c2a9df696741febf960cfd46f669f89f636",
+                "reference": "41459c2a9df696741febf960cfd46f669f89f636",
                 "shasum": ""
             },
             "require": {
@@ -4728,7 +4728,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-23T10:27:07+00:00"
+            "time": "2024-11-25T13:56:20+00:00"
         },
         {
             "name": "nativephp/php-bin",

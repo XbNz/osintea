@@ -18,6 +18,9 @@ export default {
             },
         },
     },
+    safelist: [
+        'scrollbar-hide',
+    ],
     plugins: [
         require('tailwind-scrollbar-hide')
     ],

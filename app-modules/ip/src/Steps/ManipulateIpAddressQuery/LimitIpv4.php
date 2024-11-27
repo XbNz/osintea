@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Steps\ManipulateIpAddressQuery;
 
-final class FilterIpv4
+final class LimitIpv4
 {
     public function handle(Transporter $transporter): Transporter
     {

@@ -6,15 +6,17 @@ namespace XbNz\Ip\Livewire;
 
 use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Laravel\Facades\Window;
-use XbNz\Ip\DTOs\IpAddressDto;
+use XbNz\Ip\Livewire\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
-use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterIpv4;
-use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterIpv6;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterRoundTripTime;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv4;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAverageRtt;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesViewModel;
@@ -36,7 +38,9 @@ final class ListIpAddresses extends Component
 
     public int $rowAmount = 100;
 
-    private array $filters = [];
+    public array $manipulations = [];
+
+    public RoundTripTimeFilter $roundTripTimeFilter;
 
     public function sort(string $column): void
     {
@@ -53,7 +57,7 @@ final class ListIpAddresses extends Component
     {
         $query = IpAddress::query()->with(['pingSequences']);
 
-        $pipes = $this->filters;
+        $pipes = $this->manipulations;
 
         if (array_key_exists($this->sortBy, self::SORT_MAP)) {
             $pipes[] = self::SORT_MAP[$this->sortBy];
@@ -66,7 +70,11 @@ final class ListIpAddresses extends Component
         }
 
         $query = Pipeline::make()
-            ->send(new Transporter($this->sortDirection, $query))
+            ->send(new Transporter(
+                $this->sortDirection,
+                $query,
+                $this->roundTripTimeFilter,
+            ))
             ->through($pipes)
             ->thenReturn()
             ->query;
@@ -89,28 +97,58 @@ final class ListIpAddresses extends Component
             ->minWidth(775);
     }
 
-    public function filterV4(): void
+    public function limitV4(): void
     {
-        $this->clearFilters();
+        $this->clearIpTypeLimits();
 
-        $this->filters[] = FilterIpv4::class;
+        $this->manipulations[] = LimitIpv4::class;
     }
 
-    public function filterV6(): void
+    public function limitV6(): void
     {
-        $this->clearFilters();
+        $this->clearIpTypeLimits();
 
-        $this->filters[] = FilterIpv6::class;
+        $this->manipulations[] = LimitIpv6::class;
+    }
+
+    public function applyFilters(): void
+    {
+        $toApply = [
+            FilterRoundTripTime::class => $this->roundTripTimeFilter->canBeApplied(),
+        ];
+
+        Collection::make($toApply)
+            ->filter(fn (bool $shouldApply, string $manipulation) => $shouldApply === true)
+            ->each(fn (bool $shouldApply, string $manipulation) => $this->manipulations[] = $manipulation);
+    }
+
+    public function clearIpTypeLimits(): void
+    {
+        $toRemove = [
+            LimitIpv4::class,
+            LimitIpv6::class,
+        ];
+
+        $this->manipulations = array_filter($this->manipulations, fn (string $manipulation) => in_array($manipulation, $toRemove) === false);
     }
 
     public function clearFilters(): void
     {
-        $this->filters = [];
-        }
+        $toRemove = [
+            FilterRoundTripTime::class,
+        ];
+
+        $this->manipulations = array_filter($this->manipulations, fn (string $manipulation) => in_array($manipulation, $toRemove) === false);
+    }
 
     public function loadMore(): void
     {
         $this->rowAmount += 100;
+    }
+
+    public function mount(): void
+    {
+        $this->roundTripTimeFilter = new RoundTripTimeFilter();
     }
 
     public function render()

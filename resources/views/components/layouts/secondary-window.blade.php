@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<div id="app" class="bg-zinc-50 dark:text-gray-400 text-gray-800 dark:bg-zinc-900 min-h-screen overflow-auto scrollbar-hide">
+<div id="app" class="bg-zinc-50 dark:text-gray-400 text-gray-800 dark:bg-zinc-900 min-h-screen overflow-hidden">
     <div style="height: 30px; -webkit-app-region: drag;" class="absolute top-0 left-0 right-0"></div>
     <flux:main container class="mt-3">
         {{ $slot }}

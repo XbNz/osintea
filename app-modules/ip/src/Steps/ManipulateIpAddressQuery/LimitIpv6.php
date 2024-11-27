@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Steps\ManipulateIpAddressQuery;
 
-final class FilterIpv6
+final class LimitIpv6
 {
     public function handle(Transporter $transporter): Transporter
     {
