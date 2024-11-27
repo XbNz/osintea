@@ -21,7 +21,7 @@ final class RoundTripTimeFilter implements Wireable
     public function canBeApplied(): bool
     {
         return Collection::make($this)
-            ->filter(fn (int|null $value) => $value !== null)
+            ->filter(fn (?int $value) => $value !== null)
             ->isNotEmpty();
     }
 
