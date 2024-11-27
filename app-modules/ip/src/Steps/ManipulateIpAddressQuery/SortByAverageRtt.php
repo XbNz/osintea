@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Steps\ManipulateIpAddressQuery;
 
-use Illuminate\Support\Facades\DB;
-
 final class SortByAverageRtt
 {
     public function handle(Transporter $transporter): Transporter

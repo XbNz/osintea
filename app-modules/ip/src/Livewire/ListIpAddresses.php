@@ -95,7 +95,8 @@ final class ListIpAddresses extends Component
     public function ipAddressCount(): string
     {
         $ipAddress = Str::plural('IP Address', $this->query()->count());
-        return number_format($this->query()->count(), thousands_separator: ',') . ' ' . $ipAddress;
+
+        return number_format($this->query()->count(), thousands_separator: ',').' '.$ipAddress;
     }
 
     #[Computed]
