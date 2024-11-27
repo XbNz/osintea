@@ -10,9 +10,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
-use XbNz\Ip\Actions\CreateIpAddressAction;
+use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
-use XbNz\Shared\IpValidator;
 
 #[Layout('components.layouts.secondary-window')]
 final class RangeToIp extends Component
@@ -21,6 +20,9 @@ final class RangeToIp extends Component
 
     #[Locked]
     public string $ipList = '';
+
+    #[Locked]
+    public string $fullyQualifiedOutputPath = '';
 
     /**
      * @return array<string, mixed>
@@ -51,20 +53,14 @@ final class RangeToIp extends Component
             $filesystem->append($inputFile, $range.PHP_EOL);
         }
 
-        $outputFilePath = $rapidParser->inputFilePath($inputFile)->parse();
+        $this->fullyQualifiedOutputPath = $rapidParser->inputFilePath($inputFile)->parse();
 
-        $this->ipList = $filesystem->get($outputFilePath);
+        $this->ipList = $filesystem->get($this->fullyQualifiedOutputPath);
     }
 
-    public function addToMyIpAddresses(CreateIpAddressAction $createIpAddressAction): void
+    public function addToMyIpAddresses(ImportIpAddressesAction $importIpAddressesAction): void
     {
-        $arrayIpList = array_filter(explode(PHP_EOL, $this->ipList), fn (string $ip) => empty($ip) === false);
-
-        foreach ($arrayIpList as $ip) {
-            IpValidator::make($ip)->assertValid();
-
-            $createIpAddressAction->handle($ip);
-        }
+        $importIpAddressesAction->handle($this->fullyQualifiedOutputPath);
     }
 
     public function render()
