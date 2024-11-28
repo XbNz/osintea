@@ -129,20 +129,38 @@ final class PingTest extends TestCase
     public function can_delete_ip_results(): void
     {
         // Arrange
+        $ipAddress = IpAddress::factory()
+            ->has(PingSequence::factory()->count(5))
+            ->create()
+            ->fresh()
+            ->getData();
 
         // Act
+        $this->assertDatabaseCount(PingSequence::class, 5);
+        $response = Livewire::test(Ping::class)
+            ->set('target', $ipAddress->ip)
+            ->call('deleteSequences');
 
         // Assert
+        $this->assertDatabaseCount(PingSequence::class, 0);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
     public function can_stop_ongoing_ping(): void
     {
         // Arrange
+        ChildProcess::fake();
 
         // Act
+        $response = Livewire::test(Ping::class)
+            ->set('target', '1.1.1.1')
+            ->set('interval', 1000)
+            ->call('ping')
+            ->call('stop');
 
         // Assert
+        ChildProcess::assertGet(NativePhpChildProcess::PingWorker->value);
+        ChildProcess::assertMessage(fn (string $message, ?string $alias) => $message === 'target-remove:1.1.1.1' && $alias === null);
     }
 
     #[\PHPUnit\Framework\Attributes\DataProvider('validationProvider')]

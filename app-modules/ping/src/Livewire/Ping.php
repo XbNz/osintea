@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Ping\Livewire;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
@@ -19,6 +20,7 @@ use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ip\Rules\StringResolvesToIpAddressRule;
 use XbNz\Ping\DTOs\PingSequenceDto;
+use XbNz\Ping\Events\Intentions\DeletePingSequenceIntention;
 use XbNz\Ping\Events\PingSequenceInsertedEvent;
 use XbNz\Ping\Models\PingSequence;
 use XbNz\Shared\Actions\StandardDeviationAction;
@@ -211,7 +213,7 @@ final class Ping extends Component
         ];
     }
 
-    public function deleteSequences(): void
+    public function deleteSequences(Dispatcher $dispatcher): void
     {
         if (isset($this->target) === false) {
             Notification::new()
@@ -224,10 +226,7 @@ final class Ping extends Component
 
         $this->ipAddress()
             ->ping_sequences
-            ->each(fn (PingSequenceDto $sequence) => PingSequence::query()
-                ->findOrFail($sequence->id)
-                ->delete()
-            );
+            ->each(fn (PingSequenceDto $sequence) => $dispatcher->dispatch(new DeletePingSequenceIntention($sequence)));
 
         $this->reset();
     }
