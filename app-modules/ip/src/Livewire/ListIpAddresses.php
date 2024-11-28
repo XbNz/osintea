@@ -7,6 +7,7 @@ namespace XbNz\Ip\Livewire;
 use Carbon\CarbonImmutable;
 use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
@@ -16,6 +17,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Laravel\Facades\Window;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
+use Throwable;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
@@ -29,6 +31,7 @@ use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
 use XbNz\Ping\Actions\CreatePingSequenceAction;
 use XbNz\Ping\DTOs\CreatePingSequenceDto;
+use XbNz\Ping\Models\PingSequence;
 use XbNz\Shared\Enums\NativePhpWindow;
 
 #[Layout('components.layouts.secondary-window')]
@@ -107,9 +110,7 @@ final class ListIpAddresses extends Component
 
     public function pingActive(FpingInterface $fping, CreatePingSequenceAction $createPingSequenceAction): void
     {
-        $inputFile = TemporaryDirectory::make()
-            ->force()
-            ->create()
+        $inputFile = TemporaryDirectory::make()->force()->create()
             ->path('input_'.Str::random(5).'.txt');
 
         touch($inputFile);
@@ -133,9 +134,24 @@ final class ListIpAddresses extends Component
         }
     }
 
-    public function deleteActive(): void
+    public function deleteActive(DatabaseManager $database): void
     {
-        $this->query()->delete();
+        $database->beginTransaction();
+
+        try {
+            $this->query()
+                ->lazyById(1000)
+                ->chunk(1000)
+                ->each(fn (LazyCollection $chunk) => PingSequence::query()->whereIn('ip_address_id', $chunk->pluck('id'))->delete());
+
+            $this->query()->delete();
+
+            $database->commit();
+        } catch (Throwable $e) {
+            $database->rollBack();
+
+            throw $e;
+        }
     }
 
     public function goToPingWindow(string $ipAddress): void
