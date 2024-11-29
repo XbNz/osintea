@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Carbon;
 use XbNz\Fping\Models\FpingPreferences;
 
 final class FpingPreferencesFactory extends Factory

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\DTOs;
 
-use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Data;
-use XbNz\Fping\Models\FpingPreferences;
 
 final class CreateFpingPreferencesDto extends Data
 {
