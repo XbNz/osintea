@@ -22,4 +22,22 @@ final class CreateFpingPreferencesDto extends Data
         public readonly bool $dont_fragment,
         public readonly bool $send_random_data,
     ) {}
+
+    public static function sampleData(): self
+    {
+        return new self(
+            'new name',
+            44,
+            2,
+            66,
+            62,
+            15,
+            1200,
+            '0x10',
+            12,
+            5000,
+            true,
+            true,
+        );
+    }
 }

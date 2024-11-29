@@ -24,4 +24,24 @@ final class UpdateFpingPreferencesDto extends Data
         public readonly ?bool $send_random_data,
         public readonly ?bool $enabled,
     ) {}
+
+    public static function sampleData(): self
+    {
+        return new self(
+            1,
+            'new name',
+            44,
+            2,
+            66,
+            62,
+            15,
+            1200,
+            '0x10',
+            12,
+            5000,
+            true,
+            true,
+            true,
+        );
+    }
 }

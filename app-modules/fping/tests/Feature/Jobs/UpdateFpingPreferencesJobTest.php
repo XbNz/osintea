@@ -7,31 +7,30 @@ namespace XbNz\Fping\Tests\Feature\Jobs;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
-use XbNz\Fping\Jobs\CreateFpingPreferencesJob;
+use XbNz\Fping\DTOs\UpdateFpingPreferencesDto;
+use XbNz\Fping\Jobs\UpdateFpingPreferencesJob;
 use XbNz\Fping\Models\FpingPreferences;
 
-final class CreateFpingPreferencesJobTest extends TestCase
+final class UpdateFpingPreferencesJobTest extends TestCase
 {
     use RefreshDatabase;
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_creates_fping_preferences(): void
+    public function it_updates_fping_preferences(): void
     {
         // Arrange
-        $this->assertDatabaseCount(FpingPreferences::class, 0);
+        $fpingPreferences = FpingPreferences::factory()->create()->fresh()->getData();
 
         // Act
         $this->app->make(Dispatcher::class)->dispatch(
-            new CreateFpingPreferencesJob(
-                $dto = CreateFpingPreferencesDto::sampleData()
+            new UpdateFpingPreferencesJob(
+                $dto = UpdateFpingPreferencesDto::sampleData()
             )
         );
 
         // Assert
-        $this->assertDatabaseCount(FpingPreferences::class, 1);
-
         $this->assertDatabaseHas(FpingPreferences::class, [
+            'id' => $fpingPreferences->id,
             'name' => $dto->name,
             'size' => $dto->size,
             'backoff' => $dto->backoff,
@@ -44,6 +43,7 @@ final class CreateFpingPreferencesJobTest extends TestCase
             'timeout' => $dto->timeout,
             'dont_fragment' => $dto->dont_fragment,
             'send_random_data' => $dto->send_random_data,
+            'enabled' => $dto->enabled,
         ]);
     }
 }
