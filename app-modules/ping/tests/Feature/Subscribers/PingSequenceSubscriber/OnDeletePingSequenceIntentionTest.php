@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Ping\Tests\Feature\Subscribers\PingSequenceSubscriber;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;

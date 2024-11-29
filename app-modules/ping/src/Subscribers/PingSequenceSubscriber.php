@@ -13,8 +13,7 @@ final class PingSequenceSubscriber
 {
     public function __construct(
         private readonly Dispatcher $dispatcher,
-    ) {
-    }
+    ) {}
 
     #[ListensTo(DeletePingSequenceIntention::class)]
     public function onDeletePingSequenceIntention(DeletePingSequenceIntention $intention): void

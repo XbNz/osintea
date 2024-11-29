@@ -6,7 +6,6 @@ namespace Tests\Feature\Subscribers\NativePhpSubscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Native\Laravel\Events\Windows\WindowClosed;
-use Native\Laravel\Events\Windows\WindowHidden;
 use Native\Laravel\Facades\GlobalShortcut;
 use Tests\TestCase;
 
