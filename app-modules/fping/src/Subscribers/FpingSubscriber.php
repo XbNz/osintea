@@ -13,8 +13,7 @@ final class FpingSubscriber
 {
     public function __construct(
         private readonly Dispatcher $dispatcher
-    ) {
-    }
+    ) {}
 
     #[ListensTo(CreateFpingPreferencesIntention::class)]
     public function onCreateFpingPreferencesIntention(CreateFpingPreferencesIntention $intention): void

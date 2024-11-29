@@ -17,7 +17,7 @@ final class FpingServiceProvider extends ServiceProvider
      * @var array<int, class-string>
      */
     private array $subscribers = [
-        FpingSubscriber::class
+        FpingSubscriber::class,
     ];
 
     public function register(): void
