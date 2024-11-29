@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace App\Subscribers;
 
 use App\Events\OpenCommandPaletteEvent;
+use App\Events\OpenPreferencesEvent;
+use Native\Laravel\Events\Windows\WindowBlurred;
+use Native\Laravel\Events\Windows\WindowClosed;
+use Native\Laravel\Events\Windows\WindowFocused;
+use Native\Laravel\Events\Windows\WindowHidden;
+use Native\Laravel\Facades\GlobalShortcut;
 use Native\Laravel\Facades\Window;
 use XbNz\Shared\Attributes\ListensTo;
 use XbNz\Shared\Enums\NativePhpWindow;
@@ -15,6 +21,7 @@ final class NativePhpSubscriber
     public function onOpenCommandPalette(): void
     {
         Window::open(NativePhpWindow::CommandPalette->value)
+            ->route('search')
             ->alwaysOnTop()
             ->transparent()
             ->resizable(false)
@@ -26,5 +33,35 @@ final class NativePhpSubscriber
             ->width(600)
             ->minHeight(300)
             ->minWidth(600);
+    }
+
+    #[ListensTo(OpenPreferencesEvent::class)]
+    public function onOpenPreferences(): void
+    {
+        Window::open(NativePhpWindow::Preferences->value)
+            ->route('preferences')
+            ->showDevTools(false)
+            ->titleBarHiddenInset()
+            ->transparent()
+            ->height(500)
+            ->width(775)
+            ->minHeight(500)
+            ->minWidth(775);
+    }
+
+    #[ListensTo(WindowFocused::class)]
+    public function onWindowFocused(): void
+    {
+        GlobalShortcut::key('CmdOrCtrl+,')
+            ->event(OpenPreferencesEvent::class)
+            ->register();
+    }
+
+    #[ListensTo(WindowClosed::class)]
+    #[ListensTo(WindowBlurred::class)]
+    #[ListensTo(WindowHidden::class)]
+    public function onWindow(): void
+    {
+        GlobalShortcut::key('CmdOrCtrl+,')->unregister();
     }
 }

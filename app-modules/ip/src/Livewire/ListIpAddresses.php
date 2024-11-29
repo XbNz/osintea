@@ -110,7 +110,9 @@ final class ListIpAddresses extends Component
 
     public function pingActive(FpingInterface $fping, CreatePingSequenceAction $createPingSequenceAction): void
     {
-        $inputFile = TemporaryDirectory::make()->force()->create()
+        $inputFile = TemporaryDirectory::make()
+            ->force()
+            ->create()
             ->path('input_'.Str::random(5).'.txt');
 
         touch($inputFile);

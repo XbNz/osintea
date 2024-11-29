@@ -10,10 +10,7 @@ use XbNz\Ip\DTOs\IpAddressDto;
 final class BulkPingAction
 {
     /**
-     * @param Collection<IpAddressDto> $ipAddressDtos
+     * @param  Collection<IpAddressDto>  $ipAddressDtos
      */
-    public function handle(Collection $ipAddressDtos): void
-    {
-        
-    }
+    public function handle(Collection $ipAddressDtos): void {}
 }

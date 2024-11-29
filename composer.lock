@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3de0839aa99e9a32e8672f13fe4e8da",
+    "content-hash": "b8f5371d9352cc0eec5d1f4aa7aad46f",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4642,16 +4642,10 @@
         {
             "name": "nativephp/laravel",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/NativePHP/laravel.git",
-                "reference": "49dee31a662aa7208c4b51745471978fad21fd41"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/49dee31a662aa7208c4b51745471978fad21fd41",
-                "reference": "49dee31a662aa7208c4b51745471978fad21fd41",
-                "shasum": ""
+                "type": "path",
+                "url": "../nativephp-laravel",
+                "reference": "49dee31a662aa7208c4b51745471978fad21fd41"
             },
             "require": {
                 "illuminate/contracts": "^10.0|^11.0",
@@ -4673,7 +4667,6 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.26"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -4695,7 +4688,28 @@
                     "Native\\Laravel\\Database\\Factories\\": "database/factories/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Native\\Laravel\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "post-autoload-dump": [
+                    "@php ./vendor/bin/testbench package:discover --ansi"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse"
+                ],
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "test-coverage": [
+                    "vendor/bin/pest --coverage"
+                ],
+                "format": [
+                    "vendor/bin/pint"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -4718,21 +4732,20 @@
                 "nativephp",
                 "nativephp-laravel"
             ],
-            "support": {
-                "issues": "https://github.com/NativePHP/laravel/issues",
-                "source": "https://github.com/NativePHP/laravel/tree/main"
-            },
             "funding": [
                 {
-                    "url": "https://github.com/sponsors/simonhamp",
-                    "type": "github"
+                    "type": "github",
+                    "url": "https://github.com/sponsors/simonhamp"
                 },
                 {
-                    "url": "https://opencollective.com/nativephp",
-                    "type": "opencollective"
+                    "type": "opencollective",
+                    "url": "https://opencollective.com/nativephp"
                 }
             ],
-            "time": "2024-11-26T14:16:16+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "nativephp/php-bin",
