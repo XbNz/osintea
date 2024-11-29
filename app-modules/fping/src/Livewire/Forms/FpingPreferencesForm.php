@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Livewire\Forms;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
+use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
+use XbNz\Fping\Events\Intentions\CreateFpingPreferencesIntention;
 
 final class FpingPreferencesForm extends Form
 {
@@ -70,6 +73,28 @@ final class FpingPreferencesForm extends Form
         $this->dont_fragment = $fpingPreferences->dont_fragment;
         $this->send_random_data = $fpingPreferences->send_random_data;
         $this->enabled = $fpingPreferences->enabled;
+    }
+
+    public function store(Dispatcher $dispatcher): void
+    {
+        $this->validate();
+
+        $dispatcher->dispatch(new CreateFpingPreferencesIntention(
+            new CreateFpingPreferencesDto(
+                $this->name,
+                $this->size,
+                $this->backoff,
+                $this->count,
+                $this->ttl,
+                $this->interval,
+                $this->interval_per_target,
+                $this->type_of_service,
+                $this->retries,
+                $this->timeout,
+                $this->dont_fragment,
+                $this->send_random_data,
+            )
+        ));
     }
 
     public function update(): void
