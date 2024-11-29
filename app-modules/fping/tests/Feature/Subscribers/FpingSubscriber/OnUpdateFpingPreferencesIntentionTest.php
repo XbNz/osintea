@@ -7,11 +7,8 @@ namespace XbNz\Fping\Tests\Feature\Subscribers\FpingSubscriber;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
-use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
 use XbNz\Fping\DTOs\UpdateFpingPreferencesDto;
-use XbNz\Fping\Events\Intentions\CreateFpingPreferencesIntention;
 use XbNz\Fping\Events\Intentions\UpdateFpingPreferencesIntention;
-use XbNz\Fping\Jobs\CreateFpingPreferencesJob;
 use XbNz\Fping\Jobs\UpdateFpingPreferencesJob;
 use XbNz\Fping\Subscribers\FpingSubscriber;
 
