@@ -21,6 +21,7 @@ final class CreateFpingPreferencesActionTest extends TestCase
         // Arrange
         $action = $this->app->make(CreateFpingPreferencesAction::class);
         $dto = new CreateFpingPreferencesDto(
+            'test',
             56,
             1,
             5,
@@ -39,6 +40,7 @@ final class CreateFpingPreferencesActionTest extends TestCase
 
         // Assert
         $this->assertDatabaseHas(FpingPreferences::class, [
+            'name' => 'test',
             'size' => 56,
             'backoff' => 1,
             'count' => 5,

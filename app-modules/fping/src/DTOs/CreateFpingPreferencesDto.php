@@ -9,6 +9,7 @@ use Spatie\LaravelData\Data;
 final class CreateFpingPreferencesDto extends Data
 {
     public function __construct(
+        public readonly string $name,
         public readonly int $size,
         public readonly float $backoff,
         public readonly int $count,

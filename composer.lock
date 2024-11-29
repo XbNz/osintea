@@ -4645,7 +4645,7 @@
             "dist": {
                 "type": "path",
                 "url": "../nativephp-laravel",
-                "reference": "49dee31a662aa7208c4b51745471978fad21fd41"
+                "reference": "ea19bfd4f949e2807157af71cbdbfdf7ebce3717"
             },
             "require": {
                 "illuminate/contracts": "^10.0|^11.0",
@@ -10344,7 +10344,7 @@
             "dist": {
                 "type": "path",
                 "url": "app-modules/fping",
-                "reference": "53ccf81910e91df147888e8d3c2cf3867cddda48"
+                "reference": "85a020e8183068182696ab01a6711b0e3fc4ff1f"
             },
             "type": "library",
             "extra": {
@@ -10357,7 +10357,8 @@
             "autoload": {
                 "psr-4": {
                     "XbNz\\Fping\\": "src/",
-                    "XbNz\\Fping\\Tests\\": "tests/"
+                    "XbNz\\Fping\\Tests\\": "tests/",
+                    "XbNz\\Fping\\Database\\Factories\\": "database/factories/"
                 }
             },
             "license": [

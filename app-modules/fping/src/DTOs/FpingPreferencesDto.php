@@ -12,6 +12,7 @@ final class FpingPreferencesDto extends Data
 {
     public function __construct(
         public readonly int $id,
+        public readonly string $name,
         public readonly int $size,
         public readonly float $backoff,
         public readonly int $count,
@@ -32,6 +33,7 @@ final class FpingPreferencesDto extends Data
     {
         return new self(
             $fpingPreferences->id,
+            $fpingPreferences->name,
             $fpingPreferences->size,
             $fpingPreferences->backoff,
             $fpingPreferences->count,

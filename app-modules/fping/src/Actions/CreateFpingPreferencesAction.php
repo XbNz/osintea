@@ -14,6 +14,7 @@ final class CreateFpingPreferencesAction
     {
         return FpingPreferences::query()
             ->create([
+                'name' => $dto->name,
                 'size' => $dto->size,
                 'backoff' => $dto->backoff,
                 'count' => $dto->count,

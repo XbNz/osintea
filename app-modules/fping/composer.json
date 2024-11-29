@@ -8,7 +8,8 @@
 	"autoload": {
 		"psr-4": {
 			"XbNz\\Fping\\": "src/",
-			"XbNz\\Fping\\Tests\\": "tests/"
+			"XbNz\\Fping\\Tests\\": "tests/",
+            "XbNz\\Fping\\Database\\Factories\\": "database/factories/"
 		}
 	},
 	"minimum-stability": "stable",

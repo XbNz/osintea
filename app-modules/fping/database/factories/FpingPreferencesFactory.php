@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Database\Factories;
+namespace XbNz\Fping\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use XbNz\Fping\Models\FpingPreferences;
@@ -14,6 +14,7 @@ final class FpingPreferencesFactory extends Factory
     public function definition(): array
     {
         return [
+            'name' => $this->faker->word,
             'size' => 56,
             'backoff' => 1.5,
             'count' => 1,

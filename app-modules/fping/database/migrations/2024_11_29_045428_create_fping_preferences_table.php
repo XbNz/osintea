@@ -12,6 +12,7 @@ return new class() extends Migration
     {
         Schema::create('fping_preferences', function (Blueprint $table): void {
             $table->id();
+            $table->string('name')->unique();
             $table->unsignedInteger('size')->default(56);
             $table->float('backoff')->default(1.5);
             $table->unsignedInteger('count')->default(1);

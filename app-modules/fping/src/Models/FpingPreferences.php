@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Models;
 
-use Database\Factories\FpingPreferencesFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\WithData;
+use XbNz\Fping\Database\Factories\FpingPreferencesFactory;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
 
 final class FpingPreferences extends Model
@@ -44,5 +44,10 @@ final class FpingPreferences extends Model
             'created_at' => 'immutable_datetime',
             'updated_at' => 'immutable_datetime',
         ];
+    }
+
+    protected static function newFactory(): FpingPreferencesFactory
+    {
+        return FpingPreferencesFactory::new();
     }
 }
