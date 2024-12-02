@@ -29,7 +29,7 @@ final class UpdateFpingPreferencesAction
             'dont_fragment' => $dto->dont_fragment,
             'send_random_data' => $dto->send_random_data,
             'enabled' => $dto->enabled,
-        ]));
+        ], fn (mixed $value) => $value !== null));
 
         if (empty($updated) === true) {
             return $beforeUpdate;

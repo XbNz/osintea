@@ -26,7 +26,6 @@ final class NativePhpSubscriber
             ->transparent()
             ->resizable(false)
             ->closable(true)
-            ->route('search')
             ->frameless()
             ->showDevTools(false)
             ->height(300)

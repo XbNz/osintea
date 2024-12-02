@@ -5,14 +5,25 @@ declare(strict_types=1);
 namespace XbNz\Fping\Livewire\Forms;
 
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Locked;
 use Livewire\Form;
 use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
+use XbNz\Fping\DTOs\UpdateFpingPreferencesDto;
 use XbNz\Fping\Events\Intentions\CreateFpingPreferencesIntention;
+use XbNz\Fping\Events\Intentions\DeleteFpingPreferencesIntention;
+use XbNz\Fping\Events\Intentions\EnableFpingPreferencesIntention;
+use XbNz\Fping\Events\Intentions\UpdateFpingPreferencesIntention;
+use XbNz\Fping\Models\FpingPreferences;
 
 final class FpingPreferencesForm extends Form
 {
+    #[Locked]
+    public int $id;
+
     public string $name;
 
     public int $size;
@@ -42,7 +53,8 @@ final class FpingPreferencesForm extends Form
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', Rule::unique('fping_preferences', 'name')],
+            'id' => ['required', 'integer', Rule::exists(FpingPreferences::class, 'id')],
+            'name' => ['required', 'string'],
             'size' => ['required', 'integer', 'min:0'],
             'backoff' => ['required', 'numeric', 'min:0'],
             'count' => ['required', 'integer', 'min:1'],
@@ -60,6 +72,7 @@ final class FpingPreferencesForm extends Form
 
     public function setFpingPreferences(FpingPreferencesDto $fpingPreferences): void
     {
+        $this->id = $fpingPreferences->id;
         $this->name = $fpingPreferences->name;
         $this->size = $fpingPreferences->size;
         $this->backoff = $fpingPreferences->backoff;
@@ -75,12 +88,55 @@ final class FpingPreferencesForm extends Form
         $this->enabled = $fpingPreferences->enabled;
     }
 
-    public function store(Dispatcher $dispatcher): void
+    public function createWithSensibleDefaults(): void
+    {
+        app(Dispatcher::class)->dispatch(new CreateFpingPreferencesIntention(
+            new CreateFpingPreferencesDto(
+                Str::random(6),
+                56,
+                1.5,
+                1,
+                64,
+                10,
+                1000,
+                '0x00',
+                1,
+                500,
+                false,
+                false,
+            )
+        ));
+    }
+
+    public function delete(): void
+    {
+        $record = FpingPreferences::query()->findOrFail($this->id)->getData();
+
+        if ($record->enabled === true) {
+            return;
+        }
+
+        app(Dispatcher::class)->dispatch(new DeleteFpingPreferencesIntention($record));
+    }
+
+    public function enable(): void
+    {
+        $record = FpingPreferences::query()->findOrFail($this->id)->getData();
+
+        if ($record->enabled === true) {
+            return;
+        }
+
+        app(Dispatcher::class)->dispatch(new EnableFpingPreferencesIntention($record));
+    }
+
+    public function update(): void
     {
         $this->validate();
 
-        $dispatcher->dispatch(new CreateFpingPreferencesIntention(
-            new CreateFpingPreferencesDto(
+        app(Dispatcher::class)->dispatch(new UpdateFpingPreferencesIntention(
+            new UpdateFpingPreferencesDto(
+                $this->id,
                 $this->name,
                 $this->size,
                 $this->backoff,
@@ -95,11 +151,5 @@ final class FpingPreferencesForm extends Form
                 $this->send_random_data,
             )
         ));
-    }
-
-    public function update(): void
-    {
-        $this->validate();
-
     }
 }
