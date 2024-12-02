@@ -8,13 +8,8 @@ use Flux\Flux;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Renderless;
 use Livewire\Component;
-use Psl\Type;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
-use XbNz\Fping\Events\FpingPreferencesDeletedEvent;
-use XbNz\Fping\Events\FpingPreferencesInsertedEvent;
 use XbNz\Fping\Livewire\Forms\FpingPreferencesForm;
 use XbNz\Fping\Models\FpingPreferences as FpingPreferencesModel;
 

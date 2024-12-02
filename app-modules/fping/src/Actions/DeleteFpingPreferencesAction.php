@@ -13,8 +13,7 @@ final class DeleteFpingPreferencesAction
 {
     public function __construct(
         private readonly Dispatcher $dispatcher
-    ) {
-    }
+    ) {}
 
     public function handle(FpingPreferencesDto $record): FpingPreferencesDto
     {
