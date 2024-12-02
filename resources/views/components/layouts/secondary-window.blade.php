@@ -28,7 +28,7 @@
 @fluxScripts
 @stack('scripts')
 @persist('toast')
-<flux:toast />
+    <flux:toast />
 @endpersist
 </body>
 

@@ -6,9 +6,11 @@ namespace XbNz\Fping\Tests\Feature\Actions;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use XbNz\Fping\Actions\CreateFpingPreferencesAction;
 use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
+use XbNz\Fping\Events\FpingPreferencesInsertedEvent;
 use XbNz\Fping\Models\FpingPreferences;
 
 final class CreateFpingPreferencesActionTest extends TestCase
@@ -55,5 +57,20 @@ final class CreateFpingPreferencesActionTest extends TestCase
         ]);
 
         $result->created_at->isSameSecond(CarbonImmutable::now());
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function event_is_dispatched(): void
+    {
+        // Arrange
+        Event::fake([FpingPreferencesInsertedEvent::class]);
+
+        $action = $this->app->make(CreateFpingPreferencesAction::class);
+
+        // Act
+        $action->handle($dto = CreateFpingPreferencesDto::sampleData());
+
+        // Assert
+        Event::assertDispatched(FpingPreferencesInsertedEvent::class, fn (FpingPreferencesInsertedEvent $event) => $event->record->name === $dto->name);
     }
 }

@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Actions;
 
+use Illuminate\Contracts\Events\Dispatcher;
 use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
+use XbNz\Fping\Events\FpingPreferencesInsertedEvent;
 use XbNz\Fping\Models\FpingPreferences;
 
 final class CreateFpingPreferencesAction
 {
+    public function __construct(
+        private readonly Dispatcher $dispatcher
+    ) {}
+
     public function handle(CreateFpingPreferencesDto $dto): FpingPreferencesDto
     {
-        return FpingPreferences::query()
+        $fpingPreferences = FpingPreferences::query()
             ->create([
                 'name' => $dto->name,
                 'size' => $dto->size,
@@ -27,5 +33,9 @@ final class CreateFpingPreferencesAction
                 'dont_fragment' => $dto->dont_fragment,
                 'send_random_data' => $dto->send_random_data,
             ])->refresh()->getData();
+
+        $this->dispatcher->dispatch(new FpingPreferencesInsertedEvent($fpingPreferences));
+
+        return $fpingPreferences;
     }
 }

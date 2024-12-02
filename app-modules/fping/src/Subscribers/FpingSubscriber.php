@@ -24,24 +24,24 @@ final class FpingSubscriber
     #[ListensTo(CreateFpingPreferencesIntention::class)]
     public function onCreateFpingPreferencesIntention(CreateFpingPreferencesIntention $intention): void
     {
-        $this->dispatcher->dispatch(new CreateFpingPreferencesJob($intention->dto));
+        $this->dispatcher->dispatchSync(new CreateFpingPreferencesJob($intention->dto));
     }
 
     #[ListensTo(UpdateFpingPreferencesIntention::class)]
     public function onUpdateFpingPreferencesIntention(UpdateFpingPreferencesIntention $intention): void
     {
-        $this->dispatcher->dispatch(new UpdateFpingPreferencesJob($intention->dto));
+        $this->dispatcher->dispatchSync(new UpdateFpingPreferencesJob($intention->dto));
     }
 
     #[ListensTo(EnableFpingPreferencesIntention::class)]
     public function onEnableFpingPreferencesIntention(EnableFpingPreferencesIntention $intention): void
     {
-        $this->dispatcher->dispatch(new EnableFpingPreferencesJob($intention->record));
+        $this->dispatcher->dispatchSync(new EnableFpingPreferencesJob($intention->record));
     }
 
     #[ListensTo(DeleteFpingPreferencesIntention::class)]
     public function onDeleteFpingPreferencesIntention(DeleteFpingPreferencesIntention $intention): void
     {
-        $this->dispatcher->dispatch(new DeleteFpingPreferencesJob($intention->record));
+        $this->dispatcher->dispatchSync(new DeleteFpingPreferencesJob($intention->record));
     }
 }

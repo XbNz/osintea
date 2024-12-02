@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace XbNz\Fping\Tests\Feature\Actions;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 use XbNz\Fping\Actions\DeleteFpingPreferencesAction;
+use XbNz\Fping\Events\FpingPreferencesDeletedEvent;
 use XbNz\Fping\Models\FpingPreferences;
 
 final class DeleteFpingPreferencesActionTest extends TestCase
@@ -27,5 +29,22 @@ final class DeleteFpingPreferencesActionTest extends TestCase
         $this->assertDatabaseMissing(FpingPreferences::class, [
             'id' => $fpingPreferences->id,
         ]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function event_is_dispatched(): void
+    {
+        // Arrange
+        Event::fake([FpingPreferencesDeletedEvent::class]);
+
+        $fpingPreferences = FpingPreferences::factory()->create()->getData();
+
+        $action = $this->app->make(DeleteFpingPreferencesAction::class);
+
+        // Act
+        $action->handle($fpingPreferences);
+
+        // Assert
+        Event::assertDispatched(FpingPreferencesDeletedEvent::class, fn (FpingPreferencesDeletedEvent $event) => $event->record === $fpingPreferences);
     }
 }

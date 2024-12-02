@@ -4,24 +4,23 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Livewire;
 
+use Flux\Flux;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Psl\Type;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
+use XbNz\Fping\Events\FpingPreferencesDeletedEvent;
+use XbNz\Fping\Events\FpingPreferencesInsertedEvent;
 use XbNz\Fping\Livewire\Forms\FpingPreferencesForm;
 use XbNz\Fping\Models\FpingPreferences as FpingPreferencesModel;
 
 final class FpingPreferences extends Component
 {
     public FpingPreferencesForm $form;
-
-    /**
-     * @var array<string, string>
-     */
-    protected $listeners = [
-        'refreshComponent' => '$refresh',
-    ];
 
     /**
      * @return Collection<int, FpingPreferencesDto>
@@ -52,6 +51,8 @@ final class FpingPreferences extends Component
     public function delete(): void
     {
         $this->form->delete();
+
+        Flux::toast('Preferences removed.', 'Deleted', variant: 'success');
     }
 
     public function updated(): void
@@ -59,6 +60,8 @@ final class FpingPreferences extends Component
         $this->form->validate();
 
         $this->form->update();
+
+        Flux::toast('Changes saved.', 'Saved', 2000, 'success');
     }
 
     public function mount(): void
