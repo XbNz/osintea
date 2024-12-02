@@ -6,6 +6,7 @@ namespace XbNz\Ip\Livewire;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -63,7 +64,7 @@ final class RangeToIp extends Component
         $importIpAddressesAction->handle($this->fullyQualifiedOutputPath);
     }
 
-    public function render()
+    public function render(): View
     {
         return view('ip::livewire.range-to-ip');
     }

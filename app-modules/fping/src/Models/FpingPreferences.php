@@ -11,6 +11,9 @@ use Spatie\LaravelData\WithData;
 use XbNz\Fping\Database\Factories\FpingPreferencesFactory;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
 
+/**
+ * @mixin IdeHelperFpingPreferences
+ */
 final class FpingPreferences extends Model
 {
     /**

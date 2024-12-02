@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace XbNz\Fping\Livewire\Forms;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Locked;
@@ -50,6 +49,9 @@ final class FpingPreferencesForm extends Form
 
     public bool $enabled;
 
+    /**
+     * @return array<string, array<int, mixed>>
+     */
     public function rules(): array
     {
         return [

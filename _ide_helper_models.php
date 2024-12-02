@@ -11,36 +11,50 @@
  */
 
 
-namespace App\Models{
+namespace XbNz\Fping\Models{
 /**
  * 
  *
  * @property int $id
  * @property string $name
- * @property string $email
- * @property \Illuminate\Support\Carbon|null $email_verified_at
- * @property string $password
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
- * @property-read int|null $notifications_count
- * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmailVerifiedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
+ * @property int $size
+ * @property float $backoff
+ * @property int $count
+ * @property int $ttl
+ * @property int $interval
+ * @property int $interval_per_target
+ * @property string $type_of_service
+ * @property int $retries
+ * @property int $timeout
+ * @property bool $dont_fragment
+ * @property bool $send_random_data
+ * @property bool $enabled
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @method static \XbNz\Fping\Database\Factories\FpingPreferencesFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereBackoff($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereDontFragment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereInterval($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereIntervalPerTarget($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereRetries($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereSendRandomData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereTimeout($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereTtl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereTypeOfService($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
-	final class IdeHelperUser {}
+	final class IdeHelperFpingPreferences {}
 }
 
 namespace XbNz\Ip\Models{

@@ -35,6 +35,6 @@ final class UpdateFpingPreferencesAction
             return $beforeUpdate;
         }
 
-        return $fpingPreferences->fresh()->getData();
+        return $fpingPreferences->refresh()->getData();
     }
 }

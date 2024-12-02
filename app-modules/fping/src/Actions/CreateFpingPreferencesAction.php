@@ -26,6 +26,6 @@ final class CreateFpingPreferencesAction
                 'timeout' => $dto->timeout,
                 'dont_fragment' => $dto->dont_fragment,
                 'send_random_data' => $dto->send_random_data,
-            ])->fresh()->getData();
+            ])->refresh()->getData();
     }
 }

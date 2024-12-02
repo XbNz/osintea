@@ -20,17 +20,20 @@ final class RoundTripTimeFilter implements Wireable
 
     public function canBeApplied(): bool
     {
-        return Collection::make($this)
+        return Collection::make((array) $this)
             ->filter(fn (?int $value) => $value !== null)
             ->isNotEmpty();
     }
 
+    /**
+     * @return array<string, int|null>
+     */
     public function toLivewire(): array
     {
         return (array) $this;
     }
 
-    public static function fromLivewire($value): self
+    public static function fromLivewire(mixed $value): self
     {
         return new self(...$value);
     }

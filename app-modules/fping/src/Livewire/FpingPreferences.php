@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Livewire;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use XbNz\Fping\DTOs\FpingPreferencesDto;
-use XbNz\Fping\Events\Intentions\EnableFpingPreferencesIntention;
 use XbNz\Fping\Livewire\Forms\FpingPreferencesForm;
 use XbNz\Fping\Models\FpingPreferences as FpingPreferencesModel;
 
@@ -24,6 +23,9 @@ final class FpingPreferences extends Component
         'refreshComponent' => '$refresh',
     ];
 
+    /**
+     * @return Collection<int, FpingPreferencesDto>
+     */
     #[Computed]
     public function fpingPreferencesRecords(): Collection
     {
@@ -61,10 +63,10 @@ final class FpingPreferences extends Component
 
     public function mount(): void
     {
-        $this->form->setFpingPreferences($this->fpingPreferencesRecords->first());
+        $this->form->setFpingPreferences($this->fpingPreferencesRecords()->firstOrFail());
     }
 
-    public function render()
+    public function render(): View
     {
         return view('fping::livewire.fping-preferences');
     }

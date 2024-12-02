@@ -42,10 +42,10 @@ final class NativePhpSubscriber
             ->showDevTools(false)
             ->titleBarHiddenInset()
             ->transparent()
-            ->height(500)
-            ->width(775)
-            ->minHeight(500)
-            ->minWidth(775);
+            ->height(640)
+            ->width(820)
+            ->minHeight(640)
+            ->minWidth(820);
     }
 
     #[ListensTo(WindowFocused::class)]

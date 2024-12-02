@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Shared\Actions;
 
-use Webmozart\Assert\Assert;
-
 final class StandardDeviationAction
 {
     /**
@@ -13,8 +11,6 @@ final class StandardDeviationAction
      */
     public function handle(array $values): float
     {
-        Assert::allFloat($values);
-
         $mean = array_sum($values) / count($values);
 
         $variance = array_sum(

@@ -41,17 +41,18 @@
         "barryvdh/laravel-ide-helper": "^3.2",
         "fakerphp/faker": "^1.23",
         "jetbrains/phpstorm-attributes": "^1.2",
-        "larastan/larastan": "^2.9",
+        "larastan/larastan": "^3.0",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.18",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.1",
-        "php-standard-library/phpstan-extension": "^1.1",
+        "php-standard-library/phpstan-extension": "^2.0",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan-webmozart-assert": "^1.2",
+        "phpstan/phpstan-webmozart-assert": "^2.0",
         "phpunit/phpunit": "^11.0.1",
-        "spatie/invade": "^2.1"
+        "spatie/invade": "^2.1",
+        "brianium/paratest": "^7.6"
     },
     "autoload": {
         "psr-4": {
@@ -115,13 +116,6 @@
         "0": {
             "type": "path",
             "url": "app-modules/*",
-            "options": {
-                "symlink": true
-            }
-        },
-        "1": {
-            "type": "path",
-            "url": "../nativephp-laravel",
             "options": {
                 "symlink": true
             }
