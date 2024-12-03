@@ -10,7 +10,7 @@ use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\FakeFping;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\Actions\FulfillSequenceAction;
-use XbNz\Ping\DTOs\PingResultDTO;
+use XbNz\Ping\DTOs\PingResultDto;
 use XbNz\Ping\Models\PingSequence;
 use XbNz\Ping\ValueObjects\Sequence;
 
@@ -29,7 +29,7 @@ final class FulfillSequenceActionTest extends TestCase
         $ipAddress = IpAddress::factory()->create()->fresh()->getData();
 
         $fake->forceReturn([
-            new PingResultDTO(
+            new PingResultDto(
                 $ipAddress->ip,
                 $ipAddress->type,
                 [
@@ -61,7 +61,7 @@ final class FulfillSequenceActionTest extends TestCase
         $ipAddress = IpAddress::factory()->create()->fresh()->getData();
 
         $fake->forceReturn([
-            new PingResultDTO(
+            new PingResultDto(
                 $ipAddress->ip,
                 $ipAddress->type,
                 [

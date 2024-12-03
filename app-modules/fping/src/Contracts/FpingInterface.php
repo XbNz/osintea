@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Fping\Contracts;
 
-use XbNz\Ping\DTOs\PingResultDTO;
+use XbNz\Ping\DTOs\PingResultDto;
 
 interface FpingInterface
 {
@@ -24,7 +24,7 @@ interface FpingInterface
 
     public function timeToLive(int $ttl): self;
 
-    public function interval(float $interval): self;
+    public function interval(int $interval): self;
 
     public function resolveAllHostnameIpAddresses(bool $bool = true): self;
 
@@ -32,7 +32,7 @@ interface FpingInterface
 
     public function typeOfService(string $tos): self;
 
-    public function intervalPerHost(float $interval): self;
+    public function intervalPerHost(int $interval): self;
 
     public function retries(int $retries): self;
 
@@ -43,7 +43,7 @@ interface FpingInterface
     public function timeout(int $timeout): self;
 
     /**
-     * @return array<int, PingResultDTO>
+     * @return array<int, PingResultDto>
      */
     public function execute(): array;
 }

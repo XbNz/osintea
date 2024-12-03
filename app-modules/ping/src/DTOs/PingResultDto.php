@@ -7,7 +7,7 @@ namespace XbNz\Ping\DTOs;
 use XbNz\Ping\ValueObjects\Sequence;
 use XbNz\Shared\ValueObjects\IpType;
 
-final class PingResultDTO
+final class PingResultDto
 {
     /**
      * @param  array<int, Sequence>  $sequences

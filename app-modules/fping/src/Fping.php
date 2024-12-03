@@ -12,7 +12,7 @@ use RuntimeException;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\Contracts\FpingInterface;
-use XbNz\Ping\DTOs\PingResultDTO;
+use XbNz\Ping\DTOs\PingResultDto;
 use XbNz\Ping\ValueObjects\Sequence;
 use XbNz\Shared\BinFinder;
 use XbNz\Shared\IpValidator;
@@ -80,7 +80,7 @@ final class Fping implements FpingInterface
 
     private int $timeToLive = 64;
 
-    private float $interval = 0.1;
+    private int $interval = 10;
 
     private bool $resolveAllHostnameIpAddresses = false;
 
@@ -88,7 +88,7 @@ final class Fping implements FpingInterface
 
     private string $typeOfService = '0x00';
 
-    private float $intervalPerHost = 1000;
+    private int $intervalPerHost = 1000;
 
     private int $retries = 1;
 
@@ -211,7 +211,7 @@ final class Fping implements FpingInterface
         return $this;
     }
 
-    public function interval(float $interval): self
+    public function interval(int $interval): self
     {
         Assert::greaterThanEq($interval, 0, 'The interval must be greater than or equal to 0');
 
@@ -241,7 +241,7 @@ final class Fping implements FpingInterface
         return $this;
     }
 
-    public function intervalPerHost(float $interval): self
+    public function intervalPerHost(int $interval): self
     {
         Assert::greaterThanEq($interval, 0, 'The interval per host must be greater than or equal to 0');
 
@@ -252,7 +252,7 @@ final class Fping implements FpingInterface
 
     public function retries(int $retries): self
     {
-        Assert::positiveInteger($retries, 'The retries must be a positive integer');
+        Assert::greaterThanEq($retries, 0, 'The retries must be greater than 0');
 
         $this->retries = $retries;
 
@@ -283,7 +283,7 @@ final class Fping implements FpingInterface
     }
 
     /**
-     * @return array<int, PingResultDTO>
+     * @return array<int, PingResultDto>
      */
     public function execute(): array
     {
@@ -297,7 +297,7 @@ final class Fping implements FpingInterface
             ->map($this->createFpingDto(...))
             ->toArray();
 
-        Assert::allIsInstanceOf($return, PingResultDTO::class);
+        Assert::allIsInstanceOf($return, PingResultDto::class);
 
         return $return;
     }
@@ -377,14 +377,14 @@ final class Fping implements FpingInterface
             ->command(implode(' ', $command)." 2>&1 | tee {$this->outputFilePath}");
     }
 
-    private function createFpingDto(string $line, int $index): PingResultDTO
+    private function createFpingDto(string $line, int $index): PingResultDto
     {
         $str = Str::of($line);
 
         $ip = $str->before(':')->trim()->toString();
         $sequences = explode(' ', $str->after(':')->trim()->toString());
 
-        return new PingResultDTO(
+        return new PingResultDto(
             $ip,
             IpValidator::make($ip)->determineType(),
             array_map(fn (string $sequence, int $index) => $this->createSequence($sequence, $index), $sequences, array_keys($sequences))

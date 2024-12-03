@@ -16,7 +16,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Native\Laravel\Facades\Window;
-use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Throwable;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Ip\Filters\PacketLossFilter;
@@ -110,13 +109,6 @@ final class ListIpAddresses extends Component
 
     public function pingActive(FpingInterface $fping, CreatePingSequenceAction $createPingSequenceAction): void
     {
-        $inputFile = TemporaryDirectory::make()
-            ->force()
-            ->create()
-            ->path('input_'.Str::random(5).'.txt');
-
-        touch($inputFile);
-
         $this->query()
             ->clone()
             ->select('ip')

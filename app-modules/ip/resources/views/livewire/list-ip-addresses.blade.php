@@ -1,11 +1,19 @@
 <div>
     <div class="w-full">
         <div class="flex justify-between items-center gap-2">
-            <flux:tabs variant="segmented">
-                <flux:tab wire:click="limitV4" name="ipv4">IPv4</flux:tab>
-                <flux:tab wire:click="limitV6" name="ipv6">IPv6</flux:tab>
-                <flux:tab selected wire:click="clearIpTypeLimits" name="all">Both</flux:tab>
-            </flux:tabs>
+            <div class="flex gap-2">
+                <flux:button variant="ghost" wire:click="$refresh">
+                    <span class="flex gap-2">
+                        @svg('fad-arrows-rotate', 'h-5 w-5')
+                    </span>
+                </flux:button>
+                <flux:tabs variant="segmented">
+                    <flux:tab wire:click="limitV4" name="ipv4">IPv4</flux:tab>
+                    <flux:tab wire:click="limitV6" name="ipv6">IPv6</flux:tab>
+                    <flux:tab selected wire:click="clearIpTypeLimits" name="all">Both</flux:tab>
+                </flux:tabs>
+            </div>
+
 
             <flux:heading>
                 {{ $this->ipAddressCount }}
@@ -71,7 +79,6 @@
                 </flux:menu>
             </flux:dropdown>
         </div>
-
 
         <flux:table class="mt-5">
             <flux:columns>

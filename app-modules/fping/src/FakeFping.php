@@ -7,7 +7,7 @@ namespace XbNz\Fping;
 use PHPUnit\Framework\Assert as PHPUnitAssert;
 use Webmozart\Assert\Assert;
 use XbNz\Fping\Contracts\FpingInterface;
-use XbNz\Ping\DTOs\PingResultDTO;
+use XbNz\Ping\DTOs\PingResultDto;
 
 use function Psl\Filesystem\canonicalize;
 
@@ -15,7 +15,7 @@ final class FakeFping implements FpingInterface
 {
     private int $count;
 
-    private float $intervalPerHost;
+    private int $intervalPerHost;
 
     private bool $executed = false;
 
@@ -24,7 +24,7 @@ final class FakeFping implements FpingInterface
     private array $targets = [];
 
     /**
-     * @var array<int, PingResultDTO>
+     * @var array<int, PingResultDto>
      */
     private array $forceReturn = [];
 
@@ -80,7 +80,7 @@ final class FakeFping implements FpingInterface
         return $this;
     }
 
-    public function interval(float $interval): FpingInterface
+    public function interval(int $interval): FpingInterface
     {
         return $this;
     }
@@ -100,7 +100,7 @@ final class FakeFping implements FpingInterface
         return $this;
     }
 
-    public function intervalPerHost(float $interval): FpingInterface
+    public function intervalPerHost(int $interval): FpingInterface
     {
         $this->intervalPerHost = $interval;
 
@@ -128,7 +128,7 @@ final class FakeFping implements FpingInterface
     }
 
     /**
-     * @return array<int, PingResultDTO>
+     * @return array<int, PingResultDto>
      */
     public function execute(): array
     {
@@ -138,7 +138,7 @@ final class FakeFping implements FpingInterface
     }
 
     /**
-     * @param  array<int, PingResultDTO>  $forceReturn
+     * @param  array<int, PingResultDto>  $forceReturn
      */
     public function forceReturn(array $forceReturn): void
     {
