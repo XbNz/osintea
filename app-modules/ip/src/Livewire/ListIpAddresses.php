@@ -10,6 +10,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
@@ -17,8 +18,11 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Native\Laravel\Dialog;
 use Native\Laravel\Facades\Window;
 use Throwable;
+use XbNz\Ip\Actions\ImportIpAddressesAction;
+use XbNz\Ip\Contracts\RapidParserInterface;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
@@ -126,6 +130,20 @@ final class ListIpAddresses extends Component
             ));
 
         Flux::toast('Pinging has commenced in the background. You may continue using the app.', 'Ping started', 10000, 'success');
+    }
+
+    public function fileImport(
+        RapidParserInterface $rapidParser,
+        ImportIpAddressesAction $importIpAddressesAction
+    ): void {
+        $file = Dialog::new()
+            ->title('Import IP Addresses')
+            ->button('Import')
+            ->filter('Documents', ['txt'])
+            ->files()
+            ->open();
+
+        $importIpAddressesAction->handle($rapidParser->inputFilePath($file)->parse());
     }
 
     public function deleteActive(DatabaseManager $database): void
