@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Ping\Actions;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
@@ -22,7 +22,7 @@ final class BulkPingAction
     private string $inputFile;
 
     public function __construct(
-        private readonly FilesystemManager $filesystem,
+        private readonly Filesystem $filesystem,
         private readonly FpingInterface $fping,
         private readonly CreatePingSequenceAction $createPingSequenceAction,
     ) {
@@ -45,13 +45,10 @@ final class BulkPingAction
             ->getData();
 
         $this->filesystem
-            ->disk('local')
             ->put(
                 $this->inputFile,
                 $ipAddressDtos->pluck('ip')->implode(PHP_EOL)
             );
-
-//        file_put_contents($this->inputFile, $ipAddressDtos->pluck('ip')->implode(PHP_EOL));
 
         Collection::make($this->fping->inputFilePath($this->inputFile)
             ->size($activeFpingPreferences->size)
@@ -66,11 +63,10 @@ final class BulkPingAction
             ->dontFragment($activeFpingPreferences->dont_fragment)
             ->sendRandomData($activeFpingPreferences->send_random_data)
             ->execute())
-            ->dd()
             ->each(function (PingResultDto $pingResultDto) {
                 Collection::make($pingResultDto->sequences)
                     ->each(function (Sequence $sequence) use ($pingResultDto) {
-                        $ipAddress = IpAddress::query()->find($pingResultDto->ip)?->getData();
+                        $ipAddress = IpAddress::query()->where('ip', $pingResultDto->ip)->first()?->getData();
 
                         if ($ipAddress === null) {
                             return;
