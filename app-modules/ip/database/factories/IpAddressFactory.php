@@ -14,7 +14,7 @@ final class IpAddressFactory extends Factory
     public function definition(): array
     {
         return [
-            'ip' => $this->faker->ipv4(),
+            'ip' => $this->faker->unique()->ipv4(),
         ];
     }
 }

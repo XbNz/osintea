@@ -1,51 +1,52 @@
 {
-  "source": {
-    "directories": [
-        "app",
-    ],
-    "excludes": [
-      "Config",
-      "Folder/with/File.php",
-      "/\\.interface\\.php/",
-      "{Infrastructure/.*}"
-    ]
-  },
-  "timeout": 100,
-  "logs": {
-    "html": "infection.html",
-    "summary": "infection-summary.log",
-    "perMutator": "per-mutator.md",
-    "github": true,
-    "stryker": {
-      "badge": "/^release-.*$/"
-    }
-  },
-  "tmpDir": "",
-  "phpUnit": {
-    "configDir": "",
-    "customPath": ""
-  },
-  "mutators": {
-    "global-ignore": [
-      "FooClass::__construct"
-    ],
-    "global-ignoreSourceCodeByRegex": [
-      "Assert::.*"
-    ],
-    "@default": true,
-    "@function_signature": false,
-    "TrueValue": {
-      "ignore": [
-        "NameSpace\\*\\Class::method"
-      ],
-      "ignoreSourceCodeByRegex": [
-        "\\$this->logger.*"
-      ]
-    }
-  },
-  "testFramework":"phpunit",
-  "bootstrap":"",
-  "initialTestsPhpOptions": "",
-  "testFrameworkOptions": ""
+    "source": {
+        "directories": [
+            "app-modules/*/src"
+        ],
+        "excludes": [
+            "Config",
+            "Folder/with/File.php",
+            "/\\.interface\\.php/",
+            "{Infrastructure/.*}"
+        ]
+    },
+    "timeout": 100,
+    "logs": {
+        "html": "infection.html",
+        "summary": "infection-summary.log",
+        "perMutator": "per-mutator.md",
+        "github": true,
+        "stryker": {
+            "badge": "/^release-.*$/"
+        }
+    },
+    "tmpDir": "",
+    "phpUnit": {
+        "configDir": "",
+        "customPath": ""
+    },
+    "mutators": {
+        "global-ignore": [
+            "FooClass::__construct"
+        ],
+        "global-ignoreSourceCodeByRegex": [
+            "Assert::.*",
+            "Type\\.*"
+        ],
+        "@default": true,
+        "@function_signature": false,
+        "TrueValue": {
+            "ignore": [
+                "NameSpace\\*\\Class::method"
+            ],
+            "ignoreSourceCodeByRegex": [
+                "\\$this->logger.*"
+            ]
+        }
+    },
+    "testFramework":"phpunit",
+    "bootstrap":"",
+    "initialTestsPhpOptions": "",
+    "testFrameworkOptions": ""
 }
 

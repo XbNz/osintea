@@ -52,8 +52,6 @@ final class FpingPreferences extends Component
 
     public function updated(): void
     {
-        $this->form->validate();
-
         $this->form->update();
 
         Flux::toast('Changes saved.', 'Saved', 2000, 'success');

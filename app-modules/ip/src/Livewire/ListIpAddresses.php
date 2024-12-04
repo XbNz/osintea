@@ -20,8 +20,6 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Native\Laravel\Dialog;
 use Native\Laravel\Facades\Window;
-use Throwable;
-use Webmozart\Assert\Assert;
 use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
 use XbNz\Ip\Filters\PacketLossFilter;
@@ -36,7 +34,6 @@ use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
 use XbNz\Ping\Events\BulkPingCompleted;
 use XbNz\Ping\Jobs\BulkPingJob;
-use XbNz\Ping\Models\PingSequence;
 use XbNz\Shared\Enums\NativePhpWindow;
 
 #[Layout('components.layouts.secondary-window')]
@@ -158,22 +155,7 @@ final class ListIpAddresses extends Component
 
     public function deleteActive(DatabaseManager $database): void
     {
-        $database->beginTransaction();
-
-        try {
-            $this->query()
-                ->lazyById(1000)
-                ->chunk(1000)
-                ->each(fn (LazyCollection $chunk) => PingSequence::query()->whereIn('ip_address_id', $chunk->pluck('id'))->delete());
-
-            $this->query()->delete();
-
-            $database->commit();
-        } catch (Throwable $e) {
-            $database->rollBack();
-
-            throw $e;
-        }
+        $this->query()->delete();
     }
 
     public function goToPingWindow(string $ipAddress): void

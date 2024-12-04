@@ -39,7 +39,9 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",
+        "brianium/paratest": "^7.6",
         "fakerphp/faker": "^1.23",
+        "infection/infection": "^0.29.8",
         "jetbrains/phpstorm-attributes": "^1.2",
         "larastan/larastan": "^3.0",
         "laravel/pail": "^1.1",
@@ -51,8 +53,7 @@
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-webmozart-assert": "^2.0",
         "phpunit/phpunit": "^11.0.1",
-        "spatie/invade": "^2.1",
-        "brianium/paratest": "^7.6"
+        "spatie/invade": "^2.1"
     },
     "autoload": {
         "psr-4": {
@@ -101,6 +102,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
+            "infection/extension-installer": true,
             "pestphp/pest-plugin": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true

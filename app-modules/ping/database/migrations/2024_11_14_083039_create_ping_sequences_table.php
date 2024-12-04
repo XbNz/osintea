@@ -12,7 +12,7 @@ return new class() extends Migration
     {
         Schema::create('ping_sequences', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('ip_address_id')->index();
+            $table->foreignId('ip_address_id')->index()->references('id')->on('ip_addresses')->cascadeOnDelete();
             $table->float('round_trip_time')->nullable()->index();
             $table->boolean('loss');
             $table->timestamp('created_at', 6)->index();

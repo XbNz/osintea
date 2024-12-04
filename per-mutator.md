@@ -1,0 +1,47 @@
+# Effects per Mutator
+
+| Mutator                         | Mutations | Killed | Escaped | Errors | Syntax Errors | Timed Out | Skipped | Ignored | MSI (%s) | Covered MSI (%s) |
+| ------------------------------- | --------- | ------ | ------- | ------ | ------------- | --------- | ------- | ------- | -------- | ---------------- |
+| ArrayItem                       |        40 |     34 |       2 |      0 |             0 |         0 |       0 |       0 |    85.00 |            94.44 |
+| ArrayItemRemoval                |        60 |     21 |      25 |      0 |             0 |         1 |       2 |       0 |    37.93 |            46.81 |
+| ArrayOneItem                    |         2 |      1 |       0 |      0 |             0 |         0 |       1 |       0 |   100.00 |           100.00 |
+| Assignment                      |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| BitwiseOr                       |         2 |      1 |       1 |      0 |             0 |         0 |       0 |       0 |    50.00 |            50.00 |
+| CastArray                       |         4 |      2 |       2 |      0 |             0 |         0 |       0 |       0 |    50.00 |            50.00 |
+| CastFloat                       |         1 |      1 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| CastInt                         |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| Concat                          |        27 |     10 |       9 |      0 |             0 |         2 |       2 |       0 |    48.00 |            57.14 |
+| ConcatOperandRemoval            |        43 |     21 |       9 |      0 |             0 |         2 |       4 |       0 |    58.97 |            71.88 |
+| DecrementInteger                |        74 |     15 |      34 |      0 |             0 |         1 |       0 |       7 |    23.88 |            32.00 |
+| Division                        |         3 |      3 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| Exponentiation                  |         1 |      1 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| FalseValue                      |        30 |     19 |       3 |      0 |             0 |         0 |       0 |       0 |    63.33 |            86.36 |
+| Foreach_                        |         9 |      1 |       0 |      0 |             0 |         0 |       8 |       0 |   100.00 |           100.00 |
+| FunctionCallRemoval             |         4 |      1 |       2 |      0 |             0 |         0 |       0 |       0 |    25.00 |            33.33 |
+| GreaterThan                     |         1 |      1 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| GreaterThanNegotiation          |         1 |      1 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| GreaterThanOrEqualTo            |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| GreaterThanOrEqualToNegotiation |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| Identical                       |        47 |     39 |       1 |      0 |             0 |         0 |       0 |       0 |    82.98 |            97.50 |
+| IfNegation                      |         2 |      2 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| Increment                       |         1 |      0 |       1 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| IncrementInteger                |        70 |     16 |      30 |      0 |             0 |         0 |       0 |       7 |    25.40 |            34.78 |
+| LogicalNot                      |         1 |      0 |       1 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| LogicalOr                       |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| LogicalOrAllSubExprNegation     |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| LogicalOrNegation               |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| LogicalOrSingleSubExprNegation  |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| MBString                        |         3 |      0 |       3 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| MethodCallRemoval               |       169 |     70 |      27 |      1 |             0 |         0 |       7 |      38 |    57.26 |            72.45 |
+| Minus                           |         1 |      1 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| Multiplication                  |         1 |      1 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |
+| NotIdentical                    |        11 |      7 |       1 |      0 |             0 |         0 |       0 |       0 |    63.64 |            87.50 |
+| NullSafeMethodCall              |         2 |      0 |       1 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| Plus                            |         1 |      0 |       1 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| PlusEqual                       |         1 |      0 |       0 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| Ternary                         |         3 |      2 |       1 |      0 |             0 |         0 |       0 |       0 |    66.67 |            66.67 |
+| Throw_                          |        13 |      6 |       0 |      0 |             0 |         0 |       0 |       0 |    46.15 |           100.00 |
+| TrueValue                       |        27 |     14 |       9 |      0 |             0 |         0 |       0 |       0 |    51.85 |            60.87 |
+| UnwrapArrayFilter               |         4 |      3 |       0 |      0 |             0 |         0 |       0 |       0 |    75.00 |           100.00 |
+| UnwrapArrayKeys                 |         1 |      0 |       1 |      0 |             0 |         0 |       0 |       0 |     0.00 |             0.00 |
+| UnwrapArrayMap                  |         3 |      3 |       0 |      0 |             0 |         0 |       0 |       0 |   100.00 |           100.00 |

@@ -149,6 +149,32 @@ final class FpingPreferencesTest extends TestCase
         Event::assertNotDispatched(EnableFpingPreferencesIntention::class);
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_creates_a_new_preferences_record_with_sensible_defaults(): void
+    {
+        // Arrange
+        FpingPreferencesModel::factory()->create(['enabled' => true]);
+
+        // Act
+        $response = Livewire::test(FpingPreferences::class)
+            ->call('createNewPreferencesRecord');
+
+        // Assert
+        $this->assertDatabaseHas(FpingPreferencesModel::class, [
+            'size' => 56,
+            'backoff' => 1.5,
+            'count' => 1,
+            'ttl' => 64,
+            'interval' => 10,
+            'interval_per_target' => 1000,
+            'type_of_service' => '0x00',
+            'retries' => 1,
+            'timeout' => 500,
+            'dont_fragment' => false,
+            'send_random_data' => false,
+        ]);
+    }
+
     #[\PHPUnit\Framework\Attributes\DataProvider('validationProvider')]
     #[\PHPUnit\Framework\Attributes\Test]
     public function validation_tests(array $payload, array $errors): void
