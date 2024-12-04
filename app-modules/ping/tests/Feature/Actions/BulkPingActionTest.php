@@ -7,7 +7,6 @@ namespace XbNz\Ping\Tests\Feature\Actions;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\FakeFping;

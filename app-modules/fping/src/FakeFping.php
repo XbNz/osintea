@@ -14,19 +14,33 @@ use function Psl\Filesystem\canonicalize;
 final class FakeFping implements FpingInterface
 {
     private array $targets = [];
+
     private string $inputFilePath = '';
+
     private array $sizes = [];
+
     private array $backoffFactors = [];
+
     private array $counts = [];
+
     private array $ttls = [];
+
     private array $intervals = [];
+
     private array $dontFragments = [];
+
     private array $typesOfService = [];
+
     private array $intervalsPerHost = [];
+
     private array $retries = [];
+
     private array $sendRandomDatas = [];
+
     private array $sourceAddresses = [];
+
     private array $timeouts = [];
+
     private int $executes = 0;
 
     /**

@@ -63,9 +63,9 @@ final class BulkPingAction
             ->dontFragment($activeFpingPreferences->dont_fragment)
             ->sendRandomData($activeFpingPreferences->send_random_data)
             ->execute())
-            ->each(function (PingResultDto $pingResultDto) {
+            ->each(function (PingResultDto $pingResultDto): void {
                 Collection::make($pingResultDto->sequences)
-                    ->each(function (Sequence $sequence) use ($pingResultDto) {
+                    ->each(function (Sequence $sequence) use ($pingResultDto): void {
                         $ipAddress = IpAddress::query()->where('ip', $pingResultDto->ip)->first()?->getData();
 
                         if ($ipAddress === null) {
