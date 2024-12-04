@@ -38,7 +38,7 @@ final class FpingTest extends TestCase
         // Act
         $results = $fping
             ->inputFilePath($path)
-            ->intervalPerHost(0.1)
+            ->intervalPerHost(1)
             ->count(3)
             ->execute();
 
@@ -178,7 +178,7 @@ final class FpingTest extends TestCase
             'backoffFactor' => ['backoffFactor', 2.5, 'backoff'],
             'count' => ['count', 5, 'vcount'],
             'timeToLive' => ['timeToLive', 128, 'ttl'],
-            'interval' => ['interval', 0.5, 'interval'],
+            'interval' => ['interval', 1, 'interval'],
             'dontFragment' => ['dontFragment', true, 'dontfrag'],
             'typeOfService' => ['typeOfService', '0x00', 'tos'],
             'intervalPerHost' => ['intervalPerHost', 2000, 'period'],

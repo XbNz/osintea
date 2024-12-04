@@ -373,6 +373,7 @@ final class Fping implements FpingInterface
         Assert::integer($timeout = $this->config->get('fping.process_timeout'));
 
         return $this->process
+            ->quietly()
             ->timeout($timeout)
             ->command(implode(' ', $command)." 2>&1 | tee {$this->outputFilePath}");
     }

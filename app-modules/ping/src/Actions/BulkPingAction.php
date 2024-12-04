@@ -60,7 +60,6 @@ final class BulkPingAction
             ->typeOfService($activeFpingPreferences->type_of_service)
             ->retries($activeFpingPreferences->retries)
             ->timeout($activeFpingPreferences->timeout)
-            ->dontFragment($activeFpingPreferences->dont_fragment)
             ->sendRandomData($activeFpingPreferences->send_random_data)
             ->execute())
             ->each(function (PingResultDto $pingResultDto): void {

@@ -181,7 +181,6 @@ final class BulkPingActionTest extends TestCase
         $fake->assertBackoffFactor(1.5);
         $fake->assertIntervalPerHost(1);
         $fake->assertTypeOfService('0x00');
-        $fake->assertDontFragment(false);
         $fake->assertSendRandomData(false);
     }
 }

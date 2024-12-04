@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Livewire;
 
-use Carbon\CarbonImmutable;
 use Chefhasteeth\Pipeline\Pipeline;
+use Flux\Flux;
+use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Pagination\CursorPaginator;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,10 +15,10 @@ use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Native\Laravel\Facades\Window;
 use Throwable;
-use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
@@ -28,8 +29,8 @@ use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAverageRtt;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
-use XbNz\Ping\Actions\CreatePingSequenceAction;
-use XbNz\Ping\DTOs\CreatePingSequenceDto;
+use XbNz\Ping\Events\BulkPingCompleted;
+use XbNz\Ping\Jobs\BulkPingJob;
 use XbNz\Ping\Models\PingSequence;
 use XbNz\Shared\Enums\NativePhpWindow;
 
@@ -54,6 +55,12 @@ final class ListIpAddresses extends Component
     public RoundTripTimeFilter $roundTripTimeFilter;
 
     public PacketLossFilter $packetLossFilter;
+
+    #[On('native:'.BulkPingCompleted::class)]
+    public function notifyPingResultsReady(int $completedCount): void
+    {
+        Flux::toast("{$completedCount} ping results are ready for viewing", 'Ping completed', 3000, 'success');
+    }
 
     private function query(): Builder
     {
@@ -107,25 +114,18 @@ final class ListIpAddresses extends Component
         return ListIpAddressesTableViewModel::collect($this->query()->cursorPaginate($this->rowAmount));
     }
 
-    public function pingActive(FpingInterface $fping, CreatePingSequenceAction $createPingSequenceAction): void
+    public function pingActive(Dispatcher $bus): void
     {
         $this->query()
             ->clone()
-            ->select('ip')
-            ->lazyById(50_000)
-            ->pluck('ip')
-            ->chunk(50_000)
-            ->each(fn (LazyCollection $chunk) => file_put_contents($inputFile, $chunk->implode(PHP_EOL).PHP_EOL, FILE_APPEND));
+            ->lazyById(2_000)
+            ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
+            ->chunk(2_000)
+            ->each(fn (LazyCollection $chunk) => $bus->dispatch(
+                new BulkPingJob($chunk->collect())
+            ));
 
-        foreach ($fping->inputFilePath($inputFile)->execute() as $pingResult) {
-            $createPingSequenceAction->handle(
-                new CreatePingSequenceDto(
-                    IpAddress::query()->where('ip', $pingResult->ip)->sole()->getData(),
-                    $pingResult->sequences[0],
-                    CarbonImmutable::now(),
-                )
-            );
-        }
+        Flux::toast('Pinging has commenced in the background. You may continue using the app.', 'Ping started', 10000, 'success');
     }
 
     public function deleteActive(DatabaseManager $database): void
