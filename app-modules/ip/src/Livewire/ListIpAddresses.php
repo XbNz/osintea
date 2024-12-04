@@ -8,6 +8,7 @@ use Chefhasteeth\Pipeline\Pipeline;
 use Flux\Flux;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Pagination\CursorPaginator;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -20,6 +21,7 @@ use Livewire\Component;
 use Native\Laravel\Dialog;
 use Native\Laravel\Facades\Window;
 use Throwable;
+use Webmozart\Assert\Assert;
 use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
 use XbNz\Ip\Filters\PacketLossFilter;
@@ -53,6 +55,9 @@ final class ListIpAddresses extends Component
 
     public int $rowAmount = 100;
 
+    /**
+     * @var array<int, class-string>
+     */
     public array $manipulations = [];
 
     public RoundTripTimeFilter $roundTripTimeFilter;
@@ -65,6 +70,9 @@ final class ListIpAddresses extends Component
         Flux::toast("{$completedCount} ping results are ready for viewing", 'Ping completed', 3000, 'success');
     }
 
+    /**
+     * @return Builder<IpAddress>
+     */
     private function query(): Builder
     {
         $query = IpAddress::query()->with(['pingSequences']);
@@ -111,6 +119,9 @@ final class ListIpAddresses extends Component
         return number_format($this->query()->count(), thousands_separator: ',').' '.$ipAddress;
     }
 
+    /**
+     * @return CursorPaginator<IpAddress>
+     */
     #[Computed]
     public function ipAddresses(): CursorPaginator
     {
@@ -138,7 +149,7 @@ final class ListIpAddresses extends Component
         $file = Dialog::new()
             ->title('Import IP Addresses')
             ->button('Import')
-            ->filter('Documents', ['txt'])
+            ->filter('Text files', ['txt'])
             ->files()
             ->open();
 
@@ -239,7 +250,7 @@ final class ListIpAddresses extends Component
         $this->packetLossFilter = new PacketLossFilter();
     }
 
-    public function render()
+    public function render(): View
     {
         return view('ip::livewire.list-ip-addresses');
     }

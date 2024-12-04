@@ -86,7 +86,9 @@ final class PingTest extends TestCase
     public function it_dispatches_an_event_to_update_the_chart_when_a_new_ping_sequence_event_is_received(): void
     {
         // Arrange
-        $pingSequence = PingSequence::factory()->create()->fresh()->getData();
+        $pingSequence = PingSequence::factory()->create([
+            'round_trip_time' => 1,
+        ])->fresh()->getData();
 
         // Act
         $livewire = Livewire::test(Ping::class)
@@ -97,7 +99,7 @@ final class PingTest extends TestCase
         // Assert
         $livewire->assertDispatched('newDataPoint', [
             'label' => $pingSequence->created_at->format('H:i:s'),
-            'newData' => $pingSequence->round_trip_time,
+            'newData' => 1,
         ]);
     }
 

@@ -17,6 +17,9 @@ final class FpingPreferencesDeletedEvent implements ShouldBroadcastNow
         public readonly FpingPreferencesDto $record,
     ) {}
 
+    /**
+     * @return array<int, Channel>
+     */
     public function broadcastOn(): array
     {
         return [
