@@ -1,6 +1,11 @@
 ![Release](https://img.shields.io/github/v/release/XbNz/osintea?style=for-the-badge)
 ![License](https://img.shields.io/github/license/XbNz/osintea?style=for-the-badge)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fosintea)](https://dashboard.stryker-mutator.io/reports/osintea)
+
+![Test suite](https://img.shields.io/github/actions/workflow/status/XbNz/osintea/phpunit.yml?label=Tests&logo=github&style=for-the-badge)
+![PHPStan](https://img.shields.io/github/actions/workflow/status/XbNz/osintea/phpstan.yml?label=PHPStan&logo=github&style=for-the-badge)
+
+![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https://badge-api.stryker-mutator.io/github.com/XbNz/osintea/main)
+
 
 ![PNG](/art/logo.png) 
 ### The all-in-one network intelligence tool

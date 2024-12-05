@@ -1,10 +1,10 @@
-name: Run PHPUnit
+name: Run PHPStan
 
 on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: macos-15
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,18 +21,6 @@ jobs:
           composer config http-basic.composer.fluxui.dev "${{ secrets.FLUXUI_USERNAME }}" "${{ secrets.FLUXUI_LICENCE_KEY }}"
           composer install --prefer-dist --no-interaction
 
-      - name: Frontend assets
+      - name: Execute PHPStan
         run: |
-          npm install
-          npm run build
-
-      - name: Environment
-        run: |
-          cp .env.testing.example .env.testing
-          php artisan key:generate --env=testing
-          php artisan icons:cache
-
-      - name: Execute tests
-        run: |
-          cp phpunit.xml.dist phpunit.xml
-          php vendor/bin/phpunit
+          php vendor/bin/phpstan
