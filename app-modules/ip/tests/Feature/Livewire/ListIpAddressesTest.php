@@ -6,6 +6,7 @@ namespace XbNz\Ip\Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Mockery;
@@ -554,6 +555,7 @@ final class ListIpAddressesTest extends TestCase
     public function it_opens_the_corresponding_ping_window_for_the_ip(): void
     {
         // Arrange
+        Http::fake();
         Window::fake();
         Window::alwaysReturnWindows([
             $mockWindow = Mockery::mock(WindowImplementation::class)->makePartial(),

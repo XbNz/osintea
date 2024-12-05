@@ -14,7 +14,7 @@ final class FpingPreferencesFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->unique()->word,
             'size' => 56,
             'backoff' => 1.5,
             'count' => 1,

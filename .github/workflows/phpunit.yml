@@ -30,6 +30,7 @@ jobs:
         run: |
           cp .env.testing.example .env.testing
           php artisan key:generate --env=testing
+          php artisan icons:cache
 
       - name: Execute tests
         run: |

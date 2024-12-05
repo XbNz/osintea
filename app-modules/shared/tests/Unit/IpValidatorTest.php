@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace XbNz\Shared\Tests\Feature;
+namespace XbNz\Shared\Tests\Unit;
 
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use XbNz\Shared\Exceptions\InvalidIpAddressException;
 use XbNz\Shared\IpValidator;
 use XbNz\Shared\ValueObjects\IpType;
