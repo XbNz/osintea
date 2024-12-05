@@ -1,5 +1,6 @@
-![Release](https://img.shields.io/github/v/release/XbNz/osintea?style=flat-square)
-![License](https://img.shields.io/github/license/XbNz/osintea?style=flat-square)
+![Release](https://img.shields.io/github/v/release/XbNz/osintea?style=for-the-badge)
+![License](https://img.shields.io/github/license/XbNz/osintea?style=for-the-badge)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=for-the-badge&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fosintea)](https://dashboard.stryker-mutator.io/reports/osintea)
 
 ![PNG](/art/logo.png) 
 ### The all-in-one network intelligence tool

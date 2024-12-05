@@ -18,7 +18,7 @@
         "perMutator": "per-mutator.md",
         "github": true,
         "stryker": {
-            "badge": "/^release-.*$/"
+            "badge": "main"
         }
     },
     "tmpDir": "",

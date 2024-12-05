@@ -1,0 +1,40 @@
+name: Run Infection
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
+          coverage: pcov
+
+      - name: Install dependencies
+        run: |
+          composer config http-basic.composer.fluxui.dev "${{ secrets.FLUXUI_USERNAME }}" "${{ secrets.FLUXUI_LICENCE_KEY }}"
+          composer install --prefer-dist --no-interaction
+
+      - name: Frontend assets
+        run: |
+          npm install
+          npm run build
+
+      - name: Environment
+        run: |
+          cp .env.testing.example .env.testing
+          php artisan key:generate --env=testing
+          php artisan icons:cache
+
+      - name: Execute Infection
+        env:
+          INFECTION_DASHBOARD_API_KEY: ${{ secrets.INFECTION_DASHBOARD_API_KEY }}
+        run: |
+          cp phpunit.xml.dist phpunit.xml
+          php -d memory_limit=1G ./vendor/bin/infection --only-covering-test-cases
