@@ -19,3 +19,20 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+License for fping
+
+This repository contains binaries of the software fping.
+
+Copyright and Credits
+
+The original authors and contributors of fping are:
+•	Roland Schemers - schemers@stanford.edu (Original Author)
+•	Jeroen Massar - jeroen@unfix.org, jeroen@ipng.nl (IPv6 Support)
+•	David Schweikert - david@schweikert.ch (Improved Main Loop)
+•	Tobi Oetiker - tobi@oetiker.ch (Debian Merge, TOS Settings)
+•	Stephan Fuhrmann - stephan.fuhrmann@1und1.de (Bugfixes, Byte Order, and Senseful Sequence Numbers)
+
+License for masscan
+
+This repository contains binaries of the software masscan, which is licensed under the GNU Affero General Public License, Version 3 (AGPL-3.0).
