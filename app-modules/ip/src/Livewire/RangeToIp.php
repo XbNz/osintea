@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Livewire;
 
+use Flux\Flux;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -55,6 +56,16 @@ final class RangeToIp extends Component
         }
 
         $this->fullyQualifiedOutputPath = $rapidParser->inputFilePath($inputFile)->parse();
+    }
+
+    public function show(
+        Filesystem $filesystem
+    ): void {
+        if ($this->fullyQualifiedOutputPath === '') {
+            Flux::toast('Please convert the range to IP first.', 'Error', variant: 'danger');
+
+            return;
+        }
 
         $this->ipList = $filesystem->get($this->fullyQualifiedOutputPath);
     }

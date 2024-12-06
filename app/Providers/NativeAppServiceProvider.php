@@ -33,6 +33,10 @@ final class NativeAppServiceProvider implements ProvidesPhpIni
     public function phpIni(): array
     {
         return [
+            'opcache.enable' => '1',
+            'opcache.enable_cli' => '1',
+            'opcache.jit' => 'tracing',
+            'opcache.jit_buffer_size' => '128M',
         ];
     }
 }

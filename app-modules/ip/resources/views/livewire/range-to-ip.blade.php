@@ -18,7 +18,7 @@
             <flux:button type="submit" class="w-full mt-3">
                 <span class="flex gap-3">
                     Convert
-                    @svg('fad-arrow-down', 'h-5 w-5')
+                    @svg('fad-arrow-right-arrow-left', 'h-5 w-5')
                 </span>
             </flux:button>
         </form>
@@ -28,11 +28,19 @@
             wire:model="ipList"
             rows="7"
         />
-        <flux:button wire:click="addToMyIpAddresses" class="w-full mt-3">
+        <div class="flex flex-row gap-3">
+            <flux:button wire:click="addToMyIpAddresses" class="w-full mt-3">
             <span class="flex gap-3">
                 Add to database
                 @svg('fad-database', 'h-5 w-5')
             </span>
-        </flux:button>
+            </flux:button>
+            <flux:button wire:click="show" class="w-full mt-3">
+            <span class="flex gap-3">
+                Show converted ranges
+                @svg('fad-eye', 'h-5 w-5')
+            </span>
+            </flux:button>
+        </div>
     </div>
 </div>

@@ -13,7 +13,7 @@ return new class() extends Migration
     {
         Schema::create('ip_addresses', function (Blueprint $table): void {
             $table->id();
-            $table->string('ip', 39)->index()->unique();
+            $table->string('ip', 39)->unique()->index();
             $table->tinyInteger('type')->virtualAs(DB::raw('CASE WHEN LENGTH(ip) > 19 THEN 6 ELSE 4 END'));
             $table->timestamp('created_at')->useCurrent()->index();
         });
