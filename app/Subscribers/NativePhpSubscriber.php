@@ -10,8 +10,6 @@ use App\Steps\OnBooted\CreateDefaultFpingPreferences;
 use App\Steps\OnBooted\EnableDefaultFpingPreferences;
 use App\Steps\OnBooted\Transporter;
 use Chefhasteeth\Pipeline\Pipeline;
-use Illuminate\Contracts\Bus\Dispatcher;
-use Illuminate\Support\Str;
 use Native\Laravel\Events\App\ApplicationBooted;
 use Native\Laravel\Events\Windows\WindowBlurred;
 use Native\Laravel\Events\Windows\WindowClosed;
@@ -19,10 +17,6 @@ use Native\Laravel\Events\Windows\WindowFocused;
 use Native\Laravel\Events\Windows\WindowHidden;
 use Native\Laravel\Facades\GlobalShortcut;
 use Native\Laravel\Facades\Window;
-use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
-use XbNz\Fping\Jobs\CreateFpingPreferencesJob;
-use XbNz\Fping\Jobs\EnableFpingPreferencesJob;
-use XbNz\Fping\Models\FpingPreferences;
 use XbNz\Shared\Attributes\ListensTo;
 use XbNz\Shared\Enums\NativePhpWindow;
 
@@ -81,12 +75,12 @@ final class NativePhpSubscriber
         $pipes = [
             CreateDefaultFpingPreferences::class,
             EnableDefaultFpingPreferences::class,
-//            CreateDefaultMasscanPreferences::class,
-//            EnableDefaultMasscanPreferences::class,
+            //            CreateDefaultMasscanPreferences::class,
+            //            EnableDefaultMasscanPreferences::class,
         ];
 
         Pipeline::make()
-            ->send(new Transporter)
+            ->send(new Transporter())
             ->through($pipes)
             ->thenReturn();
     }
