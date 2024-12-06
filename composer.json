@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.4",
+        "php": "^8.3",
         "azjezz/psl": "^3.0",
         "blade-ui-kit/blade-icons": "^1.7",
         "chefhasteeth/pipeline": "^1.0",

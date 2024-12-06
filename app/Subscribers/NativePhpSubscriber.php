@@ -6,6 +6,10 @@ namespace App\Subscribers;
 
 use App\Events\OpenCommandPaletteEvent;
 use App\Events\OpenPreferencesEvent;
+use App\Steps\OnBooted\CreateDefaultFpingPreferences;
+use App\Steps\OnBooted\EnableDefaultFpingPreferences;
+use App\Steps\OnBooted\Transporter;
+use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Str;
 use Native\Laravel\Events\App\ApplicationBooted;
@@ -17,16 +21,13 @@ use Native\Laravel\Facades\GlobalShortcut;
 use Native\Laravel\Facades\Window;
 use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
 use XbNz\Fping\Jobs\CreateFpingPreferencesJob;
+use XbNz\Fping\Jobs\EnableFpingPreferencesJob;
 use XbNz\Fping\Models\FpingPreferences;
 use XbNz\Shared\Attributes\ListensTo;
 use XbNz\Shared\Enums\NativePhpWindow;
 
 final class NativePhpSubscriber
 {
-    public function __construct(
-        private readonly Dispatcher $dispatcher
-    ) {}
-
     #[ListensTo(OpenCommandPaletteEvent::class)]
     public function onOpenCommandPalette(): void
     {
@@ -77,25 +78,16 @@ final class NativePhpSubscriber
     #[ListensTo(ApplicationBooted::class)]
     public function onBooted(): void
     {
-        if (FpingPreferences::query()->exists() === true) {
-            return;
-        }
+        $pipes = [
+            CreateDefaultFpingPreferences::class,
+            EnableDefaultFpingPreferences::class,
+//            CreateDefaultMasscanPreferences::class,
+//            EnableDefaultMasscanPreferences::class,
+        ];
 
-        $this->dispatcher->dispatch(new CreateFpingPreferencesJob(
-            new CreateFpingPreferencesDto(
-                Str::random(5),
-                56,
-                1.5,
-                1,
-                64,
-                100,
-                500,
-                '0x00',
-                0,
-                500,
-                false,
-                false
-            )
-        ));
+        Pipeline::make()
+            ->send(new Transporter)
+            ->through($pipes)
+            ->thenReturn();
     }
 }
