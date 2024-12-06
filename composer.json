@@ -9,7 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "azjezz/psl": "^3.0",
         "blade-ui-kit/blade-icons": "^1.7",
         "chefhasteeth/pipeline": "^1.0",
@@ -22,7 +22,7 @@
         "livewire/livewire": "^3.5",
         "nativephp/electron": "dev-main",
         "nativephp/laravel": "dev-main",
-        "nativephp/php-bin": "0.5.5",
+        "nativephp/php-bin": "dev-update-php-8.4-mac-arm64 as 0.5.5",
         "react/async": "^4.3",
         "react/event-loop": "^1.5",
         "react/stream": "^1.4",
