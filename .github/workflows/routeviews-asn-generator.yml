@@ -52,7 +52,7 @@ jobs:
               run: |
                 ls -la
                 rm -rf app-modules/routeviews-integration/database/asns.sqlite
-                mv asns.db app-modules/routeviews-integration/database/asns.sqlite
+                mv asns.db app-modules/routeviews-integration/database/
             - name: Create a pull request
               uses: peter-evans/create-pull-request@v7
               with:
