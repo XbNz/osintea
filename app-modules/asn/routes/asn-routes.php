@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // use XbNz\Asn\Http\Controllers\AsnController;
 
 // Route::get('/asns', [AsnController::class, 'index'])->name('asns.index');

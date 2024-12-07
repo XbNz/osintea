@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // use XbNz\RouteviewsIntegration\Http\Controllers\RouteviewsIntegrationController;
 
 // Route::get('/routeviews-integrations', [RouteviewsIntegrationController::class, 'index'])->name('routeviews-integrations.index');

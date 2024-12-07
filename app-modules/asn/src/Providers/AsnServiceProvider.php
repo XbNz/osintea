@@ -1,16 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XbNz\Asn\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AsnServiceProvider extends ServiceProvider
+final class AsnServiceProvider extends ServiceProvider
 {
-	public function register(): void
-	{
-	}
-	
-	public function boot(): void
-	{
-	}
+    public function register(): void {}
+
+    public function boot(): void {}
 }
