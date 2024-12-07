@@ -31,11 +31,13 @@
         "spatie/temporary-directory": "^2.2",
         "symfony/finder": "^7.0",
         "webmozart/assert": "^1.1",
+        "xbnz/asn": "*",
         "xbnz/fping": "*",
         "xbnz/ip": "*",
         "xbnz/masscan": "*",
         "xbnz/ping": "*",
         "xbnz/port": "*",
+        "xbnz/routeviews-integration": "*",
         "xbnz/shared": "*"
     },
     "require-dev": {

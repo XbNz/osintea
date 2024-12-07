@@ -1,0 +1,56 @@
+name: Generate Routeviews ASN database
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+    routeviews-asn-generator:
+        permissions:
+          contents: write
+          pull-requests: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Download Routeviews ASN database
+              run: |
+                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn/asn-ipv4.csv
+                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn/asn-ipv6.csv
+
+            - name: Create ASN database
+              run: |
+                sqlite3 asns.db <<EOF
+                CREATE TABLE ipv4 (
+                  start_ip TEXT NOT NULL,
+                  end_ip TEXT NOT NULL,
+                  asn INTEGER NOT NULL,
+                  organization TEXT NOT NULL
+                );
+
+                CREATE TABLE ipv6 (
+                  start_ip TEXT NOT NULL,
+                  end_ip TEXT NOT NULL,
+                  asn INTEGER NOT NULL,
+                  organization TEXT NOT NULL
+                );
+
+                CREATE INDEX idx_asn ON ipv4 (asn);
+                CREATE INDEX idx_asn ON ipv6 (asn);
+                .mode csv
+                .import asn-ipv4.csv ipv4
+                .import asn-ipv6.csv ipv6
+                EOF
+            - name: Move to routeviews database directory
+              run: |
+                rm -rf /app-modules/routeviews-integration/database/asns.db
+                mv asns.db /app-modules/routeviews-integration/database
+            - name: Create a pull request
+              uses: peter-evans/create-pull-request@v7
+              with:
+                branch: update-routeviews-asn-db-date
+                title: "Update Routeview ASN database"
+                commit-message: "update routeview asn database $(date +'%Y-%m-%d')"
+                base: main
+
+

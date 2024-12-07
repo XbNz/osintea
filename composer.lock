@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "909b46340b5cc95980a23452103a7f9e",
+    "content-hash": "615fec1303f91c2653b35b9793b00e67",
     "packages": [
         {
             "name": "amphp/amp",
@@ -10391,6 +10391,36 @@
             "time": "2022-06-03T18:03:27+00:00"
         },
         {
+            "name": "xbnz/asn",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/asn",
+                "reference": "29dee7c1911b1c4885391d69a2291d3dc8b095af"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XbNz\\Asn\\Providers\\AsnServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XbNz\\Asn\\": "src/",
+                    "XbNz\\Asn\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "xbnz/fping",
             "version": "1.0",
             "dist": {
@@ -10539,6 +10569,38 @@
                     "XbNz\\Port\\Tests\\": "tests/",
                     "XbNz\\Port\\Database\\Factories\\": "database/factories/",
                     "XbNz\\Port\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "xbnz/routeviews-integration",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/routeviews-integration",
+                "reference": "4942d78205b032be956d6e8c482cc122508cf9fd"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XbNz\\RouteviewsIntegration\\Providers\\RouteviewsIntegrationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XbNz\\RouteviewsIntegration\\": "src/",
+                    "XbNz\\RouteviewsIntegration\\Tests\\": "tests/",
+                    "XbNz\\RouteviewsIntegration\\Database\\Factories\\": "database/factories/",
+                    "XbNz\\RouteviewsIntegration\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "license": [
