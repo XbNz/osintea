@@ -1,0 +1,37 @@
+name: Download Routeviews ASN mmdb
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+    download-routeviews-mmdb:
+        permissions:
+          contents: write
+          pull-requests: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Download Routeviews ASN mmdb
+              run: |
+                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn-mmdb/asn-ipv4.mmdb
+                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn-mmdb/asn-ipv6.mmdb
+
+            - name: Move to databases directory
+              run: |
+                rm -rf app-modules/routeviews-integration/database/asn-ipv4.mmdb
+                rm -rf app-modules/routeviews-integration/database/asn-ipv6.mmdb
+                mv asn-ipv4.mmdb app-modules/routeviews-integration/database/
+                mv asn-ipv6.mmdb app-modules/routeviews-integration/database/
+
+            - name: Create a pull request
+              uses: peter-evans/create-pull-request@v7
+              with:
+                branch: update-routeviews-asn-mmdb
+                title: "Update Routeview ASN mmdb"
+                commit-message: "update routeview asn mmdb"
+                base: main
+
+

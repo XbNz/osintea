@@ -61,7 +61,7 @@ jobs:
             - name: Create a pull request
               uses: peter-evans/create-pull-request@v7
               with:
-                branch: update-routeviews-asn-db-date
+                branch: update-routeviews-asn-db
                 title: "Update Routeview ASN database"
                 commit-message: "update routeview asn database"
                 base: main
