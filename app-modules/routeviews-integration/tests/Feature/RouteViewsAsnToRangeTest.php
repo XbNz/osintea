@@ -145,6 +145,7 @@ final class RouteViewsAsnToRangeTest extends TestCase
             $asnToRange->execute();
         } catch (InvalidArgumentException) {
             $this->assertTrue(true);
+
             return;
         }
 
