@@ -13,6 +13,7 @@ use Mockery;
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Windows\Window as WindowImplementation;
 use Tests\TestCase;
+use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Livewire\ListIpAddresses;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\Jobs\BulkPingJob;
@@ -523,7 +524,7 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function it_deletes_active_ip_addresses_along_with_all_its_sequences(): void
+    public function it_deletes_active_ip_addresses_along_with_all_its_relations(): void
     {
         // Arrange
         $ipAddressA = IpAddress::factory()
@@ -535,6 +536,7 @@ final class ListIpAddressesTest extends TestCase
                         ['round_trip_time' => 2],
                     )
             )
+            ->has(Asn::factory())
             ->create(['ip' => '1.1.1.1'])
             ->refresh()
             ->getData();
@@ -548,6 +550,7 @@ final class ListIpAddressesTest extends TestCase
                         ['round_trip_time' => 4],
                     )
             )
+            ->has(Asn::factory())
             ->create(['ip' => '8.8.8.8'])
             ->refresh()
             ->getData();
@@ -565,8 +568,11 @@ final class ListIpAddressesTest extends TestCase
         // Assert
         $this->assertDatabaseMissing(IpAddress::class, ['id' => $ipAddressB->id]);
         $this->assertDatabaseMissing(PingSequence::class, ['ip_address_id' => $ipAddressB->id]);
+        $this->assertDatabaseMissing(Asn::class, ['ip_address_id' => $ipAddressB->id]);
+
         $this->assertDatabaseHas(IpAddress::class, ['id' => $ipAddressA->id]);
         $this->assertDatabaseHas(PingSequence::class, ['ip_address_id' => $ipAddressA->id]);
+        $this->assertDatabaseHas(Asn::class, ['ip_address_id' => $ipAddressA->id]);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Asn\Contracts;
 
 use Illuminate\Support\Collection;
+use XbNz\Asn\Enums\Provider;
 use XbNz\Asn\ValueObject\IpRange;
 
 interface AsnToRangeInterface
@@ -23,4 +24,6 @@ interface AsnToRangeInterface
      * @return Collection<int, IpRange>
      */
     public function execute(): Collection;
+
+    public function supports(Provider $provider): bool;
 }

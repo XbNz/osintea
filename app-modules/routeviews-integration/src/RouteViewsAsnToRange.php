@@ -13,6 +13,7 @@ use Psl\Type;
 use stdClass;
 use Webmozart\Assert\Assert;
 use XbNz\Asn\Contracts\AsnToRangeInterface;
+use XbNz\Asn\Enums\Provider;
 use XbNz\Asn\ValueObject\Asn;
 use XbNz\Asn\ValueObject\IpRange;
 use XbNz\Shared\ValueObjects\IpType;
@@ -131,5 +132,10 @@ final class RouteViewsAsnToRange implements AsnToRangeInterface
             isset($this->organization) || isset($this->asNumber),
             'Need at least one identifier to search by'
         );
+    }
+
+    public function supports(Provider $provider): bool
+    {
+        return $provider === Provider::RouteViews;
     }
 }

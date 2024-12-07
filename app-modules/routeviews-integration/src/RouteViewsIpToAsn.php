@@ -7,6 +7,7 @@ namespace XbNz\RouteviewsIntegration;
 use MaxMind\Db\Reader;
 use Psl\Type;
 use XbNz\Asn\Contracts\IpToAsnInterface;
+use XbNz\Asn\Enums\Provider;
 use XbNz\Asn\ValueObject\Asn;
 use XbNz\Shared\IpValidator;
 use XbNz\Shared\ValueObjects\IpType;
@@ -38,5 +39,10 @@ final class RouteViewsIpToAsn implements IpToAsnInterface
             $sanitized['autonomous_system_organization'],
             $sanitized['autonomous_system_number']
         );
+    }
+
+    public function supports(Provider $provider): bool
+    {
+        return $provider === Provider::RouteViews;
     }
 }

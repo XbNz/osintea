@@ -7,8 +7,10 @@ namespace XbNz\Ip\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\WithData;
+use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Database\Factories\IpAddressFactory;
 use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Ping\Models\PingSequence;
@@ -48,6 +50,14 @@ final class IpAddress extends Model
     public function pingSequences(): HasMany
     {
         return $this->hasMany(PingSequence::class);
+    }
+
+    /**
+     * @return HasOne<Asn, IpAddress>
+     */
+    public function asn(): HasOne
+    {
+        return $this->hasOne(Asn::class);
     }
 
     protected static function newFactory(): IpAddressFactory
