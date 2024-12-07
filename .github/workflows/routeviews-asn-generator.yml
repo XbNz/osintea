@@ -21,7 +21,7 @@ jobs:
 
             - name: Create ASN database
               run: |
-                sqlite3 asns.db <<EOF
+                sqlite3 asns.db "
                 CREATE TABLE ipv4 (
                   start_ip TEXT NOT NULL,
                   end_ip TEXT NOT NULL,
@@ -38,14 +38,25 @@ jobs:
 
                 CREATE INDEX idx_asn_ipv4 ON ipv4 (asn);
                 CREATE INDEX idx_asn_ipv6 ON ipv6 (asn);
+                "
+
+            - name: Populate ASN database with IPv4 data
+              run: |
+                sqlite3 asns.db "
                 .mode csv
                 .import asn-ipv4.csv ipv4
-                .import asn-ipv6.csv ipv6
-                EOF
+                "
+
+            - name: Populate ASN database with IPv6 data
+              run: |
+                  sqlite3 asns.db "
+                  .mode csv
+                  .import asn-ipv6.csv ipv6
+                  "
 
             - name: Move to routeviews database directory
               run: |
-                ll -a
+                ls -la
                 rm -rf app-modules/routeviews-integration/database/asns.db
                 mv asns.db app-modules/routeviews-integration/database
             - name: Create a pull request
