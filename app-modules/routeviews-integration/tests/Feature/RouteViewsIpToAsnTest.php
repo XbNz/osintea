@@ -35,6 +35,7 @@ final class RouteViewsIpToAsnTest extends TestCase
             $ipToAsn->execute('127.0.0.1');
         } catch (InvalidIpAddressException) {
             $this->assertTrue(true);
+
             return;
         }
 
