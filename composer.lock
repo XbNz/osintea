@@ -10585,7 +10585,7 @@
             "dist": {
                 "type": "path",
                 "url": "app-modules/routeviews-integration",
-                "reference": "4942d78205b032be956d6e8c482cc122508cf9fd"
+                "reference": "5d4cc933b08bf0fbf7a4a6577ba4cc010f638205"
             },
             "type": "library",
             "extra": {
@@ -10598,9 +10598,7 @@
             "autoload": {
                 "psr-4": {
                     "XbNz\\RouteviewsIntegration\\": "src/",
-                    "XbNz\\RouteviewsIntegration\\Tests\\": "tests/",
-                    "XbNz\\RouteviewsIntegration\\Database\\Factories\\": "database/factories/",
-                    "XbNz\\RouteviewsIntegration\\Database\\Seeders\\": "database/seeders/"
+                    "XbNz\\RouteviewsIntegration\\Tests\\": "tests/"
                 }
             },
             "license": [
