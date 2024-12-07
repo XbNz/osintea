@@ -24,5 +24,15 @@ final class RouteviewsIntegrationServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot(): void {}
+    public function boot(): void
+    {
+        $this->app->make(Repository::class)->set('database.connections.routeviews-asn', [
+            'driver' => 'sqlite',
+            'database' => __DIR__.'/../../database/asns.sqlite',
+            'prefix' => '',
+            'busy_timeout' => null,
+            'journal_mode' => null,
+            'synchronous' => null,
+        ]);
+    }
 }
