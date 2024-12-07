@@ -50,9 +50,14 @@ jobs:
 
             - name: Move to routeviews database directory
               run: |
-                ls -la
                 rm -rf app-modules/routeviews-integration/database/asns.sqlite
                 mv asns.sqlite app-modules/routeviews-integration/database/
+
+            - name: Clean up CSV files
+              run: |
+                rm asn-ipv4.csv
+                rm asn-ipv6.csv
+
             - name: Create a pull request
               uses: peter-evans/create-pull-request@v7
               with:
