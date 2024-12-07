@@ -82,9 +82,53 @@
 
         <flux:table class="mt-5">
             <flux:columns>
-                <flux:column sortable :sorted="$sortBy === 'ip'" :direction="$sortDirection" wire:click="sort('ip')">IP Address</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'created_at'" :direction="$sortDirection" wire:click="sort('created_at')">Created At</flux:column>
-                <flux:column sortable :sorted="$sortBy === 'average_rtt'" :direction="$sortDirection" wire:click="sort('average_rtt')">Average RTT</flux:column>
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'ip'"
+                    :direction="$sortDirection"
+                    wire:click="sort('ip')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-network-wired', 'h-5 w-5')
+                        IP Address
+                    </span>
+                </flux:column>
+
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'created_at'"
+                    :direction="$sortDirection"
+                    wire:click="sort('created_at')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-calendar', 'h-5 w-5')
+                        Created
+                    </span>
+                </flux:column>
+
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'average_rtt'"
+                    :direction="$sortDirection"
+                    wire:click="sort('average_rtt')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-calculator', 'h-5 w-5')
+                        Average RTT
+                    </span>
+                </flux:column>
+
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'loss_percent'"
+                    :direction="$sortDirection"
+                    wire:click="sort('loss_percent')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-badge-percent', 'h-5 w-5')
+                        Loss
+                    </span>
+                </flux:column>
             </flux:columns>
 
             <flux:rows>
@@ -104,6 +148,7 @@
                                 </span>
                             </flux:button>
                         </flux:cell>
+                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->loss_percent }}% ({{ $ipAddress->lost_sequences }}/{{ $ipAddress->total_sequences }})</flux:cell>
                     </flux:row>
                 @endforeach
             </flux:rows>

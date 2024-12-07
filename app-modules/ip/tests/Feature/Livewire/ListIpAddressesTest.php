@@ -184,6 +184,50 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function sorting_by_loss_percent(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->has(
+                PingSequence::factory()
+                    ->count(2)
+                    ->sequence(
+                        ['loss' => false],
+                        ['loss' => true, 'round_trip_time' => null],
+                    )
+            )
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->has(
+                PingSequence::factory()
+                    ->count(2)
+                    ->sequence(
+                        ['loss' => false],
+                        ['loss' => false],
+                    )
+            )
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressC = IpAddress::factory()->create()->refresh()->getData();
+
+        // Act & Assert
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->call('sort', 'loss_percent');
+        $livewire->assertSeeInOrder([$ipAddressC->ip, $ipAddressB->ip, $ipAddressA->ip]);
+        $livewire->assertSeeInOrder(['0.00', '0.00', '50.00']);
+
+        $livewire->call('sort', 'loss_percent');
+        $livewire->assertSeeInOrder([$ipAddressA->ip, $ipAddressB->ip, $ipAddressC->ip]);
+        $livewire->assertSeeInOrder(['50.00', '0.00', '0.00']);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function filters_by_minimum_round_trip_range(): void
     {
         // Arrange

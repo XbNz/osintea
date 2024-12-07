@@ -30,6 +30,7 @@ use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterRoundTripTime;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv4;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAverageRtt;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByLossPercent;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
 use XbNz\Ping\Events\BulkPingCompleted;
@@ -44,6 +45,7 @@ final class ListIpAddresses extends Component
      */
     const array SORT_MAP = [
         'average_rtt' => SortByAverageRtt::class,
+        'loss_percent' => SortByLossPercent::class,
     ];
 
     public string $sortBy = 'created_at';
@@ -138,6 +140,8 @@ final class ListIpAddresses extends Component
 
         Flux::toast('Pinging has commenced in the background. You may continue using the app.', 'Ping started', 10000, 'success');
     }
+
+    public function resolveActiveAsn(): void {}
 
     public function fileImport(
         RapidParserInterface $rapidParser,
