@@ -31,7 +31,7 @@ final class RouteViewsAsnToRange implements AsnToRangeInterface
         private readonly Connection $asnDatabase,
     ) {}
 
-    public function filterIpType($filterMask): self
+    public function filterIpType(int $filterMask): self
     {
         $this->ipTypeMask = $filterMask;
 

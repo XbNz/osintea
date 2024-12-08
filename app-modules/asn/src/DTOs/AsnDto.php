@@ -28,7 +28,6 @@ final class AsnDto extends Data
             $asn->organization,
             $asn->as_number,
             $asn->created_at,
-            $asn->updated_at,
         );
     }
 }

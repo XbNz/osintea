@@ -138,6 +138,9 @@ final class ListIpAddresses extends Component
         return number_format($this->query()->count(), thousands_separator: ',').' '.$ipAddress;
     }
 
+    /**
+     * @return array<int, string>
+     */
     #[Computed]
     #[Renderless]
     public function organizationNames(): array

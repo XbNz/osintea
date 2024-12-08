@@ -22,7 +22,7 @@ final class OrganizationFilter implements Wireable
     }
 
     /**
-     * @return array<string, int|null>
+     * @return array<string, mixed>
      */
     public function toLivewire(): array
     {

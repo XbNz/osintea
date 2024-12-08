@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method XbNz\\Asn\\Model\\Asn\:\:ipAddress\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, XbNz\\Asn\\Model\\Asn\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, \$this\(XbNz\\Asn\\Model\\Asn\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app-modules/asn/src/Model/Asn.php
+
+		-
 			message: '#^Parameter \#15 \$created_at of class XbNz\\Fping\\DTOs\\FpingPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
 			identifier: argument.type
 			count: 1
@@ -25,6 +31,12 @@ parameters:
 			path: app-modules/ip/src/Actions/ImportIpAddressesAction.php
 
 		-
+			message: '#^Parameter \#1 \$asn of static method XbNz\\Asn\\DTOs\\AsnDto\:\:fromModel\(\) expects XbNz\\Asn\\Model\\Asn, XbNz\\Asn\\Model\\Asn\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app-modules/ip/src/DTOs/IpAddressDto.php
+
+		-
 			message: '#^Method XbNz\\Ip\\Livewire\\ListIpAddresses\:\:ipAddresses\(\) should return Illuminate\\Contracts\\Pagination\\CursorPaginator\<XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Contracts\\Pagination\\Paginator\|Illuminate\\Pagination\\AbstractCursorPaginator\|Illuminate\\Support\\Enumerable\<\(int\|string\), XbNz\\Ip\\ViewModels\\ListIpAddressesTableViewModel\>\.$#'
 			identifier: return.type
 			count: 1
@@ -37,6 +49,12 @@ parameters:
 			path: app-modules/ip/src/Livewire/ListIpAddresses.php
 
 		-
+			message: '#^Method XbNz\\Ip\\Models\\IpAddress\:\:asn\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasOne\<XbNz\\Asn\\Model\\Asn, XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasOne\<XbNz\\Asn\\Model\\Asn, \$this\(XbNz\\Ip\\Models\\IpAddress\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app-modules/ip/src/Models/IpAddress.php
+
+		-
 			message: '#^Method XbNz\\Ip\\Models\\IpAddress\:\:pingSequences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<XbNz\\Ping\\Models\\PingSequence, XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<XbNz\\Ping\\Models\\PingSequence, \$this\(XbNz\\Ip\\Models\\IpAddress\)\>\.$#'
 			identifier: return.type
 			count: 1
@@ -47,12 +65,6 @@ parameters:
 			identifier: property.nonObject
 			count: 1
 			path: app-modules/ip/src/ViewModels/ListIpAddressesTableViewModel.php
-
-		-
-			message: '#^Parameter \#1 \$ipAddress of static method XbNz\\Ip\\DTOs\\IpAddressDto\:\:fromModel\(\) expects XbNz\\Ip\\Models\\IpAddress, XbNz\\Ip\\Models\\IpAddress\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app-modules/ping/src/DTOs/PingSequenceDto.php
 
 		-
 			message: '#^Access to an undefined property Spatie\\LaravelData\\Lazy\|XbNz\\Ip\\DTOs\\IpAddressDto\:\:\$ip\.$#'
@@ -101,3 +113,15 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app-modules/ping/src/Models/PingSequence.php
+
+		-
+			message: '#^Property XbNz\\RouteviewsIntegration\\RouteViewsAsnToRange\:\:\$asNumber \(int\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: app-modules/routeviews-integration/src/RouteViewsAsnToRange.php
+
+		-
+			message: '#^Property XbNz\\RouteviewsIntegration\\RouteViewsAsnToRange\:\:\$organization \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: app-modules/routeviews-integration/src/RouteViewsAsnToRange.php

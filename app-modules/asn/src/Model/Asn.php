@@ -13,6 +13,9 @@ use XbNz\Asn\Database\Factories\AsnFactory;
 use XbNz\Asn\DTOs\AsnDto;
 use XbNz\Ip\Models\IpAddress;
 
+/**
+ * @mixin IdeHelperAsn
+ */
 final class Asn extends Model
 {
     /**

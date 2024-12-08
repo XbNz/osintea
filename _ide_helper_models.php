@@ -11,6 +11,31 @@
  */
 
 
+namespace XbNz\Asn\Model{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $ip_address_id
+ * @property string $organization
+ * @property int $as_number
+ * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Ip\Models\IpAddress $ipAddress
+ * @method static \XbNz\Asn\Database\Factories\AsnFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn whereAsNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn whereIpAddressId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn whereOrganization($value)
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	final class IdeHelperAsn {}
+}
+
 namespace XbNz\Fping\Models{
 /**
  * 
@@ -65,6 +90,7 @@ namespace XbNz\Ip\Models{
  * @property string $ip
  * @property \XbNz\Shared\ValueObjects\IpType|null $type
  * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Asn\Model\Asn|null $asn
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \XbNz\Ping\Models\PingSequence> $pingSequences
  * @property-read int|null $ping_sequences_count
  * @method static \XbNz\Ip\Database\Factories\IpAddressFactory factory($count = null, $state = [])
@@ -90,7 +116,7 @@ namespace XbNz\Ping\Models{
  * @property float|null $round_trip_time
  * @property bool $loss
  * @property \Carbon\CarbonImmutable $created_at
- * @property-read \XbNz\Ip\Models\IpAddress|null $ipAddress
+ * @property-read \XbNz\Ip\Models\IpAddress $ipAddress
  * @method static \XbNz\Ping\Database\Factories\PingSequenceFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence newQuery()

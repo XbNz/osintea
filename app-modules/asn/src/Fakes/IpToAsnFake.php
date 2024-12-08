@@ -13,11 +13,14 @@ final class IpToAsnFake implements IpToAsnInterface
 {
     public int $executeCount = 0;
 
+    /**
+     * @var array<int, Provider>
+     */
     public array $providers = [];
 
     public ?Asn $forceAsnReturn = null;
 
-    public function execute(string $ip): ?Asn
+    public function execute(string $ip): Asn
     {
         $this->executeCount++;
 

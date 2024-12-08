@@ -15,6 +15,9 @@ use XbNz\Ip\DTOs\IpAddressDto;
 
 final class BulkAsnLookup
 {
+    /**
+     * @param RewindableGenerator<int, IpToAsnInterface> $providers
+     */
     public function __construct(
         #[Tag('ip-to-asn')]
         private readonly RewindableGenerator $providers,
