@@ -17,20 +17,29 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Native\Laravel\Dialog;
 use Native\Laravel\Facades\Window;
+use XbNz\Asn\Enums\Provider;
+use XbNz\Asn\Events\BulkAsnLookupCompleted;
+use XbNz\Asn\Jobs\BulkAsnLookupJob;
+use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
+use XbNz\Ip\Filters\OrganizationFilter;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPacketLoss;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterRoundTripTime;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv4;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAsn;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAverageRtt;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByLossPercent;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
 use XbNz\Ping\Events\BulkPingCompleted;
@@ -46,6 +55,8 @@ final class ListIpAddresses extends Component
     const array SORT_MAP = [
         'average_rtt' => SortByAverageRtt::class,
         'loss_percent' => SortByLossPercent::class,
+        'organization' => SortByOrganization::class,
+        'as_number' => SortByAsn::class,
     ];
 
     public string $sortBy = 'created_at';
@@ -63,10 +74,18 @@ final class ListIpAddresses extends Component
 
     public PacketLossFilter $packetLossFilter;
 
+    public OrganizationFilter $organizationFilter;
+
     #[On('native:'.BulkPingCompleted::class)]
     public function notifyPingResultsReady(int $completedCount): void
     {
         Flux::toast("{$completedCount} ping results are ready for viewing", 'Ping completed', 3000, 'success');
+    }
+
+    #[On('native:'.BulkAsnLookupCompleted::class)]
+    public function notifyAsnLookupResultsReady(int $completedCount): void
+    {
+        Flux::toast("{$completedCount} ASN lookup results are ready for viewing", 'ASN lookup completed', 1000, 'success');
     }
 
     /**
@@ -94,6 +113,7 @@ final class ListIpAddresses extends Component
                 $query,
                 $this->roundTripTimeFilter,
                 $this->packetLossFilter,
+                $this->organizationFilter
             ))
             ->through($pipes)
             ->thenReturn()
@@ -116,6 +136,24 @@ final class ListIpAddresses extends Component
         $ipAddress = Str::plural('IP Address', $this->query()->count());
 
         return number_format($this->query()->count(), thousands_separator: ',').' '.$ipAddress;
+    }
+
+    #[Computed]
+    #[Renderless]
+    public function organizationNames(): array
+    {
+        return $this->query()
+            ->clone()
+            ->addSelect([
+                'organization' => Asn::query()
+                    ->select('organization')
+                    ->whereColumn('asns.ip_address_id', 'ip_addresses.id')
+                    ->limit(1),
+            ])
+            ->whereNotNull('organization')
+            ->groupBy('organization')
+            ->pluck('organization')
+            ->toArray();
     }
 
     /**
@@ -141,7 +179,25 @@ final class ListIpAddresses extends Component
         Flux::toast('Pinging has commenced in the background. You may continue using the app.', 'Ping started', 10000, 'success');
     }
 
-    public function resolveActiveAsn(): void {}
+    public function lookupActiveAsn(string $provider): void
+    {
+        $provider = Provider::from($provider);
+        $dispatcher = app(Dispatcher::class);
+
+        $this->query()
+            ->clone()
+            ->lazyById(2_000)
+            ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
+            ->chunk(2_000)
+            ->each(function (LazyCollection $chunk) use ($provider, $dispatcher): void {
+                $dispatcher->dispatch(new BulkAsnLookupJob(
+                    $chunk->collect(),
+                    $provider
+                ));
+            });
+
+        Flux::toast('ASN lookup has commenced in the background. You may continue using the app.', 'ASN lookup started', 10000, 'success');
+    }
 
     public function fileImport(
         RapidParserInterface $rapidParser,
@@ -198,6 +254,7 @@ final class ListIpAddresses extends Component
         $toApply = [
             FilterRoundTripTime::class => $this->roundTripTimeFilter->canBeApplied(),
             FilterPacketLoss::class => $this->packetLossFilter->canBeApplied(),
+            FilterOrganization::class => $this->organizationFilter->canBeApplied(),
         ];
 
         Collection::make($toApply)
@@ -220,6 +277,7 @@ final class ListIpAddresses extends Component
         $toRemove = [
             FilterRoundTripTime::class,
             FilterPacketLoss::class,
+            FilterOrganization::class,
         ];
 
         $this->manipulations = array_filter($this->manipulations, fn (string $manipulation) => in_array($manipulation, $toRemove) === false);
@@ -234,10 +292,13 @@ final class ListIpAddresses extends Component
     {
         $this->roundTripTimeFilter = new RoundTripTimeFilter();
         $this->packetLossFilter = new PacketLossFilter();
+        $this->organizationFilter = new OrganizationFilter();
     }
 
     public function render(): View
     {
-        return view('ip::livewire.list-ip-addresses');
+        return view('ip::livewire.list-ip-addresses', [
+            'asnProviders' => array_column(Provider::cases(), 'value'),
+        ]);
     }
 }

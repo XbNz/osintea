@@ -9,7 +9,7 @@ use XbNz\Asn\ValueObject\Asn;
 
 interface IpToAsnInterface
 {
-    public function execute(string $ip): Asn;
+    public function execute(string $ip): ?Asn;
 
     public function supports(Provider $provider): bool;
 }

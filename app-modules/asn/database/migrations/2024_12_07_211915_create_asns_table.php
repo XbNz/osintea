@@ -12,11 +12,14 @@ return new class() extends Migration
     {
         Schema::create('asns', function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('ip_address_id')->index()->references('id')->on('ip_addresses')->cascadeOnDelete();
+            $table->foreignId('ip_address_id')
+                ->unique()
+                ->references('id')
+                ->on('ip_addresses')
+                ->cascadeOnDelete();
             $table->string('organization');
             $table->integer('as_number');
             $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->useCurrent();
         });
     }
 

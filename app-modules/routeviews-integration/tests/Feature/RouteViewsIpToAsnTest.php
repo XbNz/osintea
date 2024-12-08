@@ -41,4 +41,17 @@ final class RouteViewsIpToAsnTest extends TestCase
 
         $this->fail('Expected exception was not thrown');
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function if_the_ip_given_does_not_belong_to_any_asn_it_returns_null(): void
+    {
+        // Arrange
+        $ipToAsn = $this->app->make(RouteViewsIpToAsn::class);
+
+        // Act
+        $result = $ipToAsn->execute('3.100.0.0');
+
+        // Assert
+        $this->assertNull($result);
+    }
 }

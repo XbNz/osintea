@@ -7,4 +7,5 @@ namespace XbNz\Asn\Enums;
 enum Provider: string
 {
     case RouteViews = 'RouteViews';
+    case Fake = 'Fake';
 }

@@ -31,21 +31,27 @@
                         <form wire:submit="applyFilters">
                             <flux:menu.submenu heading="Round trip">
                                 <div class="flex flex-col gap-2">
+                                    <flux:spacer />
                                     <flux:input.group label="Minimum">
                                         <flux:input placeholder="50" type="number" wire:model="roundTripTimeFilter.minFloor" />
                                         <flux:input placeholder="50" type="number" wire:model="roundTripTimeFilter.maxFloor" />
                                         <flux:input.group.suffix>ms</flux:input.group.suffix>
                                     </flux:input.group>
+                                    <flux:spacer />
+                                    <flux:menu.separator />
                                     <flux:input.group label="Average">
                                         <flux:input placeholder="50" type="number" wire:model="roundTripTimeFilter.minAverage" />
                                         <flux:input placeholder="50" type="number" wire:model="roundTripTimeFilter.maxAverage" />
                                         <flux:input.group.suffix>ms</flux:input.group.suffix>
                                     </flux:input.group>
+                                    <flux:spacer />
+                                    <flux:menu.separator />
                                     <flux:input.group label="Maximum">
                                         <flux:input placeholder="50" type="number" wire:model="roundTripTimeFilter.minCeiling" />
                                         <flux:input placeholder="50" type="number" wire:model="roundTripTimeFilter.maxCeiling" />
                                         <flux:input.group.suffix>ms</flux:input.group.suffix>
                                     </flux:input.group>
+                                    <flux:spacer />
                                 </div>
                             </flux:menu.submenu>
 
@@ -56,6 +62,18 @@
                                         <flux:input placeholder="50" type="number" wire:model="packetLossFilter.maxPercent" />
                                         <flux:input.group.suffix>%</flux:input.group.suffix>
                                     </flux:input.group>
+                                </div>
+                            </flux:menu.submenu>
+
+                            <flux:menu.submenu heading="Organization">
+                                <div class="flex flex-col gap-2">
+                                    <flux:input label="ASN" placeholder="13335" type="number" wire:model="organizationFilter.asNumber" />
+                                    <flux:menu.separator />
+                                    <flux:select label="Organization" variant="listbox" searchable clearable placeholder="Organization..." wire:model="organizationFilter.name">
+                                        @foreach($this->organizationNames as $organization)
+                                            <flux:option value="{{ $organization }}">{{ $organization }}</flux:option>
+                                        @endforeach
+                                    </flux:select>
                                 </div>
                             </flux:menu.submenu>
 
@@ -72,6 +90,11 @@
                     </flux:menu.group>
                     <flux:menu.group heading="Tools">
                         <flux:menu.item wire:click="pingActive">Ping selected</flux:menu.item>
+                        <flux:menu.submenu heading="ASN Lookup">
+                            @foreach($asnProviders as $provider)
+                                <flux:menu.item wire:click="lookupActiveAsn('{{ $provider }}')">{{ $provider }}</flux:menu.item>
+                            @endforeach
+                        </flux:menu.submenu>
                     </flux:menu.group>
 
                     <flux:menu.item wire:click="fileImport">Import from file</flux:menu.item>
@@ -129,6 +152,30 @@
                         Loss
                     </span>
                 </flux:column>
+
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'organization'"
+                    :direction="$sortDirection"
+                    wire:click="sort('organization')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-building', 'h-5 w-5')
+                        Organization
+                    </span>
+                </flux:column>
+
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'as_number'"
+                    :direction="$sortDirection"
+                    wire:click="sort('as_number')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-globe', 'h-5 w-5')
+                        ASN
+                    </span>
+                </flux:column>
             </flux:columns>
 
             <flux:rows>
@@ -149,6 +196,8 @@
                             </flux:button>
                         </flux:cell>
                         <flux:cell class="whitespace-nowrap">{{ $ipAddress->loss_percent }}% ({{ $ipAddress->lost_sequences }}/{{ $ipAddress->total_sequences }})</flux:cell>
+                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->organization }}</flux:cell>
+                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->as_number }}</flux:cell>
                     </flux:row>
                 @endforeach
             </flux:rows>

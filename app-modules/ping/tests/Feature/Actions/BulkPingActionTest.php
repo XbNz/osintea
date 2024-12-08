@@ -29,7 +29,7 @@ final class BulkPingActionTest extends TestCase
             'size' => 56,
             'count' => 1,
             'interval' => 1,
-            'timeout' => 1000,
+            'timeout' => 1,
             'retries' => 0,
             'ttl' => 64,
             'backoff' => 1.5,

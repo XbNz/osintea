@@ -18,7 +18,6 @@ final class AsnDto extends Data
         public readonly string $organization,
         public readonly int $as_number,
         public readonly CarbonImmutable $created_at,
-        public readonly CarbonImmutable $updated_at,
     ) {}
 
     public static function fromModel(Asn $asn): self

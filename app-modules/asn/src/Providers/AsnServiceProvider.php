@@ -12,13 +12,8 @@ final class AsnServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->tag([
-            $this->app->singleton(RouteViewsIpToAsn::class),
-        ], 'ip-to-asn');
-
-        $this->app->tag([
-            $this->app->singleton(RouteViewsAsnToRange::class),
-        ], 'asn-to-range');
+        $this->app->tag([RouteViewsIpToAsn::class], 'ip-to-asn');
+        $this->app->tag([RouteViewsAsnToRange::class], 'asn-to-range');
     }
 
     public function boot(): void {}

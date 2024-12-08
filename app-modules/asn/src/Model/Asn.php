@@ -34,7 +34,6 @@ final class Asn extends Model
     {
         return [
             'created_at' => 'immutable_datetime',
-            'updated_at' => 'immutable_datetime',
         ];
     }
 

@@ -229,6 +229,58 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function sorting_by_organization(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->has(Asn::factory()->state(['organization' => 'A']))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->has(Asn::factory()->state(['organization' => 'B']))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        // Act & Assert
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->call('sort', 'organization');
+        $livewire->assertSeeInOrder(['A', 'B']);
+
+        $livewire->call('sort', 'organization');
+        $livewire->assertSeeInOrder(['B', 'A']);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function sorting_by_as_number(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->has(Asn::factory()->state(['as_number' => 1]))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->has(Asn::factory()->state(['as_number' => 2]))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        // Act & Assert
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->call('sort', 'as_number');
+        $livewire->assertSeeInOrder(['1', '2']);
+
+        $livewire->call('sort', 'as_number');
+        $livewire->assertSeeInOrder(['2', '1']);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function filters_by_minimum_round_trip_range(): void
     {
         // Arrange
@@ -426,6 +478,60 @@ final class ListIpAddressesTest extends TestCase
         $livewire->assertSee($ipAddressA->ip);
         $livewire->assertSee($ipAddressB->ip);
         $livewire->assertDontSee($ipAddressC->ip);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function filter_by_organization(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->has(Asn::factory()->state(['organization' => 'A']))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->has(Asn::factory()->state(['organization' => 'B']))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        // Act
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->set('organizationFilter.name', 'B')
+            ->call('applyFilters');
+
+        // Assert
+        $livewire->assertSee($ipAddressB->ip);
+        $livewire->assertDontSee($ipAddressA->ip);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function filter_by_as_number(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->has(Asn::factory()->state(['as_number' => 1]))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->has(Asn::factory()->state(['as_number' => 2]))
+            ->create()
+            ->refresh()
+            ->getData();
+
+        // Act
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->set('organizationFilter.asNumber', 2)
+            ->call('applyFilters');
+
+        // Assert
+        $livewire->assertSee($ipAddressB->ip);
+        $livewire->assertDontSee($ipAddressA->ip);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]

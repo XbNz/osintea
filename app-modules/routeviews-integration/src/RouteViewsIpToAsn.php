@@ -19,7 +19,7 @@ final class RouteViewsIpToAsn implements IpToAsnInterface
         private readonly Reader $ipv6Reader
     ) {}
 
-    public function execute(string $ip): Asn
+    public function execute(string $ip): ?Asn
     {
         IpValidator::make($ip)->assertPublic();
 
@@ -30,10 +30,16 @@ final class RouteViewsIpToAsn implements IpToAsnInterface
             IpType::IPv6 => $this->ipv6Reader,
         };
 
+        $asInfo = $reader->get($ip);
+
+        if ($asInfo === null) {
+            return null;
+        }
+
         $sanitized = Type\shape([
             'autonomous_system_number' => Type\positive_int(),
             'autonomous_system_organization' => Type\non_empty_string(),
-        ])->coerce($reader->get($ip));
+        ])->coerce($asInfo);
 
         return new Asn(
             $sanitized['autonomous_system_organization'],
