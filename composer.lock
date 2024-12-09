@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "615fec1303f91c2653b35b9793b00e67",
+    "content-hash": "4641ac85318c59b7b03242c7cbb89ae1",
     "packages": [
         {
             "name": "amphp/amp",
@@ -905,8 +905,8 @@
             "type": "library",
             "extra": {
                 "thanks": {
-                    "name": "hhvm/hsl",
-                    "url": "https://github.com/hhvm/hsl"
+                    "url": "https://github.com/hhvm/hsl",
+                    "name": "hhvm/hsl"
                 }
             },
             "autoload": {
@@ -2090,29 +2090,27 @@
         },
         {
             "name": "doctrine/deprecations",
-            "version": "1.1.3",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/deprecations.git",
-                "reference": "dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab"
+                "reference": "31610dbb31faa98e6b5447b62340826f54fbc4e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab",
-                "reference": "dfbaa3c2d2e9a9df1118213f3b8b0c597bb99fab",
+                "url": "https://api.github.com/repos/doctrine/deprecations/zipball/31610dbb31faa98e6b5447b62340826f54fbc4e9",
+                "reference": "31610dbb31faa98e6b5447b62340826f54fbc4e9",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^9",
-                "phpstan/phpstan": "1.4.10 || 1.10.15",
-                "phpstan/phpstan-phpunit": "^1.0",
+                "doctrine/coding-standard": "^9 || ^12",
+                "phpstan/phpstan": "1.4.10 || 2.0.3",
+                "phpstan/phpstan-phpunit": "^1.0 || ^2",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
-                "psalm/plugin-phpunit": "0.18.4",
-                "psr/log": "^1 || ^2 || ^3",
-                "vimeo/psalm": "4.30.0 || 5.12.0"
+                "psr/log": "^1 || ^2 || ^3"
             },
             "suggest": {
                 "psr/log": "Allows logging deprecations via PSR-3 logger implementation"
@@ -2120,7 +2118,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Doctrine\\Deprecations\\": "lib/Doctrine/Deprecations"
+                    "Doctrine\\Deprecations\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2131,9 +2129,9 @@
             "homepage": "https://www.doctrine-project.org/",
             "support": {
                 "issues": "https://github.com/doctrine/deprecations/issues",
-                "source": "https://github.com/doctrine/deprecations/tree/1.1.3"
+                "source": "https://github.com/doctrine/deprecations/tree/1.1.4"
             },
-            "time": "2024-01-30T19:34:25+00:00"
+            "time": "2024-12-07T21:18:45+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -4079,20 +4077,20 @@
         },
         {
             "name": "league/uri",
-            "version": "7.4.1",
+            "version": "7.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri.git",
-                "reference": "bedb6e55eff0c933668addaa7efa1e1f2c417cc4"
+                "reference": "81fb5145d2644324614cc532b28efd0215bda430"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri/zipball/bedb6e55eff0c933668addaa7efa1e1f2c417cc4",
-                "reference": "bedb6e55eff0c933668addaa7efa1e1f2c417cc4",
+                "url": "https://api.github.com/repos/thephpleague/uri/zipball/81fb5145d2644324614cc532b28efd0215bda430",
+                "reference": "81fb5145d2644324614cc532b28efd0215bda430",
                 "shasum": ""
             },
             "require": {
-                "league/uri-interfaces": "^7.3",
+                "league/uri-interfaces": "^7.5",
                 "php": "^8.1"
             },
             "conflict": {
@@ -4157,7 +4155,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri/tree/7.4.1"
+                "source": "https://github.com/thephpleague/uri/tree/7.5.1"
             },
             "funding": [
                 {
@@ -4165,20 +4163,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-23T07:42:40+00:00"
+            "time": "2024-12-08T08:40:02+00:00"
         },
         {
             "name": "league/uri-interfaces",
-            "version": "7.4.1",
+            "version": "7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/uri-interfaces.git",
-                "reference": "8d43ef5c841032c87e2de015972c06f3865ef718"
+                "reference": "08cfc6c4f3d811584fb09c37e2849e6a7f9b0742"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/8d43ef5c841032c87e2de015972c06f3865ef718",
-                "reference": "8d43ef5c841032c87e2de015972c06f3865ef718",
+                "url": "https://api.github.com/repos/thephpleague/uri-interfaces/zipball/08cfc6c4f3d811584fb09c37e2849e6a7f9b0742",
+                "reference": "08cfc6c4f3d811584fb09c37e2849e6a7f9b0742",
                 "shasum": ""
             },
             "require": {
@@ -4241,7 +4239,7 @@
                 "docs": "https://uri.thephpleague.com",
                 "forum": "https://thephpleague.slack.com",
                 "issues": "https://github.com/thephpleague/uri-src/issues",
-                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.4.1"
+                "source": "https://github.com/thephpleague/uri-interfaces/tree/7.5.0"
             },
             "funding": [
                 {
@@ -4249,7 +4247,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-23T07:42:40+00:00"
+            "time": "2024-12-08T08:18:47+00:00"
         },
         {
             "name": "livewire/flux",
@@ -4615,16 +4613,16 @@
         },
         {
             "name": "nativephp/electron",
-            "version": "dev-main",
+            "version": "0.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/electron.git",
-                "reference": "b6f48d366abbf74088e812668bab115e4ef41137"
+                "reference": "ff9c48f14e4d5e794bb471af21b39397ea41eba8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/electron/zipball/b6f48d366abbf74088e812668bab115e4ef41137",
-                "reference": "b6f48d366abbf74088e812668bab115e4ef41137",
+                "url": "https://api.github.com/repos/NativePHP/electron/zipball/ff9c48f14e4d5e794bb471af21b39397ea41eba8",
+                "reference": "ff9c48f14e4d5e794bb471af21b39397ea41eba8",
                 "shasum": ""
             },
             "require": {
@@ -4648,7 +4646,6 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.26"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -4689,7 +4686,7 @@
                 "nativephp"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/electron/tree/main"
+                "source": "https://github.com/NativePHP/electron/tree/0.8.7"
             },
             "funding": [
                 {
@@ -4701,7 +4698,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-12-07T19:17:02+00:00"
+            "time": "2024-11-17T15:04:25+00:00"
         },
         {
             "name": "nativephp/laravel",
@@ -4800,16 +4797,16 @@
         },
         {
             "name": "nativephp/php-bin",
-            "version": "dev-update-php-8.4-mac-arm64",
+            "version": "0.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/php-bin.git",
-                "reference": "625a63ba3b400d9fd1c70d8c9d16219692c502fb"
+                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/625a63ba3b400d9fd1c70d8c9d16219692c502fb",
-                "reference": "625a63ba3b400d9fd1c70d8c9d16219692c502fb",
+                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/77f1048f191d6602fcbe29472409ac23eb4fd06b",
+                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b",
                 "shasum": ""
             },
             "type": "library",
@@ -4839,7 +4836,7 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/php-bin/tree/update-php-8.4-mac-arm64"
+                "source": "https://github.com/NativePHP/php-bin/tree/0.5.5"
             },
             "funding": [
                 {
@@ -4851,7 +4848,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-25T05:13:15+00:00"
+            "time": "2024-11-17T15:10:47+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -11395,16 +11392,16 @@
         },
         {
             "name": "infection/infection",
-            "version": "0.29.8",
+            "version": "0.29.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/infection/infection.git",
-                "reference": "e30db7dda2e9308f1435097b56d20e959b06db17"
+                "reference": "beac2ca971b37dd7feb92fe2d3e705c175b2360b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/infection/infection/zipball/e30db7dda2e9308f1435097b56d20e959b06db17",
-                "reference": "e30db7dda2e9308f1435097b56d20e959b06db17",
+                "url": "https://api.github.com/repos/infection/infection/zipball/beac2ca971b37dd7feb92fe2d3e705c175b2360b",
+                "reference": "beac2ca971b37dd7feb92fe2d3e705c175b2360b",
                 "shasum": ""
             },
             "require": {
@@ -11421,7 +11418,7 @@
                 "infection/include-interceptor": "^0.2.5",
                 "infection/mutator": "^0.4",
                 "justinrainbow/json-schema": "^5.3",
-                "nikic/php-parser": "^5.0",
+                "nikic/php-parser": "^5.3",
                 "ondram/ci-detector": "^4.1.0",
                 "php": "^8.1",
                 "sanmai/later": "^0.1.1",
@@ -11431,7 +11428,7 @@
                 "symfony/filesystem": "^5.4 || ^6.0 || ^7.0",
                 "symfony/finder": "^5.4 || ^6.0 || ^7.0",
                 "symfony/process": "^5.4 || ^6.0 || ^7.0",
-                "thecodingmachine/safe": "^2.1.2",
+                "thecodingmachine/safe": "dev-master as 2.5.0",
                 "webmozart/assert": "^1.11"
             },
             "conflict": {
@@ -11508,7 +11505,7 @@
             ],
             "support": {
                 "issues": "https://github.com/infection/infection/issues",
-                "source": "https://github.com/infection/infection/tree/0.29.8"
+                "source": "https://github.com/infection/infection/tree/0.29.9"
             },
             "funding": [
                 {
@@ -11520,7 +11517,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-10-29T23:29:30+00:00"
+            "time": "2024-12-08T22:23:44+00:00"
         },
         {
             "name": "infection/mutator",
@@ -14371,33 +14368,30 @@
         },
         {
             "name": "thecodingmachine/safe",
-            "version": "v2.5.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thecodingmachine/safe.git",
-                "reference": "3115ecd6b4391662b4931daac4eba6b07a2ac1f0"
+                "reference": "61a871cfbaf72357919b7b6035f0400873122280"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/3115ecd6b4391662b4931daac4eba6b07a2ac1f0",
-                "reference": "3115ecd6b4391662b4931daac4eba6b07a2ac1f0",
+                "url": "https://api.github.com/repos/thecodingmachine/safe/zipball/61a871cfbaf72357919b7b6035f0400873122280",
+                "reference": "61a871cfbaf72357919b7b6035f0400873122280",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.5",
-                "phpunit/phpunit": "^9.5",
+                "php-parallel-lint/php-parallel-lint": "^1.4",
+                "phpstan/phpstan": "^1",
+                "phpunit/phpunit": "^10",
                 "squizlabs/php_codesniffer": "^3.2",
                 "thecodingmachine/phpstan-strict-rules": "^1.0"
             },
+            "default-branch": true,
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.2.x-dev"
-                }
-            },
             "autoload": {
                 "files": [
                     "deprecated/apc.php",
@@ -14432,7 +14426,6 @@
                     "generated/ftp.php",
                     "generated/funchand.php",
                     "generated/gettext.php",
-                    "generated/gmp.php",
                     "generated/gnupg.php",
                     "generated/hash.php",
                     "generated/ibase.php",
@@ -14462,6 +14455,7 @@
                     "generated/ps.php",
                     "generated/pspell.php",
                     "generated/readline.php",
+                    "generated/rnp.php",
                     "generated/rpminfo.php",
                     "generated/rrd.php",
                     "generated/sem.php",
@@ -14504,9 +14498,23 @@
             "description": "PHP core functions that throw exceptions instead of returning FALSE on error",
             "support": {
                 "issues": "https://github.com/thecodingmachine/safe/issues",
-                "source": "https://github.com/thecodingmachine/safe/tree/v2.5.0"
+                "source": "https://github.com/thecodingmachine/safe/tree/master"
             },
-            "time": "2023-04-05T11:54:14+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/OskarStark",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/shish",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/staabm",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-12-05T13:18:55+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -14559,19 +14567,10 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [
-        {
-            "package": "nativephp/php-bin",
-            "version": "dev-update-php-8.4-mac-arm64",
-            "alias": "0.5.5",
-            "alias_normalized": "0.5.5.0"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "nativephp/electron": 20,
-        "nativephp/laravel": 20,
-        "nativephp/php-bin": 20
+        "nativephp/laravel": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

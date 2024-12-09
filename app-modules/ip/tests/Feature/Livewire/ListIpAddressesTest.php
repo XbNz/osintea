@@ -13,6 +13,8 @@ use Mockery;
 use Native\Laravel\Facades\Window;
 use Native\Laravel\Windows\Window as WindowImplementation;
 use Tests\TestCase;
+use XbNz\Asn\Enums\Provider;
+use XbNz\Asn\Jobs\BulkAsnLookupJob;
 use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Livewire\ListIpAddresses;
 use XbNz\Ip\Models\IpAddress;
@@ -623,6 +625,60 @@ final class ListIpAddressesTest extends TestCase
             BulkPingJob::class,
             function (BulkPingJob $job) use ($ipAddressB) {
                 $this->assertSame($ipAddressB->ip, $job->ipAddressDtos->sole()->ip);
+
+                return true;
+            }
+        );
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_looks_up_active_ip_address_asns(): void
+    {
+        // Arrange
+        Bus::fake();
+        $ipAddressA = IpAddress::factory()
+            ->has(
+                PingSequence::factory()
+                    ->count(2)
+                    ->sequence(
+                        ['round_trip_time' => 1],
+                        ['round_trip_time' => 2],
+                    )
+            )
+            ->create(['ip' => '1.1.1.1'])
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->has(
+                PingSequence::factory()
+                    ->count(2)
+                    ->sequence(
+                        ['round_trip_time' => 3],
+                        ['round_trip_time' => 4],
+                    )
+            )
+            ->create(['ip' => '8.8.8.8'])
+            ->refresh()
+            ->getData();
+
+        // Act
+        $livewire = Livewire::test(ListIpAddresses::class)
+            ->set('roundTripTimeFilter.minFloor', 3)
+            ->call('applyFilters');
+
+        $livewire->assertDontSee($ipAddressA->ip);
+        $livewire->assertSee($ipAddressB->ip);
+
+        $livewire->call('lookupActiveAsn', 'Fake');
+
+        // Assert
+        Bus::assertDispatchedTimes(BulkAsnLookupJob::class, 1);
+        Bus::assertDispatched(
+            BulkAsnLookupJob::class,
+            function (BulkAsnLookupJob $job) use ($ipAddressB) {
+                $this->assertSame($ipAddressB->ip, $job->ipAddressDtos->sole()->ip);
+                $this->assertSame(Provider::Fake, $job->provider);
 
                 return true;
             }
