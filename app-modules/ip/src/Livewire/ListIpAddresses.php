@@ -20,6 +20,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Native\Laravel\Dialog;
+use Native\Laravel\Facades\ChildProcess;
 use Native\Laravel\Facades\Window;
 use XbNz\Asn\Enums\Provider;
 use XbNz\Asn\Events\BulkAsnLookupCompleted;
@@ -172,9 +173,9 @@ final class ListIpAddresses extends Component
     {
         $this->query()
             ->clone()
-            ->lazyById(2_000)
+            ->lazyById(100)
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
-            ->chunk(2_000)
+            ->chunk(100)
             ->each(fn (LazyCollection $chunk) => $bus->dispatch(
                 new BulkPingJob($chunk->collect())
             ));
@@ -189,9 +190,9 @@ final class ListIpAddresses extends Component
 
         $this->query()
             ->clone()
-            ->lazyById(2_000)
+            ->lazyById(500)
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
-            ->chunk(2_000)
+            ->chunk(500)
             ->each(function (LazyCollection $chunk) use ($provider, $dispatcher): void {
                 $dispatcher->dispatch(new BulkAsnLookupJob(
                     $chunk->collect(),
