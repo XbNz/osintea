@@ -16,7 +16,7 @@ final class FilterPacketLoss
         }
 
         $transporter->query
-            ->where(fn(Builder $query) => $query->whereHas('pingSequences', function (Builder $query) use ($transporter): void {
+            ->where(fn (Builder $query) => $query->whereHas('pingSequences', function (Builder $query) use ($transporter): void {
                 $query
                     ->groupBy('ping_sequences.ip_address_id')
                     ->when($transporter->packetLossFilter->minPercent, function (Builder $query, $min): void {

@@ -10,7 +10,7 @@ final class LimitIpv6
 {
     public function handle(Transporter $transporter): Transporter
     {
-        $transporter->query->where(fn(Builder $query) => $query->where('type', 6));
+        $transporter->query->where(fn (Builder $query) => $query->where('type', 6));
 
         return $transporter;
     }
