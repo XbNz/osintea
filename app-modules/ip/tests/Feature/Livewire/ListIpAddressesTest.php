@@ -632,6 +632,32 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function it_pings_active_ip_addresses_using_a_sample_size(): void
+    {
+        // Arrange
+        Bus::fake();
+        IpAddress::factory()
+            ->count(6)
+            ->create();
+
+        // Act
+        Livewire::test(ListIpAddresses::class)
+            ->set('pingSampleSizePercent', 50)
+            ->call('pingActive');
+
+        // Assert
+        Bus::assertDispatchedTimes(BulkPingJob::class, 1);
+        Bus::assertDispatched(
+            BulkPingJob::class,
+            function (BulkPingJob $job) {
+                $this->assertCount(3, $job->ipAddressDtos);
+
+                return true;
+            }
+        );
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_looks_up_active_ip_address_asns(): void
     {
         // Arrange

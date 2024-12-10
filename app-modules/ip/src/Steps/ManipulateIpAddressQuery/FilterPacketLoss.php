@@ -16,7 +16,7 @@ final class FilterPacketLoss
         }
 
         $transporter->query
-            ->whereHas('pingSequences', function (Builder $query) use ($transporter): void {
+            ->where(fn(Builder $query) => $query->whereHas('pingSequences', function (Builder $query) use ($transporter): void {
                 $query
                     ->groupBy('ping_sequences.ip_address_id')
                     ->when($transporter->packetLossFilter->minPercent, function (Builder $query, $min): void {
@@ -25,7 +25,7 @@ final class FilterPacketLoss
                     ->when($transporter->packetLossFilter->maxPercent, function (Builder $query, $max): void {
                         $query->having(DB::raw('CAST(SUM(ping_sequences.loss) AS REAL) / COUNT(ping_sequences.id) * 100'), '<=', $max);
                     });
-            });
+            }));
 
         return $transporter;
     }

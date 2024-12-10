@@ -89,7 +89,21 @@
                         </form>
                     </flux:menu.group>
                     <flux:menu.group heading="Tools">
-                        <flux:menu.item wire:click="pingActive">Ping selected</flux:menu.item>
+                        <flux:menu.submenu heading="Ping">
+                            <form wire:submit.prevent="pingActive">
+                                <flux:input.group label="Sample size">
+                                    <flux:input type="number" wire:model="pingSampleSizePercent" />
+                                    <flux:input.group.suffix>%</flux:input.group.suffix>
+                                </flux:input.group>
+
+                                <flux:button class="mt-3" type="submit">
+                                    <span class="flex gap-3">
+                                        Ping active
+                                        @svg('fad-wifi', 'h-5 w-5')
+                                    </span>
+                                </flux:button>
+                            </form>
+                        </flux:menu.submenu>
                         <flux:menu.submenu heading="ASN Lookup">
                             @foreach($asnProviders as $provider)
                                 <flux:menu.item wire:click="lookupActiveAsn('{{ $provider }}')">{{ $provider }}</flux:menu.item>

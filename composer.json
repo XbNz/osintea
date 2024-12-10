@@ -5,7 +5,11 @@
     "keywords": [
         "osint",
         "reconnaissance",
-        "network"
+        "network",
+        "fping",
+        "masscan",
+        "asn",
+        "routeviews"
     ],
     "license": "MIT",
     "require": {
@@ -14,7 +18,7 @@
         "blade-ui-kit/blade-icons": "^1.7",
         "chefhasteeth/pipeline": "^1.0",
         "internachi/modular": "^2.2",
-        "laravel/framework": "^11.9",
+        "laravel/framework": "^11.3",
         "laravel/reverb": "^1.4",
         "laravel/tinker": "^2.9",
         "livewire/flux": "^1.0",

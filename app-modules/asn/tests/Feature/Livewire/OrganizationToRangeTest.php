@@ -30,4 +30,14 @@ final class OrganizationToRangeTest extends TestCase
             'ip' => '210.125.183.1',
         ]);
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_retrieves_ipv4_or_ipv6_or_both_based_on_user_request(): void
+    {
+        // Arrange
+
+        // Act
+
+        // Assert
+    }
 }

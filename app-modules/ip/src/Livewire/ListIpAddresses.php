@@ -65,6 +65,8 @@ final class ListIpAddresses extends Component
 
     public int $rowAmount = 100;
 
+    public int $pingSampleSizePercent = 100;
+
     /**
      * @var array<int, class-string>
      */
@@ -75,6 +77,13 @@ final class ListIpAddresses extends Component
     public PacketLossFilter $packetLossFilter;
 
     public OrganizationFilter $organizationFilter;
+
+    public function rules(): array
+    {
+        return [
+            'pingSampleSizePercent' => ['required', 'numeric', 'min:1', 'max:100'],
+        ];
+    }
 
     #[On('native:'.BulkPingCompleted::class)]
     public function notifyPingResultsReady(int $completedCount): void
@@ -168,11 +177,21 @@ final class ListIpAddresses extends Component
         return ListIpAddressesTableViewModel::collect($this->query()->cursorPaginate($this->rowAmount));
     }
 
-    public function pingActive(Dispatcher $bus): void
+    public function pingActive(): void
     {
-        $this->query()
-            ->clone()
+        $this->validate();
+
+        $bus = app(Dispatcher::class);
+
+        $query = $this->query()->clone();
+
+        $query->getQuery()->orders = null;
+
+        $sampleSizeCount = (int) ceil($query->count() * ($this->pingSampleSizePercent / 100));
+
+        $query
             ->lazyById(100)
+            ->take($sampleSizeCount)
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
             ->chunk(100)
             ->each(fn (LazyCollection $chunk) => $bus->dispatch(
@@ -187,11 +206,14 @@ final class ListIpAddresses extends Component
         $provider = Provider::from($provider);
         $dispatcher = app(Dispatcher::class);
 
-        $this->query()
-            ->clone()
-            ->lazyById(500)
+        $query = $this->query()->clone();
+
+        $query->getQuery()->orders = null;
+
+        $query
+            ->lazyById(200)
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
-            ->chunk(500)
+            ->chunk(200)
             ->each(function (LazyCollection $chunk) use ($provider, $dispatcher): void {
                 $dispatcher->dispatch(new BulkAsnLookupJob(
                     $chunk->collect(),
@@ -301,7 +323,7 @@ final class ListIpAddresses extends Component
     public function render(): View
     {
         return view('ip::livewire.list-ip-addresses', [
-            'asnProviders' => array_column(Provider::cases(), 'value'),
+            'asnProviders' => array_column(array_filter(Provider::cases(), fn (Provider $provider) => $provider->canBeUsedInProduction()), 'value'),
         ]);
     }
 }

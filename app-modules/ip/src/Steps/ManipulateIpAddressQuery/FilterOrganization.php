@@ -15,7 +15,7 @@ final class FilterOrganization
         }
 
         $transporter->query
-            ->whereHas('asn', function (Builder $query) use ($transporter): void {
+            ->where(fn (Builder $query) => $query->whereHas('asn', function (Builder $query) use ($transporter): void {
                 $query
                     ->groupBy('asns.ip_address_id')
                     ->when($transporter->organizationFilter->name, function (Builder $query, $organization): void {
@@ -24,7 +24,7 @@ final class FilterOrganization
                     ->when($transporter->organizationFilter->asNumber, function (Builder $query, $asn): void {
                         $query->having('asns.as_number', $asn);
                     });
-            });
+            }));
 
         return $transporter;
     }

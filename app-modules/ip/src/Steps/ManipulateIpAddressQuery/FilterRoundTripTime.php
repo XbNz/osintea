@@ -16,7 +16,7 @@ final class FilterRoundTripTime
         }
 
         $transporter->query
-            ->whereHas('pingSequences', function (Builder $query) use ($transporter): void {
+            ->where(fn(Builder $query) => $query->whereHas('pingSequences', function (Builder $query) use ($transporter): void {
                 $query
                     ->groupBy('ping_sequences.ip_address_id')
                     ->when($transporter->roundTripTimeFilter->minFloor, function (Builder $query, $minFloor): void {
@@ -37,7 +37,7 @@ final class FilterRoundTripTime
                     ->when($transporter->roundTripTimeFilter->maxCeiling, function (Builder $query, $maxCeiling): void {
                         $query->having(DB::raw('MAX(ping_sequences.round_trip_time)'), '<=', $maxCeiling);
                     });
-            });
+            }));
 
         return $transporter;
     }
