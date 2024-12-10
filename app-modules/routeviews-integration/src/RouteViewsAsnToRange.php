@@ -134,6 +134,26 @@ final class RouteViewsAsnToRange implements AsnToRangeInterface
         );
     }
 
+    public function all(): Builder
+    {
+        $allV4Query = $this->asnDatabase->table('ipv4')
+            ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('organization', 'LIKE', "%{$this->organization}%"))
+            ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('asn', $this->asNumber))
+            ->select(['asn', 'organization'])
+            ->groupBy('asn');
+
+        $allV6Query = $this->asnDatabase->table('ipv6')
+            ->addSelect('ipv6.asn')
+            ->addSelect('ipv6.organization')
+            ->leftJoin('ipv4', 'ipv4.asn', '=', 'ipv6.asn')
+            ->whereNull('ipv4.asn')
+            ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('ipv6.organization', 'LIKE', "%{$this->organization}%"))
+            ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('ipv6.asn', $this->asNumber))
+            ->groupBy('ipv6.asn');
+
+        return $allV4Query->unionAll($allV6Query);
+    }
+
     public function supports(Provider $provider): bool
     {
         return $provider === Provider::RouteViews;

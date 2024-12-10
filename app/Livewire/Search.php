@@ -66,6 +66,21 @@ final class Search extends Component
             ->minWidth(500);
     }
 
+    public function openOrganizationToRange(): void
+    {
+        Window::close(NativePhpWindow::CommandPalette->value);
+
+        Window::open(NativePhpWindow::OrganizationToRange->value)
+            ->route('organization-to-range')
+            ->showDevTools(false)
+            ->titleBarHiddenInset()
+            ->transparent()
+            ->height(462)
+            ->width(500)
+            ->minHeight(462)
+            ->minWidth(500);
+    }
+
     public function render(): View
     {
         return view('livewire.search');

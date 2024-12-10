@@ -16,7 +16,7 @@ final class RouteviewsIntegrationServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'routeviews-integration');
 
-        $this->app->singleton(RouteViewsIpToAsn::class, function (Application $application) {
+        $this->app->bind(RouteViewsIpToAsn::class, function (Application $application) {
             return new RouteViewsIpToAsn(
                 new Reader($application->make(Repository::class)->get('routeviews-integration.asn_mmdb.ipv4')),
                 new Reader($application->make(Repository::class)->get('routeviews-integration.asn_mmdb.ipv6'))

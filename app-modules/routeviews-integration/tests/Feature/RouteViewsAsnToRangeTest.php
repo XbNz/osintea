@@ -151,4 +151,19 @@ final class RouteViewsAsnToRangeTest extends TestCase
 
         $this->fail('Expected exception was not thrown');
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_returns_a_builder_instance_with_all_unique_as_numbers(): void
+    {
+        // Arrange
+        $asnToRange = $this->app->make(RouteViewsAsnToRange::class);
+
+        // Act
+        $result = $asnToRange
+            ->asNumber(13335)
+            ->all();
+
+        // Assert
+        $this->assertSame(1, $result->count());
+    }
 }

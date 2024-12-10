@@ -8,4 +8,9 @@ enum Provider: string
 {
     case RouteViews = 'RouteViews';
     case Fake = 'Fake';
+
+    public function canBeUsedInProduction(): bool
+    {
+        return $this !== self::Fake;
+    }
 }
