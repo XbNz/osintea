@@ -34,9 +34,10 @@ jobs:
             start_ip TEXT NOT NULL,
             end_ip TEXT NOT NULL,
             country_code TEXT NOT NULL,
-            city TEXT NOT NULL,
-            state1 TEXT NOT NULL,
+            city TEXT NULL,
+            state1 TEXT NULL,
             state2 TEXT NOT NULL,
+            broken TEXT NULL,
             latitude REAL NOT NULL,
             longitude REAL NOT NULL
           );

@@ -1,0 +1,10 @@
+This repository contains binaries of the software fping.
+
+Copyright and Credits
+
+The original authors and contributors of fping are:
+•	Roland Schemers - schemers@stanford.edu (Original Author)
+•	Jeroen Massar - jeroen@unfix.org, jeroen@ipng.nl (IPv6 Support)
+•	David Schweikert - david@schweikert.ch (Improved Main Loop)
+•	Tobi Oetiker - tobi@oetiker.ch (Debian Merge, TOS Settings)
+•	Stephan Fuhrmann - stephan.fuhrmann@1und1.de (Bugfixes, Byte Order, and Senseful Sequence Numbers)
