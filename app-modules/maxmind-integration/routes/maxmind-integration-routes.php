@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // use XbNz\MaxmindIntegration\Http\Controllers\MaxmindIntegrationController;
 
 // Route::get('/maxmind-integrations', [MaxmindIntegrationController::class, 'index'])->name('maxmind-integrations.index');
