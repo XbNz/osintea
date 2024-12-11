@@ -20,8 +20,6 @@ jobs:
                 wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/geolite2-city/geolite2-city-ipv6.csv.gz
                 gunzip geolite2-city-ipv4.csv.gz
                 gunzip geolite2-city-ipv6.csv.gz
-                rm geolite2-city-ipv4.csv.gz
-                rm geolite2-city-ipv6.csv.gz
 
             - name: Create city database
               run: |
