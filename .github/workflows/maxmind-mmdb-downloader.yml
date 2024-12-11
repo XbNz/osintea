@@ -21,10 +21,10 @@ jobs:
 
             - name: Move to databases directory
               run: |
-                rm -rf app-modules/maxmind-integration/database/city-ipv4.mmdb
-                rm -rf app-modules/maxmind-integration/database/city-ipv6.mmdb
-                mv city-ipv4.mmdb app-modules/maxmind-integration/database/
-                mv city-ipv6.mmdb app-modules/maxmind-integration/database/
+                rm -rf app-modules/maxmind-integration/database/geolite2-city-ipv4.mmdb
+                rm -rf app-modules/maxmind-integration/database/geolite2-city-ipv6.mmdb
+                mv geolite2-city-ipv4.mmdb app-modules/maxmind-integration/database/
+                mv geolite2-city-ipv6.mmdb app-modules/maxmind-integration/database/
 
             - name: Create a pull request
               uses: peter-evans/create-pull-request@v7
