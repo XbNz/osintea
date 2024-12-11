@@ -1,0 +1,81 @@
+name: Generate Maxmind city database
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+    maxmind-city-generator:
+        permissions:
+          contents: write
+          pull-requests: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Download Maxmind city database
+              run: |
+                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/geolite2-city/geolite2-city-ipv4.csv.gz
+                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/geolite2-city/geolite2-city-ipv6.csv.gz
+                tar -xvf geolite2-city-ipv4.csv.gz
+                tar -xvf geolite2-city-ipv6.csv.gz
+                rm geolite2-city-ipv4.csv.gz
+                rm geolite2-city-ipv6.csv.gz
+
+            - name: Create city database
+              run: |
+                sqlite3 cities.sqlite "
+                CREATE TABLE ipv4 (
+                  start_ip TEXT NOT NULL,
+                  end_ip TEXT NOT NULL,
+                  country_code TEXT NOT NULL,
+                  city TEXT NOT NULL,
+                  state1 TEXT NOT NULL,
+                  state2 TEXT NOT NULL,
+                  latitude REAL NOT NULL,
+                  longitude REAL NOT NULL
+                );
+
+                CREATE TABLE ipv6 (
+                  start_ip TEXT NOT NULL,
+                  end_ip TEXT NOT NULL,
+                  country_code TEXT NOT NULL,
+                  city TEXT NOT NULL,
+                  state1 TEXT NOT NULL,
+                  state2 TEXT NOT NULL,
+                  latitude REAL NOT NULL,
+                  longitude REAL NOT NULL
+                );
+
+                CREATE INDEX idx_city_ipv4 ON ipv4 (city);
+                CREATE INDEX idx_city_ipv6 ON ipv6 (city);
+                "
+
+            - name: Populate city database with IPv4 data
+              run: |
+                sqlite3 cities.sqlite ".mode csv" ".import geolite2-city-ipv4.csv ipv4"
+
+            - name: Populate city database with IPv6 data
+              run: |
+                sqlite3 cities.sqlite ".mode csv" ".import geolite2-city-ipv6.csv ipv6"
+
+            - name: Move to Maxmind database directory
+              run: |
+                rm -rf app-modules/maxmind-integration/database/cities.sqlite
+                mv cities.sqlite app-modules/maxmind-integration/database/
+
+            - name: Clean up CSV files
+              run: |
+                rm geolite2-city-ipv4.csv
+                rm geolite2-city-ipv6.csv
+
+            - name: Create a pull request
+              uses: peter-evans/create-pull-request@v7
+              with:
+                branch: update-maxmind-city-db
+                title: "Update Maxmind city database"
+                commit-message: "update maxmind city database"
+                base: main
+
+

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "098207e4849fe40a739a5b201305d0d4",
+    "content-hash": "18841d90488397d5e0dbd8bc053802f8",
     "packages": [
         {
             "name": "amphp/amp",
@@ -10504,6 +10504,38 @@
                     "XbNz\\Masscan\\Tests\\": "tests/",
                     "XbNz\\Masscan\\Database\\Factories\\": "database/factories/",
                     "XbNz\\Masscan\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "xbnz/maxmind-integration",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/maxmind-integration",
+                "reference": "97664e8843488f2d75bc0f6ea72e39e89569231a"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XbNz\\MaxmindIntegration\\Providers\\MaxmindIntegrationServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XbNz\\MaxmindIntegration\\": "src/",
+                    "XbNz\\MaxmindIntegration\\Tests\\": "tests/",
+                    "XbNz\\MaxmindIntegration\\Database\\Factories\\": "database/factories/",
+                    "XbNz\\MaxmindIntegration\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "license": [

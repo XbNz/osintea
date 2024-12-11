@@ -38,6 +38,8 @@ jobs:
 
                 CREATE INDEX idx_asn_ipv4 ON ipv4 (asn);
                 CREATE INDEX idx_asn_ipv6 ON ipv6 (asn);
+                CREATE INDEX idx_asn_ipv4_organization ON ipv4 (organization);
+                CREATE INDEX idx_asn_ipv6_organization ON ipv6 (organization);
                 "
 
             - name: Populate ASN database with IPv4 data

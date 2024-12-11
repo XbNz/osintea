@@ -39,6 +39,7 @@
         "xbnz/fping": "*",
         "xbnz/ip": "*",
         "xbnz/masscan": "*",
+        "xbnz/maxmind-integration": "*",
         "xbnz/ping": "*",
         "xbnz/port": "*",
         "xbnz/routeviews-integration": "*",
