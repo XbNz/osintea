@@ -77,6 +77,9 @@ final class ListIpAddresses extends Component
 
     public OrganizationFilter $organizationFilter;
 
+    /**
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [

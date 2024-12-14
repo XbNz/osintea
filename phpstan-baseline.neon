@@ -7,18 +7,6 @@ parameters:
 			path: app-modules/asn/src/Model/Asn.php
 
 		-
-			message: '#^Parameter \#15 \$created_at of class XbNz\\Fping\\DTOs\\FpingPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app-modules/fping/src/DTOs/FpingPreferencesDto.php
-
-		-
-			message: '#^Parameter \#16 \$updated_at of class XbNz\\Fping\\DTOs\\FpingPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app-modules/fping/src/DTOs/FpingPreferencesDto.php
-
-		-
 			message: '#^Property XbNz\\Fping\\Fping\:\:\$binaryPath is never read, only written\.$#'
 			identifier: property.onlyWritten
 			count: 1
