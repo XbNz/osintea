@@ -44,7 +44,8 @@
         "xbnz/port": "*",
         "xbnz/preferences": "*",
         "xbnz/routeviews-integration": "*",
-        "xbnz/shared": "*"
+        "xbnz/shared": "*",
+        "ext-zlib": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",

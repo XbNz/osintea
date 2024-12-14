@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\RouteviewsIntegration;
 
-use Illuminate\Container\Attributes\Database;
-use Illuminate\Database\Connection;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -27,8 +26,7 @@ final class RouteViewsAsnToRange implements AsnToRangeInterface
     private ?int $asNumber;
 
     public function __construct(
-        #[Database('routeviews-asn')]
-        private readonly Connection $asnDatabase,
+        private readonly DatabaseManager $database,
     ) {}
 
     public function filterIpType(int $filterMask): self
@@ -66,13 +64,13 @@ final class RouteViewsAsnToRange implements AsnToRangeInterface
             default => throw new InvalidArgumentException('Need at least one IP type to filter by.'),
         };
 
-        $v4Query = $this->asnDatabase
-            ->table('ipv4')
+        $v4Query = $this->database
+            ->table('route_views_v4_asns')
             ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('organization', 'like', "%{$this->organization}%"))
             ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('asn', $this->asNumber));
 
-        $v6Query = $this->asnDatabase
-            ->table('ipv6')
+        $v6Query = $this->database
+            ->table('route_views_v6_asns')
             ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('organization', 'like', "%{$this->organization}%"))
             ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('asn', $this->asNumber));
 
@@ -136,20 +134,22 @@ final class RouteViewsAsnToRange implements AsnToRangeInterface
 
     public function all(): Builder
     {
-        $allV4Query = $this->asnDatabase->table('ipv4')
+        $allV4Query = $this->database
+            ->table('route_views_v4_asns')
             ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('organization', 'LIKE', "%{$this->organization}%"))
             ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('asn', $this->asNumber))
             ->select(['asn', 'organization'])
             ->groupBy('asn');
 
-        $allV6Query = $this->asnDatabase->table('ipv6')
-            ->addSelect('ipv6.asn')
-            ->addSelect('ipv6.organization')
-            ->leftJoin('ipv4', 'ipv4.asn', '=', 'ipv6.asn')
-            ->whereNull('ipv4.asn')
-            ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('ipv6.organization', 'LIKE', "%{$this->organization}%"))
-            ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('ipv6.asn', $this->asNumber))
-            ->groupBy('ipv6.asn');
+        $allV6Query = $this->database
+            ->table('route_views_v6_asns')
+            ->addSelect('route_views_v6_asns.asn')
+            ->addSelect('route_views_v6_asns.organization')
+            ->leftJoin('route_views_v4_asns', 'route_views_v4_asns.asn', '=', 'route_views_v6_asns.asn')
+            ->whereNull('route_views_v4_asns.asn')
+            ->when(isset($this->organization), fn (Builder $query, $organization) => $query->where('route_views_v6_asns.organization', 'LIKE', "%{$this->organization}%"))
+            ->when(isset($this->asNumber), fn (Builder $query, $asNumber) => $query->where('route_views_v6_asns.asn', $this->asNumber))
+            ->groupBy('route_views_v6_asns.asn');
 
         return $allV4Query->unionAll($allV6Query);
     }
