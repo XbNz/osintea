@@ -13,7 +13,7 @@
 
 namespace XbNz\Asn\Model{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $ip_address_id
@@ -36,9 +36,9 @@ namespace XbNz\Asn\Model{
 	final class IdeHelperAsn {}
 }
 
-namespace XbNz\Fping\Models{
+namespace XbNz\Fping\Models{use XbNz\Preferences\Models\FpingPreferences;
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -56,7 +56,7 @@ namespace XbNz\Fping\Models{
  * @property bool $enabled
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
- * @method static \XbNz\Fping\Database\Factories\FpingPreferencesFactory factory($count = null, $state = [])
+ * @method static \XbNz\Preferences\Database\Factories\FpingPreferencesFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences query()
@@ -84,7 +84,7 @@ namespace XbNz\Fping\Models{
 
 namespace XbNz\Ip\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $ip
@@ -109,7 +109,7 @@ namespace XbNz\Ip\Models{
 
 namespace XbNz\Ping\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $ip_address_id

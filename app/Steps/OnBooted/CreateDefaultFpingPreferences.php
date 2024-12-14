@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Steps\OnBooted;
 
 use Illuminate\Support\Str;
-use XbNz\Fping\Actions\CreateFpingPreferencesAction;
-use XbNz\Fping\DTOs\CreateFpingPreferencesDto;
-use XbNz\Fping\Models\FpingPreferences;
+use XbNz\Preferences\Actions\CreateFpingPreferencesAction;
+use XbNz\Preferences\DTOs\CreateFpingPreferencesDto;
+use XbNz\Preferences\Models\FpingPreferences;
 
 final class CreateDefaultFpingPreferences
 {

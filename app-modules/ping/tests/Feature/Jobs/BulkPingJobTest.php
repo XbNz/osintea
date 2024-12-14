@@ -8,11 +8,11 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
-use XbNz\Fping\Models\FpingPreferences;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\Events\BulkPingCompleted;
 use XbNz\Ping\Jobs\BulkPingJob;
 use XbNz\Ping\Models\PingSequence;
+use XbNz\Preferences\Models\FpingPreferences;
 
 final class BulkPingJobTest extends TestCase
 {

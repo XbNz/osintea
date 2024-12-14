@@ -10,12 +10,12 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use XbNz\Fping\Contracts\FpingInterface;
-use XbNz\Fping\Models\FpingPreferences;
 use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\DTOs\CreatePingSequenceDto;
 use XbNz\Ping\DTOs\PingResultDto;
 use XbNz\Ping\ValueObjects\Sequence;
+use XbNz\Preferences\Models\FpingPreferences;
 
 final class BulkPingAction
 {

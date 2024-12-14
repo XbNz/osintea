@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Steps\OnBooted;
+namespace XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus;
 
+use XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus\Transporter;
 use XbNz\Preferences\Actions\UpdateFpingPreferencesAction;
 use XbNz\Preferences\DTOs\UpdateFpingPreferencesDto;
 
-final class EnableDefaultFpingPreferences
+final class EnableRequestedPreferencesRecord
 {
     public function __construct(
         private readonly UpdateFpingPreferencesAction $updateFpingPreferencesAction
@@ -15,13 +16,9 @@ final class EnableDefaultFpingPreferences
 
     public function handle(Transporter $transporter): Transporter
     {
-        if ($transporter->defaultFpingPreferences === null) {
-            return $transporter;
-        }
-
         $this->updateFpingPreferencesAction->handle(
             new UpdateFpingPreferencesDto(
-                $transporter->defaultFpingPreferences->id,
+                $transporter->record->id,
                 enabled: true
             )
         );

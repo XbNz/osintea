@@ -10,11 +10,11 @@ use Illuminate\Support\Collection;
 use Tests\TestCase;
 use XbNz\Fping\Contracts\FpingInterface;
 use XbNz\Fping\FakeFping;
-use XbNz\Fping\Models\FpingPreferences;
 use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\Actions\BulkPingAction;
 use XbNz\Ping\Models\PingSequence;
+use XbNz\Preferences\Models\FpingPreferences;
 
 final class BulkPingActionTest extends TestCase
 {

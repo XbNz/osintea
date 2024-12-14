@@ -8,7 +8,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Native\Laravel\Events\App\ApplicationBooted;
 use Tests\TestCase;
-use XbNz\Fping\Models\FpingPreferences;
+use XbNz\Preferences\Models\FpingPreferences;
 
 final class OnBootedTest extends TestCase
 {
