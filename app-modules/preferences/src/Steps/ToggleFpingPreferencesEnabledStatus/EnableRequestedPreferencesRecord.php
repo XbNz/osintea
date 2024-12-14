@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus;
 
-use XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus\Transporter;
 use XbNz\Preferences\Actions\UpdateFpingPreferencesAction;
 use XbNz\Preferences\DTOs\UpdateFpingPreferencesDto;
 
