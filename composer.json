@@ -42,6 +42,7 @@
         "xbnz/maxmind-integration": "*",
         "xbnz/ping": "*",
         "xbnz/port": "*",
+        "xbnz/preferences": "*",
         "xbnz/routeviews-integration": "*",
         "xbnz/shared": "*"
     },

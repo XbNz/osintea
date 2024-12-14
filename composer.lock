@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18841d90488397d5e0dbd8bc053802f8",
+    "content-hash": "1f3077505b61ca7fe077d8412c4f5f70",
     "packages": [
         {
             "name": "amphp/amp",
@@ -10602,6 +10602,38 @@
                     "XbNz\\Port\\Tests\\": "tests/",
                     "XbNz\\Port\\Database\\Factories\\": "database/factories/",
                     "XbNz\\Port\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "xbnz/preferences",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/preferences",
+                "reference": "63c9e502e59d785170025f17860315daace6e4c3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "XbNz\\Preferences\\Providers\\PreferencesServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "XbNz\\Preferences\\": "src/",
+                    "XbNz\\Preferences\\Tests\\": "tests/",
+                    "XbNz\\Preferences\\Database\\Factories\\": "database/factories/",
+                    "XbNz\\Preferences\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "license": [

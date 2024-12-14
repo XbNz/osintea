@@ -238,7 +238,7 @@ final class ListIpAddresses extends Component
         $importIpAddressesAction->handle($rapidParser->inputFilePath($file)->parse());
     }
 
-    public function deleteActive(DatabaseManager $database): void
+    public function deleteActive(): void
     {
         $this->query()->delete();
     }
