@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\RouteviewsIntegration\Tests\Feature;
 
-use Illuminate\Config\Repository;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InvalidArgumentException;
@@ -266,7 +265,7 @@ final class RouteViewsAsnToRangeTest extends TestCase
                     'asn' => 13335,
                     'organization' => 'Cloudflare, Inc.',
                 ],
-        ]);
+            ]);
 
         $asnToRange = $this->app->make(RouteViewsAsnToRange::class);
 
