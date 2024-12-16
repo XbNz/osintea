@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f3077505b61ca7fe077d8412c4f5f70",
+    "content-hash": "2dc1ef6406cc4fb8690a5986ae67b956",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4799,16 +4799,16 @@
         },
         {
             "name": "nativephp/php-bin",
-            "version": "0.5.5",
+            "version": "dev-update-php-8.4-mac-arm64",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NativePHP/php-bin.git",
-                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b"
+                "reference": "4ef144040e5e0ff96fd17f862645c0ca02e106cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/77f1048f191d6602fcbe29472409ac23eb4fd06b",
-                "reference": "77f1048f191d6602fcbe29472409ac23eb4fd06b",
+                "url": "https://api.github.com/repos/NativePHP/php-bin/zipball/4ef144040e5e0ff96fd17f862645c0ca02e106cc",
+                "reference": "4ef144040e5e0ff96fd17f862645c0ca02e106cc",
                 "shasum": ""
             },
             "type": "library",
@@ -4838,7 +4838,7 @@
                 "php"
             ],
             "support": {
-                "source": "https://github.com/NativePHP/php-bin/tree/0.5.5"
+                "source": "https://github.com/NativePHP/php-bin/tree/update-php-8.4-mac-arm64"
             },
             "funding": [
                 {
@@ -4850,7 +4850,7 @@
                     "type": "opencollective"
                 }
             ],
-            "time": "2024-11-17T15:10:47+00:00"
+            "time": "2024-12-15T01:39:12+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -14633,15 +14633,24 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "nativephp/php-bin",
+            "version": "dev-update-php-8.4-mac-arm64",
+            "alias": "0.5.5",
+            "alias_normalized": "0.5.5.0"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "nativephp/laravel": 20
+        "nativephp/laravel": 20,
+        "nativephp/php-bin": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.3"
+        "php": "^8.4",
+        "ext-zlib": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
