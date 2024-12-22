@@ -11,9 +11,9 @@
 
             <div class="flex items-center gap-3 mt-3">
                 <flux:tabs variant="segmented">
-                    <flux:tab wire:click="limitV4" name="ipv4">IPv4</flux:tab>
+                    <flux:tab selected wire:click="limitV4" name="ipv4">IPv4</flux:tab>
                     <flux:tab wire:click="limitV6" name="ipv6">IPv6</flux:tab>
-                    <flux:tab selected wire:click="clearIpTypeLimits" name="all">Both</flux:tab>
+                    <flux:tab wire:click="clearIpTypeLimits" name="all">Both</flux:tab>
                 </flux:tabs>
                 <flux:select variant="listbox" placeholder="Providers..." wire:model.live="selectedProvider">
                     @foreach ($providers as $provider)
@@ -34,12 +34,12 @@
             wire:model="ranges"
             rows="7"
         />
-        <div class="flex flex-row gap-3">
+        <div class="flex flex-row gap-3" x-show="$wire.ipTypeMask === {{ \XbNz\Asn\Contracts\AsnToRangeInterface::FILTER_IPV4 }}">
             <flux:button wire:click="addToMyIpAddresses" class="w-full mt-3">
-            <span class="flex gap-3">
-                Add to database
-                @svg('fad-database', 'h-5 w-5')
-            </span>
+                <span class="flex gap-3">
+                    Add to database
+                    @svg('fad-database', 'h-5 w-5')
+                </span>
             </flux:button>
         </div>
     </div>

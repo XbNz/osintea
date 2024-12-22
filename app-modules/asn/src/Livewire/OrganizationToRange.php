@@ -26,6 +26,8 @@ use XbNz\RouteviewsIntegration\RouteViewsAsnToRange;
 #[Layout('components.layouts.secondary-window')]
 final class OrganizationToRange extends Component
 {
+    public int $ipTypeMask = AsnToRangeInterface::FILTER_IPV4;
+
     public string $searchTerm = '';
 
     /**
@@ -88,6 +90,8 @@ final class OrganizationToRange extends Component
             ->filter(fn (AsnToRangeInterface $asnToRange) => $asnToRange->supports($this->selectedProvider))
             ->sole();
 
+        $asnToRange->filterIpType($this->ipTypeMask);
+
         foreach ($this->selectedAsNumbers as $asNumber) {
             $ipRanges = $asnToRange->asNumber((int) $asNumber)->execute();
 
@@ -104,6 +108,21 @@ final class OrganizationToRange extends Component
         RapidParserInterface $rapidParser
     ): void {
         $importIpAddressesAction->handle($rapidParser->inputFilePath($this->inputFile)->parse());
+    }
+
+    public function limitV4(): void
+    {
+        $this->ipTypeMask = AsnToRangeInterface::FILTER_IPV4;
+    }
+
+    public function limitV6(): void
+    {
+        $this->ipTypeMask = AsnToRangeInterface::FILTER_IPV6;
+    }
+
+    public function clearIpTypeLimits(): void
+    {
+        $this->ipTypeMask = AsnToRangeInterface::FILTER_IPV4 | AsnToRangeInterface::FILTER_IPV6;
     }
 
     public function mount(): void

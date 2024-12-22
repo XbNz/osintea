@@ -7,6 +7,7 @@ namespace XbNz\Preferences\Providers;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
 use XbNz\Preferences\Subscribers\FpingSubscriber;
+use XbNz\RouteviewsIntegration\Updaters\UnifiedSqliteUpdater;
 use XbNz\Shared\Actions\ResolveListenersAction;
 
 final class PreferencesServiceProvider extends ServiceProvider
@@ -18,7 +19,12 @@ final class PreferencesServiceProvider extends ServiceProvider
         FpingSubscriber::class,
     ];
 
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->app->tag([
+            UnifiedSqliteUpdater::class,
+        ], 'database-updaters');
+    }
 
     public function boot(): void
     {
