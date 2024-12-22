@@ -103,6 +103,18 @@ parameters:
 			path: app-modules/ping/src/Models/PingSequence.php
 
 		-
+			message: '#^Parameter \#15 \$created_at of class XbNz\\Preferences\\DTOs\\FpingPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app-modules/preferences/src/DTOs/FpingPreferencesDto.php
+
+		-
+			message: '#^Parameter \#16 \$updated_at of class XbNz\\Preferences\\DTOs\\FpingPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app-modules/preferences/src/DTOs/FpingPreferencesDto.php
+
+		-
 			message: '#^Property XbNz\\RouteviewsIntegration\\RouteViewsAsnToRange\:\:\$asNumber \(int\|null\) is never assigned null so it can be removed from the property type\.$#'
 			identifier: property.unusedType
 			count: 1

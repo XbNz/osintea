@@ -8,7 +8,6 @@ use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
-use Webmozart\Assert\Assert;
 use XbNz\Shared\Enums\UpdatableDatabase;
 
 final class UpdateProgressReportEvent implements ShouldBroadcastNow

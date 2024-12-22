@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Preferences\Livewire;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Component;
 use XbNz\Preferences\Jobs\DatabaseUpdaterJob;
@@ -16,7 +17,7 @@ final class DatabasePreferences extends Component
         DatabaseUpdaterJob::dispatch(UpdatableDatabase::from($database));
     }
 
-    public function render()
+    public function render(): View
     {
         return view('preferences::livewire.database-preferences', [
             'updatableDatabases' => Collection::make(UpdatableDatabase::cases())
