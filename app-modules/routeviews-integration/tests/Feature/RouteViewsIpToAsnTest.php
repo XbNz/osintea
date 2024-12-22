@@ -49,7 +49,7 @@ final class RouteViewsIpToAsnTest extends TestCase
         $ipToAsn = $this->app->make(RouteViewsIpToAsn::class);
 
         // Act
-        $result = $ipToAsn->execute('3.100.0.0');
+        $result = $ipToAsn->execute('224.0.0.0');
 
         // Assert
         $this->assertNull($result);

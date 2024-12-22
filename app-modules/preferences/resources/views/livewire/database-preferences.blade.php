@@ -1,5 +1,5 @@
 <div>
-    <div class="w-full flex items-center gap-3">
+    <div class="w-full grid grid-cols-3 gap-6">
         @foreach($updatableDatabases as $databaseValue => $friendlyName)
             <div :key="$databaseValue">
                 <flux:card class="space-y-6">
