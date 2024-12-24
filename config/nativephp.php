@@ -68,6 +68,9 @@ return [
         'auth.json',
         'art/*',
         'content',
+        'infection.html',
+        'composer.*',
+        '*.sqlite*',
         'storage/app/framework/{sessions,testing,cache}',
         'storage/logs/laravel.log',
     ],
@@ -121,4 +124,8 @@ return [
             ],
         ],
     ],
+
+    'queue_workers' => [
+        'one', 'two', 'three'
+    ]
 ];
