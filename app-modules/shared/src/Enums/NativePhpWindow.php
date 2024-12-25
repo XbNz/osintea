@@ -15,4 +15,6 @@ enum NativePhpWindow: string
     case OrganizationToRange = 'organization-to-range';
 
     case Preferences = 'preferences';
+
+    case LocationToRange = 'location-to-range';
 }

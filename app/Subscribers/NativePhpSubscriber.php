@@ -33,7 +33,7 @@ final class NativePhpSubscriber
             ->closable(true)
             ->frameless()
             ->showDevTools(false)
-            ->height(300)
+            ->height(500)
             ->width(600)
             ->minHeight(300)
             ->minWidth(600);

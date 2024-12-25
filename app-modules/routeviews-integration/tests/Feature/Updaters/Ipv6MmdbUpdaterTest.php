@@ -20,12 +20,10 @@ final class Ipv6MmdbUpdaterTest extends TestCase
         // Arrange
         $mmdb = $this->app->make(Repository::class)->get('routeviews-integration.asn_mmdb.ipv6');
 
-        if (file_exists($mmdb)) {
-            rename($mmdb, $mmdb . '.old');
-        }
+        @rename($mmdb, "{$mmdb}.old");
 
         Http::fake([
-            '*ipv6.mmdb' => Http::response(file_get_contents($mmdb . '.old')),
+            '*ipv6.mmdb' => Http::response(file_get_contents("{$mmdb}.old")),
         ])->preventStrayRequests();
 
         try {
@@ -40,5 +38,7 @@ final class Ipv6MmdbUpdaterTest extends TestCase
         // Assert
         $shouldBeCloudflare = $this->app->make(RouteViewsIpToAsn::class)->execute('2606:4700:4700::1111');
         $this->assertSame('Cloudflare, Inc.', $shouldBeCloudflare->organization);
+
+        @unlink("{$mmdb}.old");
     }
 }

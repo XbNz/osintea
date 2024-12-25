@@ -92,4 +92,26 @@ final class SearchTest extends TestCase
         // Assert
         Window::assertOpened(NativePhpWindow::RangeToIp->value);
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_opens_a_new_nativephp_location_to_range_window(): void
+    {
+        // Arrange
+        Http::fake();
+        Window::fake();
+        Window::alwaysReturnWindows([
+            $mockWindow = Mockery::mock(WindowImplementation::class)->makePartial(),
+        ]);
+
+        $mockWindow->shouldReceive('route')->once()->with('location-to-range')->andReturnSelf();
+        $mockWindow->shouldReceive('showDevTools')->once()->with(false)->andReturnSelf();
+        $mockWindow->shouldReceive('titleBarHiddenInset')->once()->andReturnSelf();
+        $mockWindow->shouldReceive('transparent')->once()->andReturnSelf();
+
+        // Act
+        Livewire::test(Search::class)->call('openLocationToRange');
+
+        // Assert
+        Window::assertOpened(NativePhpWindow::LocationToRange->value);
+    }
 }

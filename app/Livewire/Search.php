@@ -81,6 +81,21 @@ final class Search extends Component
             ->minWidth(500);
     }
 
+    public function openLocationToRange(): void
+    {
+        Window::close(NativePhpWindow::CommandPalette->value);
+
+        Window::open(NativePhpWindow::LocationToRange->value)
+            ->route('location-to-range')
+            ->showDevTools(false)
+            ->titleBarHiddenInset()
+            ->transparent()
+            ->height(700)
+            ->width(700)
+            ->minHeight(700)
+            ->minWidth(700);
+    }
+
     public function render(): View
     {
         return view('livewire.search');

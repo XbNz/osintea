@@ -19,12 +19,10 @@ final class Ipv4MmdbUpdaterTest extends TestCase
         // Arrange
         $mmdb = $this->app->make(Repository::class)->get('routeviews-integration.asn_mmdb.ipv4');
 
-        if (file_exists($mmdb)) {
-            rename($mmdb, $mmdb . '.old');
-        }
+        @rename($mmdb, "{$mmdb}.old");
 
         Http::fake([
-            '*ipv4.mmdb' => Http::response(file_get_contents($mmdb . '.old')),
+            '*ipv4.mmdb' => Http::response(file_get_contents("{$mmdb}.old")),
         ])->preventStrayRequests();
 
         try {
@@ -39,5 +37,7 @@ final class Ipv4MmdbUpdaterTest extends TestCase
         // Assert
         $shouldBeCloudflare = $this->app->make(RouteViewsIpToAsn::class)->execute('1.1.1.1');
         $this->assertSame('Cloudflare, Inc.', $shouldBeCloudflare->organization);
+
+        @unlink("{$mmdb}.old");
     }
 }

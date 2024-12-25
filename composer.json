@@ -14,10 +14,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
+        "ext-zlib": "*",
         "azjezz/psl": "^3.0",
         "blade-ui-kit/blade-icons": "^1.7",
         "chefhasteeth/pipeline": "^1.0",
         "internachi/modular": "^2.2",
+        "jmikola/geojson": "^1.0",
         "laravel/framework": "^11.3",
         "laravel/reverb": "^1.4",
         "laravel/tinker": "^2.9",
@@ -38,14 +40,14 @@
         "xbnz/asn": "*",
         "xbnz/fping": "*",
         "xbnz/ip": "*",
+        "xbnz/location": "*",
         "xbnz/masscan": "*",
         "xbnz/maxmind-integration": "*",
         "xbnz/ping": "*",
         "xbnz/port": "*",
         "xbnz/preferences": "*",
         "xbnz/routeviews-integration": "*",
-        "xbnz/shared": "*",
-        "ext-zlib": "*"
+        "xbnz/shared": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",
