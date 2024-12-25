@@ -130,7 +130,7 @@ final class MaxmindPolygonToRange implements PolygonToRangeInterface
         return $provider === Provider::Maxmind;
     }
 
-    private function createCoordinateObject($coordinatesString): Coordinates
+    private function createCoordinateObject(string $coordinatesString): Coordinates
     {
         $coordinates = Str::of($coordinatesString)->after('POINT(')->before(')')
             ->explode(' ')

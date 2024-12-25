@@ -126,6 +126,6 @@ return [
     ],
 
     'queue_workers' => [
-        'one', 'two', 'three'
-    ]
+        'one', 'two', 'three',
+    ],
 ];

@@ -6,6 +6,7 @@ namespace XbNz\Location\Providers;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\ServiceProvider;
+use Webmozart\Assert\Assert;
 
 final class LocationServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,7 @@ final class LocationServiceProvider extends ServiceProvider
     {
         $spatialitePath = \Safe\realpath(__DIR__.'/../../bin/mod_spatialite.dylib');
 
-        $this->app->make(DatabaseManager::class)->connection()->getPdo()->loadExtension($spatialitePath);
+        Assert::methodExists($pdo = $this->app->make(DatabaseManager::class)->connection()->getPdo(), 'loadExtension');
+        $pdo->loadExtension($spatialitePath);
     }
 }

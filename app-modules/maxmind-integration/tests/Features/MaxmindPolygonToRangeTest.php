@@ -9,9 +9,7 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use XbNz\Location\Contracts\PolygonToRangeInterface;
-use XbNz\Location\ValueObjects\IpRange;
 use XbNz\MaxmindIntegration\MaxmindPolygonToRange;
-use XbNz\Shared\ValueObjects\Coordinates;
 
 final class MaxmindPolygonToRangeTest extends TestCase
 {
@@ -245,7 +243,7 @@ final class MaxmindPolygonToRangeTest extends TestCase
                 [
                     '2001:4860:4860:0000:0000:0000:0000:8888',
                     '2001:4860:4860:0000:0000:0000:0000:8889',
-                    $pointFallingWithinPolygon
+                    $pointFallingWithinPolygon,
                 ]
             );
 

@@ -9,7 +9,6 @@ use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 use XbNz\RouteviewsIntegration\RouteViewsIpToAsn;
-use XbNz\RouteviewsIntegration\Updaters\Ipv4MmdbUpdater;
 use XbNz\RouteviewsIntegration\Updaters\Ipv6MmdbUpdater;
 
 final class Ipv6MmdbUpdaterTest extends TestCase

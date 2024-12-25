@@ -40,4 +40,4 @@ jobs:
           INFECTION_DASHBOARD_API_KEY: ${{ secrets.INFECTION_DASHBOARD_API_KEY }}
         run: |
           cp phpunit.xml.dist phpunit.xml
-          php -d memory_limit=1G ./vendor/bin/infection --only-covering-test-cases --min-msi=50 --min-covered-msi=40 --threads=4
+          php -d memory_limit=1G ./vendor/bin/infection --only-covering-test-cases --min-msi=50 --min-covered-msi=40

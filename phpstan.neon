@@ -15,4 +15,5 @@ parameters:
         - app-modules/asn/src
         - app-modules/preferences/src
         - app-modules/masscan/src
+        - app-modules/location/src
 
