@@ -7,10 +7,14 @@ namespace XbNz\Location\Providers;
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\ServiceProvider;
 use Webmozart\Assert\Assert;
+use XbNz\MaxmindIntegration\MaxmindPolygonToRange;
 
 final class LocationServiceProvider extends ServiceProvider
 {
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->app->tag([MaxmindPolygonToRange::class], 'polygon-to-range');
+    }
 
     public function boot(): void
     {

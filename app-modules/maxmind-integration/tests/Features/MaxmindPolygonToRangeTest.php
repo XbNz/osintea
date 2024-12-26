@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use XbNz\Location\Contracts\PolygonToRangeInterface;
 use XbNz\MaxmindIntegration\MaxmindPolygonToRange;
+use XbNz\Shared\ValueObjects\Coordinates;
 
 final class MaxmindPolygonToRangeTest extends TestCase
 {
@@ -74,8 +75,8 @@ final class MaxmindPolygonToRangeTest extends TestCase
             ],
         ]);
 
-        $pointFallingWithinPolygonA = 'POINT(10.739314523850254 59.91158561885328)';
-        $pointFallingWithinPolygonB = 'POINT(12.593978441088609 55.6732501966992)';
+        $pointFallingWithinPolygonA = 'POINT(59.91158561885328 10.739314523850254)';
+        $pointFallingWithinPolygonB = 'POINT(55.6732501966992 12.593978441088609)';
 
         $this->app->make(DatabaseManager::class)
             ->statement(
@@ -129,6 +130,9 @@ final class MaxmindPolygonToRangeTest extends TestCase
         foreach ($ranges as $range) {
             $this->assertContains([$range->startIp, $range->endIp], $expectedRanges);
         }
+
+        $this->assertEquals(59.911586, $ranges[0]->coordinates->latitude);
+        $this->assertEquals(10.739315, $ranges[0]->coordinates->longitude);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -163,7 +167,7 @@ final class MaxmindPolygonToRangeTest extends TestCase
             ],
         ]);
 
-        $pointFallingWithinPolygon = 'POINT(10.739314523850254 59.91158561885328)';
+        $pointFallingWithinPolygon = 'POINT(59.91158561885328 10.739314523850254)';
 
         $this->app->make(DatabaseManager::class)
             ->statement(
@@ -229,7 +233,7 @@ final class MaxmindPolygonToRangeTest extends TestCase
             ],
         ]);
 
-        $pointFallingWithinPolygon = 'POINT(10.739314523850254 59.91158561885328)';
+        $pointFallingWithinPolygon = 'POINT(59.91158561885328 10.739314523850254)';
 
         $this->app->make(DatabaseManager::class)
             ->statement(

@@ -60,7 +60,7 @@ final class MaxmindPolygonToRange implements PolygonToRangeInterface
                             1 => Type\numeric_string(),
                         ])->coerce($coordinate);
 
-                        return "{$sanitized[0]} {$sanitized[1]}";
+                        return "{$sanitized[1]} {$sanitized[0]}";
                     })
                     ->join(',');
 

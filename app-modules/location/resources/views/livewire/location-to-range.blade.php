@@ -1,9 +1,44 @@
-<div>
+<div class="mt-4">
     @vite('resources/js/map.js')
 
     <flux:card>
-        <div id="map" class="h-96 rounded rounded-sm"></div>
+        <div x-show="$wire.selectedProvider !== null">
+            <div wire:ignore id="map" class="h-96 rounded rounded-sm"></div>
+        </div>
+
+        <div class="w-1/2">
+
+        </div>
+
+        <div class="flex items-center gap-3 mt-3">
+            <flux:select variant="listbox" placeholder="Providers..." wire:model.live="selectedProvider">
+                @foreach ($providers as $provider)
+                    <flux:option value="{{ $provider }}">{{ $provider }}</flux:option>
+                @endforeach
+            </flux:select>
+            <flux:tabs variant="segmented">
+                <flux:tab selected wire:click="limitV4" name="ipv4">IPv4</flux:tab>
+                <flux:tab wire:click="limitV6" name="ipv6">IPv6</flux:tab>
+                <flux:tab wire:click="clearIpTypeLimits" name="all">Both</flux:tab>
+            </flux:tabs>
+        </div>
     </flux:card>
+
+    <flux:textarea
+        class="mt-3"
+        placeholder="1.1.1.0 - 1.1.1.255"
+        wire:model="ranges"
+        rows="7"
+    />
+
+    <div class="flex flex-row gap-3" x-show="$wire.ipTypeMask === {{ \XbNz\Asn\Contracts\AsnToRangeInterface::FILTER_IPV4 }}">
+        <flux:button wire:click="addToMyIpAddresses" class="w-full mt-3">
+                <span class="flex gap-3">
+                    Add to database
+                    @svg('fad-database', 'h-5 w-5')
+                </span>
+        </flux:button>
+    </div>
 </div>
 
 @script
@@ -35,7 +70,12 @@
     map.addInteraction(draw);
 
     draw.on('drawend', (event) => {
-        $wire.call('addPolygon', new GeoJSON().writeFeaturesObject([event.feature]));
+        const geojsonFormat = new GeoJSON();
+        const featureGeojson = geojsonFormat.writeFeaturesObject([event.feature], {
+            dataProjection: 'EPSG:4326',
+            featureProjection: 'EPSG:3857',
+        });
+        $wire.call('addPolygon', featureGeojson);
     });
 </script>
 @endscript
