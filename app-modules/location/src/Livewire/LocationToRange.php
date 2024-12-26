@@ -77,8 +77,8 @@ final class LocationToRange extends Component
             ->execute();
 
         $this->ranges .= $ranges
-                ->each(fn (IpRange $range) => $fileSystem->append($this->inputFile, "{$range->startIp}-{$range->endIp}".PHP_EOL))
-                ->map(fn (IpRange $range) => "{$range->startIp} - {$range->endIp}")->implode(PHP_EOL).PHP_EOL;
+            ->each(fn (IpRange $range) => $fileSystem->append($this->inputFile, "{$range->startIp}-{$range->endIp}".PHP_EOL))
+            ->map(fn (IpRange $range) => "{$range->startIp} - {$range->endIp}")->implode(PHP_EOL).PHP_EOL;
     }
 
     public function addToMyIpAddresses(

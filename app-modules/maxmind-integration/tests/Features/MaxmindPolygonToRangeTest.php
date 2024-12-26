@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use XbNz\Location\Contracts\PolygonToRangeInterface;
 use XbNz\MaxmindIntegration\MaxmindPolygonToRange;
-use XbNz\Shared\ValueObjects\Coordinates;
 
 final class MaxmindPolygonToRangeTest extends TestCase
 {
