@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XbNz\Tests\Feature\Updaters;
+namespace XbNz\RouteviewsIntegration\Tests\Feature\Updaters;
 
 use Illuminate\Database\DatabaseManager;
 use Illuminate\Foundation\Testing\RefreshDatabase;

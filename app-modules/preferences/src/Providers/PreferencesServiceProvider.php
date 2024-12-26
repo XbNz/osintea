@@ -6,10 +6,11 @@ namespace XbNz\Preferences\Providers;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use XbNz\MaxmindIntegration\Updaters\UnifiedSqliteUpdater as MaxmindUnifiedSqliteUpdater;
 use XbNz\Preferences\Subscribers\FpingSubscriber;
 use XbNz\RouteviewsIntegration\Updaters\Ipv4MmdbUpdater;
 use XbNz\RouteviewsIntegration\Updaters\Ipv6MmdbUpdater;
-use XbNz\RouteviewsIntegration\Updaters\UnifiedSqliteUpdater;
+use XbNz\RouteviewsIntegration\Updaters\UnifiedSqliteUpdater as RouteviewsUnifiedSqliteUpdater;
 use XbNz\Shared\Actions\ResolveListenersAction;
 
 final class PreferencesServiceProvider extends ServiceProvider
@@ -24,7 +25,8 @@ final class PreferencesServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->tag([
-            UnifiedSqliteUpdater::class,
+            RouteviewsUnifiedSqliteUpdater::class,
+            MaxmindUnifiedSqliteUpdater::class,
             Ipv4MmdbUpdater::class,
             Ipv6MmdbUpdater::class,
         ], 'database-updaters');

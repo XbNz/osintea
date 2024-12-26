@@ -124,6 +124,8 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
         }
 
         $this->database->commit();
+
+        $temporaryDir->delete();
     }
 
     public function supports(UpdatableDatabase $database): bool

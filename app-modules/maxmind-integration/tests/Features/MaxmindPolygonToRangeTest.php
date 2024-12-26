@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace XbNz\MaxmindIntegration\Features;
+namespace XbNz\MaxmindIntegration\Tests\Features;
 
 use GeoJson\Geometry\Polygon;
 use Illuminate\Database\DatabaseManager;

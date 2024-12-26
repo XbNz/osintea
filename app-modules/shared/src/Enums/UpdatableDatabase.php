@@ -9,6 +9,9 @@ enum UpdatableDatabase: string
     case RouteViewsAsnMmdbIpv4 = 'route_views_asn_mmdb_ipv4';
     case RouteViewsAsnMmdbIpv6 = 'route_views_asn_mmdb_ipv6';
     case RouteViewsAsnUnifiedSqlite = 'route_views_asn_unified_sqlite';
+
+    case MaxmindGeoLite2CityUnifiedSqlite = 'maxmind_geo_lite2_city_unified_sqlite';
+
     case Fake = 'fake';
 
     public function friendlyName(): string
@@ -17,6 +20,7 @@ enum UpdatableDatabase: string
             self::RouteViewsAsnMmdbIpv4 => 'Route Views ASN MMDB IPv4',
             self::RouteViewsAsnMmdbIpv6 => 'Route Views ASN MMDB IPv6',
             self::RouteViewsAsnUnifiedSqlite => 'Route Views ASN Unified SQLite',
+            self::MaxmindGeoLite2CityUnifiedSqlite => 'Maxmind GeoLite2 City Unified SQLite',
             self::Fake => 'Fake',
         };
     }
