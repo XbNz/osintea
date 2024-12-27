@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Location\Livewire;
 
+use GeoJson\Feature\FeatureCollection;
 use GeoJson\GeoJson;
 use GeoJson\Geometry\Polygon;
 use Illuminate\Contracts\View\View;
@@ -62,8 +63,7 @@ final class LocationToRange extends Component
 
         $fileSystem = app(Filesystem::class);
 
-        $geoJsonObject = GeoJson::jsonUnserialize($geoJson);
-
+        Assert::isInstanceOf($geoJsonObject = GeoJson::jsonUnserialize($geoJson), FeatureCollection::class);
         Assert::isInstanceOf($polygon = $geoJsonObject->getFeatures()[0]->getGeometry(), Polygon::class);
 
         $providers = app()->tagged('polygon-to-range');

@@ -93,12 +93,12 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
         $ipv6CsvResource = \Safe\fopen($temporaryIpv6Csv, 'wb');
 
         while (gzeof($ipv4GzResource) === false) {
-            $chunk = gzread($ipv4GzResource, 4096);
+            $chunk = \Safe\gzread($ipv4GzResource, 4096);
             fwrite($ipv4CsvResource, $chunk);
         }
 
         while (gzeof($ipv6GzResource) === false) {
-            $chunk = gzread($ipv6GzResource, 4096);
+            $chunk = \Safe\gzread($ipv6GzResource, 4096);
             fwrite($ipv6CsvResource, $chunk);
         }
 
