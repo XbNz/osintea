@@ -37,6 +37,8 @@ final class NativeAppServiceProvider implements ProvidesPhpIni
             'opcache.enable_cli' => '1',
             'opcache.jit' => 'tracing',
             'opcache.jit_buffer_size' => '128M',
+            'memory_limit' => '1G',
+            'max_execution_time' => 600,
         ];
     }
 }

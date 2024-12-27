@@ -126,6 +126,10 @@ return [
     ],
 
     'queue_workers' => [
-        'one', 'two', 'three',
+        'one' => [
+            'queues' => ['default'],
+            'timeout' => 600,
+            'memory_limit' => 2048,
+        ],
     ],
 ];
