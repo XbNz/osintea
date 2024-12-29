@@ -197,7 +197,7 @@ final class ListIpAddresses extends Component
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
             ->chunk(100)
             ->each(fn (LazyCollection $chunk) => $bus->dispatch(
-                new BulkPingJob($chunk->collect())
+                new BulkPingJob($chunk->collect())->onQueue('bulk_ping')
             ));
 
         Flux::toast('Pinging has commenced in the background. You may continue using the app.', 'Ping started', 10000, 'success');
@@ -220,7 +220,7 @@ final class ListIpAddresses extends Component
                 $dispatcher->dispatch(new BulkAsnLookupJob(
                     $chunk->collect(),
                     $provider
-                ));
+                )->onQueue('bulk_asn'));
             });
 
         Flux::toast('ASN lookup has commenced in the background. You may continue using the app.', 'ASN lookup started', 10000, 'success');

@@ -126,10 +126,19 @@ return [
     ],
 
     'queue_workers' => [
-        'one' => [
-            'queues' => ['default'],
+        'bulk_ping' => [
+            'queues' => ['bulk_ping'],
             'timeout' => 600,
             'memory_limit' => 2048,
+        ],
+        'bulk_asn' => [
+            'queues' => ['bulk_asn'],
+            'timeout' => 100,
+            'memory_limit' => 1024,
+        ],
+        'default' => [
+            'timeout' => 60,
+            'memory_limit' => 512,
         ],
     ],
 ];

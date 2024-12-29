@@ -22,7 +22,7 @@ final class MasscanRapidParser implements RapidParserInterface
 
     private string $outputFilePath;
 
-    private int $timeout = 5;
+    private int $timeout = 15;
 
     public function __construct(
         private readonly Repository $config,
