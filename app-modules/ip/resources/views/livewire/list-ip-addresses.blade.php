@@ -1,4 +1,6 @@
 <div>
+    @vite('resources/js/map.js')
+
     <div class="w-full">
         <div class="flex justify-between items-center gap-2">
             <div class="flex gap-2">
@@ -25,6 +27,7 @@
                         Actions
                     </span>
                 </flux:button>
+
 
                 <flux:menu>
                     <flux:menu.group heading="Filters">
@@ -77,6 +80,10 @@
                                 </div>
                             </flux:menu.submenu>
 
+                            <flux:menu.submenu heading="Geolocation">
+                                <div id="map" class="w-[30rem] h-96"></div>
+                            </flux:menu.submenu>
+
                             <div class="flex justify-between gap-2">
                                 <flux:button type="submit" size="sm" class="my-2">
                                     @svg('fad-filter', 'h-5 w-5')
@@ -107,6 +114,11 @@
                         <flux:menu.submenu heading="ASN Lookup">
                             @foreach($asnProviders as $provider)
                                 <flux:menu.item wire:click="lookupActiveAsn('{{ $provider }}')">{{ $provider }}</flux:menu.item>
+                            @endforeach
+                        </flux:menu.submenu>
+                        <flux:menu.submenu heading="Geolocation Lookup">
+                            @foreach($geolocationProviders as $provider)
+                                <flux:menu.item wire:click="geolocateActive('{{ $provider }}')">{{ $provider }}</flux:menu.item>
                             @endforeach
                         </flux:menu.submenu>
                     </flux:menu.group>
@@ -227,3 +239,43 @@
     @endif
 </div>
 
+@script
+<script>
+    const vectorSource = new VectorSource();
+    const map = new Map({
+        target: 'map',
+        layers: [
+            new TileLayer({
+                source: new OSM(),
+            }),
+            new VectorLayer({
+                source: vectorSource,
+            }),
+        ],
+        view: new View({
+            center: [0, 0],
+            zoom: 2,
+        }),
+    });
+
+    map.render();
+
+    const draw = new Draw({
+        source: vectorSource,
+        type: 'MultiPolygon',
+    });
+
+    map.addInteraction(draw);
+
+    draw.on('drawend', (event) => {
+        const geojsonFormat = new GeoJSON();
+        const featureGeojson = geojsonFormat.writeFeaturesObject([event.feature], {
+            dataProjection: 'EPSG:4326',
+            featureProjection: 'EPSG:3857',
+        });
+
+        $wire.polygonFilter.geoJson = featureGeojson;
+    });
+
+</script>
+@endscript

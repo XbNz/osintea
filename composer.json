@@ -29,7 +29,7 @@
         "maxmind-db/reader": "^1.12",
         "nativephp/electron": "dev-main",
         "nativephp/laravel": "dev-main",
-        "nativephp/php-bin": "dev-update-php-8.4-mac-arm64 as 0.5.5",
+        "nativephp/php-bin": "0.5.6",
         "react/async": "^4.3",
         "react/event-loop": "^1.5",
         "react/stream": "^1.4",
@@ -130,20 +130,6 @@
         "0": {
             "type": "path",
             "url": "app-modules/*",
-            "options": {
-                "symlink": true
-            }
-        },
-        "1": {
-            "type": "path",
-            "url": "../nativephp-laravel",
-            "options": {
-                "symlink": true
-            }
-        },
-        "2": {
-            "type": "path",
-            "url": "../nativephp-electron",
             "options": {
                 "symlink": true
             }

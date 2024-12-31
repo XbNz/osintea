@@ -20,7 +20,7 @@ use Livewire\Attributes\Renderless;
 use Livewire\Component;
 use Native\Laravel\Dialog;
 use Native\Laravel\Facades\Window;
-use XbNz\Asn\Enums\Provider;
+use XbNz\Asn\Enums\Provider as AsnProvider;
 use XbNz\Asn\Events\BulkAsnLookupCompleted;
 use XbNz\Asn\Jobs\BulkAsnLookupJob;
 use XbNz\Asn\Model\Asn;
@@ -28,10 +28,12 @@ use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
 use XbNz\Ip\Filters\OrganizationFilter;
 use XbNz\Ip\Filters\PacketLossFilter;
+use XbNz\Ip\Filters\PolygonFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPacketLoss;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPolygon;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterRoundTripTime;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv4;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
@@ -41,6 +43,8 @@ use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByLossPercent;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
+use XbNz\Location\Enums\Provider as GeolocationProvider;
+use XbNz\Location\Jobs\BulkGeolocateJob;
 use XbNz\Ping\Events\BulkPingCompleted;
 use XbNz\Ping\Jobs\BulkPingJob;
 use XbNz\Shared\Enums\NativePhpWindow;
@@ -77,13 +81,15 @@ final class ListIpAddresses extends Component
 
     public OrganizationFilter $organizationFilter;
 
+    public PolygonFilter $polygonFilter;
+
     /**
      * @return array<string, mixed>
      */
     public function rules(): array
     {
         return [
-            'pingSampleSizePercent' => ['required', 'numeric', 'min:1', 'max:100'],
+            'pingSampleSizePercent' => ['sometimes', 'numeric', 'min:1', 'max:100'],
         ];
     }
 
@@ -124,7 +130,8 @@ final class ListIpAddresses extends Component
                 $query,
                 $this->roundTripTimeFilter,
                 $this->packetLossFilter,
-                $this->organizationFilter
+                $this->organizationFilter,
+                $this->polygonFilter,
             ))
             ->through($pipes)
             ->thenReturn()
@@ -179,6 +186,29 @@ final class ListIpAddresses extends Component
         return ListIpAddressesTableViewModel::collect($this->query()->cursorPaginate($this->rowAmount));
     }
 
+    public function geolocateActive(string $provider): void
+    {
+        $provider = GeolocationProvider::from($provider);
+
+        $this->validate();
+
+        $bus = app(Dispatcher::class);
+
+        $query = $this->query()->clone();
+
+        $query->getQuery()->orders = null;
+
+        $query
+            ->lazyById(500)
+            ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
+            ->chunk(500)
+            ->each(fn (LazyCollection $chunk) => $bus->dispatch(
+                new BulkGeolocateJob($chunk->collect())->onQueue('bulk_geolocate')
+            ));
+
+        Flux::toast('Geolocation has commenced in the background. You may continue using the app.', 'Geoloation started', 10000, 'success');
+    }
+
     public function pingActive(): void
     {
         $this->validate();
@@ -205,7 +235,7 @@ final class ListIpAddresses extends Component
 
     public function lookupActiveAsn(string $provider): void
     {
-        $provider = Provider::from($provider);
+        $provider = AsnProvider::from($provider);
         $dispatcher = app(Dispatcher::class);
 
         $query = $this->query()->clone();
@@ -282,6 +312,7 @@ final class ListIpAddresses extends Component
             FilterRoundTripTime::class => $this->roundTripTimeFilter->canBeApplied(),
             FilterPacketLoss::class => $this->packetLossFilter->canBeApplied(),
             FilterOrganization::class => $this->organizationFilter->canBeApplied(),
+            FilterPolygon::class => $this->polygonFilter->canBeApplied(),
         ];
 
         Collection::make($toApply)
@@ -320,12 +351,14 @@ final class ListIpAddresses extends Component
         $this->roundTripTimeFilter = new RoundTripTimeFilter();
         $this->packetLossFilter = new PacketLossFilter();
         $this->organizationFilter = new OrganizationFilter();
+        $this->polygonFilter = new PolygonFilter();
     }
 
     public function render(): View
     {
         return view('ip::livewire.list-ip-addresses', [
-            'asnProviders' => array_column(array_filter(Provider::cases(), fn (Provider $provider) => $provider->canBeUsedInProduction()), 'value'),
+            'asnProviders' => array_column(array_filter(AsnProvider::cases(), fn (AsnProvider $provider) => $provider->canBeUsedInProduction()), 'value'),
+            'geolocationProviders' => array_column(array_filter(GeolocationProvider::cases(), fn (GeolocationProvider $provider) => $provider->canBeUsedInProduction()), 'value'),
         ]);
     }
 }

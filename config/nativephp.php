@@ -136,6 +136,11 @@ return [
             'timeout' => 100,
             'memory_limit' => 1024,
         ],
+        'bulk_geolocate' => [
+            'queues' => ['bulk_geolocate'],
+            'timeout' => 100,
+            'memory_limit' => 1024,
+        ],
         'default' => [
             'timeout' => 60,
             'memory_limit' => 512,
