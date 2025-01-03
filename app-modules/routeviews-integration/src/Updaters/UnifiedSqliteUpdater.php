@@ -91,14 +91,12 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
                 ->chunk(2000)
                 ->each(function (LazyCollection $chunk): void {
                     $data = $chunk->map(fn (string $line) => Str::of($line)->explode(','))
-                        ->map(function (Collection $line) {
-                            return [
-                                'start_ip' => $line->get(0),
-                                'end_ip' => $line->get(1),
-                                'asn' => $line->get(2),
-                                'organization' => $line->get(3),
-                            ];
-                        });
+                        ->map(fn (Collection $line) => [
+                            'start_ip' => $line->get(0),
+                            'end_ip' => $line->get(1),
+                            'asn' => $line->get(2),
+                            'organization' => $line->get(3),
+                        ]);
 
                     $this->database->table('route_views_v4_asns')->insertOrIgnore($data->toArray());
                 });
@@ -107,14 +105,12 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
                 ->chunk(2000)
                 ->each(function (LazyCollection $chunk): void {
                     $data = $chunk->map(fn (string $line) => Str::of($line)->explode(','))
-                        ->map(function (Collection $line) {
-                            return [
-                                'start_ip' => $line->get(0),
-                                'end_ip' => $line->get(1),
-                                'asn' => $line->get(2),
-                                'organization' => $line->get(3),
-                            ];
-                        });
+                        ->map(fn (Collection $line) => [
+                            'start_ip' => $line->get(0),
+                            'end_ip' => $line->get(1),
+                            'asn' => $line->get(2),
+                            'organization' => $line->get(3),
+                        ]);
 
                     $this->database->table('route_views_v6_asns')->insertOrIgnore($data->toArray());
                 });

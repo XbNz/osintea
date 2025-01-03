@@ -13,6 +13,7 @@ use Spatie\LaravelData\WithData;
 use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Database\Factories\IpAddressFactory;
 use XbNz\Ip\DTOs\IpAddressDto;
+use XbNz\Location\Models\Coordinates;
 use XbNz\Ping\Models\PingSequence;
 use XbNz\Shared\ValueObjects\IpType;
 
@@ -58,6 +59,14 @@ final class IpAddress extends Model
     public function asn(): HasOne
     {
         return $this->hasOne(Asn::class);
+    }
+
+    /**
+     * @return HasOne<Coordinates, IpAddress>
+     */
+    public function coordinates(): HasOne
+    {
+        return $this->hasOne(Coordinates::class);
     }
 
     protected static function newFactory(): IpAddressFactory

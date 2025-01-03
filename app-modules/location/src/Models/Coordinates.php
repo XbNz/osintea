@@ -14,6 +14,9 @@ use XbNz\Ip\Models\IpAddress;
 use XbNz\Location\Database\Factories\CoordinatesFactory;
 use XbNz\Location\DTOs\CoordinatesDto;
 
+/**
+ * @mixin IdeHelperCoordinates
+ */
 final class Coordinates extends Model
 {
     /**

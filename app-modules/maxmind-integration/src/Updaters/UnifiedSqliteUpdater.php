@@ -116,13 +116,11 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
             $this->filesystem->lines($temporaryIpv4Csv)
                 ->map(fn (string $line) => Str::of($line)->explode(','))
                 ->filter(fn (Collection $line) => is_numeric($line[7] ?? null) && is_numeric($line[8] ?? null))
-                ->map(function (Collection $line) {
-                    return [
-                        'start_ip' => $line[0],
-                        'end_ip' => $line[1],
-                        'coordinates' => new Expression("ST_GeomFromText('POINT({$line[7]} {$line[8]})', 4326)"),
-                    ];
-                })
+                ->map(fn (Collection $line) => [
+                    'start_ip' => $line[0],
+                    'end_ip' => $line[1],
+                    'coordinates' => new Expression("ST_GeomFromText('POINT({$line[7]} {$line[8]})', 4326)"),
+                ])
                 ->chunk(2000)
                 ->each(function (LazyCollection $chunk): void {
                     $this->database->table('maxmind_v4_geolocations')->insertOrIgnore($chunk->toArray());
@@ -131,13 +129,11 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
             $this->filesystem->lines($temporaryIpv6Csv)
                 ->map(fn (string $line) => Str::of($line)->explode(','))
                 ->filter(fn (Collection $line) => is_numeric($line[7] ?? null) && is_numeric($line[8] ?? null))
-                ->map(function (Collection $line) {
-                    return [
-                        'start_ip' => $line[0],
-                        'end_ip' => $line[1],
-                        'coordinates' => new Expression("ST_GeomFromText('POINT({$line[7]} {$line[8]})', 4326)"),
-                    ];
-                })
+                ->map(fn (Collection $line) => [
+                    'start_ip' => $line[0],
+                    'end_ip' => $line[1],
+                    'coordinates' => new Expression("ST_GeomFromText('POINT({$line[7]} {$line[8]})', 4326)"),
+                ])
                 ->chunk(2000)
                 ->each(function (LazyCollection $chunk): void {
                     $this->database->table('maxmind_v6_geolocations')->insertOrIgnore($chunk->toArray());

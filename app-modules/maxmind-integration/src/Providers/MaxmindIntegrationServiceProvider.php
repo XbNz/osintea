@@ -16,12 +16,10 @@ final class MaxmindIntegrationServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../../config/config.php', 'maxmind-integration');
 
-        $this->app->bind(MaxmindIpToCoordinates::class, function (Application $application) {
-            return new MaxmindIpToCoordinates(
-                new Reader($application->make(Repository::class)->get('maxmind-integration.geolite2_city_mmdb.ipv4')),
-                new Reader($application->make(Repository::class)->get('maxmind-integration.geolite2_city_mmdb.ipv6')),
-            );
-        });
+        $this->app->bind(MaxmindIpToCoordinates::class, fn (Application $application) => new MaxmindIpToCoordinates(
+            new Reader($application->make(Repository::class)->get('maxmind-integration.geolite2_city_mmdb.ipv4')),
+            new Reader($application->make(Repository::class)->get('maxmind-integration.geolite2_city_mmdb.ipv6')),
+        ));
     }
 
     public function boot(): void {}

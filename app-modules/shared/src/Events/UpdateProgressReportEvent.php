@@ -17,12 +17,12 @@ final class UpdateProgressReportEvent implements ShouldBroadcastNow
 
     public float $percentage {
         get {
-            if ($this->totalBytes === 0) {
-                return 0;
-            }
-
-            return $this->downloadedBytes / $this->totalBytes * 100;
+        if ($this->totalBytes === 0) {
+            return 0;
         }
+
+        return $this->downloadedBytes / $this->totalBytes * 100;
+    }
     }
 
     /**
@@ -39,6 +39,5 @@ final class UpdateProgressReportEvent implements ShouldBroadcastNow
         public readonly UpdatableDatabase $database,
         public readonly int $totalBytes,
         public readonly int $downloadedBytes,
-    ) {
-    }
+    ) {}
 }

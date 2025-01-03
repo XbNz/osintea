@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\WithData;
-use XbNz\Fping\Models\IdeHelperFpingPreferences;
 use XbNz\Preferences\Database\Factories\FpingPreferencesFactory;
 use XbNz\Preferences\DTOs\FpingPreferencesDto;
 
