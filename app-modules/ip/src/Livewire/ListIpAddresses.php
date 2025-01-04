@@ -39,11 +39,13 @@ use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv4;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\LimitIpv6;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAsn;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByAverageRtt;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByGeolocated;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByLossPercent;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\SortByOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\Transporter;
 use XbNz\Ip\ViewModels\ListIpAddressesTableViewModel;
 use XbNz\Location\Enums\Provider as GeolocationProvider;
+use XbNz\Location\Events\BulkGeolocationCompleted;
 use XbNz\Location\Jobs\BulkGeolocateJob;
 use XbNz\Ping\Events\BulkPingCompleted;
 use XbNz\Ping\Jobs\BulkPingJob;
@@ -60,6 +62,7 @@ final class ListIpAddresses extends Component
         'loss_percent' => SortByLossPercent::class,
         'organization' => SortByOrganization::class,
         'as_number' => SortByAsn::class,
+        'geolocated' => SortByGeolocated::class,
     ];
 
     public string $sortBy = 'created_at';
@@ -103,6 +106,12 @@ final class ListIpAddresses extends Component
     public function notifyAsnLookupResultsReady(int $completedCount): void
     {
         Flux::toast("{$completedCount} ASN lookup results are ready for viewing", 'ASN lookup completed', 1000, 'success');
+    }
+
+    #[On('native:'.BulkGeolocationCompleted::class)]
+    public function notifyGeolocationResultsReady(int $completedCount): void
+    {
+        Flux::toast("{$completedCount} geolocation results are ready for viewing", 'Geolocation completed', 1000, 'success');
     }
 
     /**
@@ -203,7 +212,7 @@ final class ListIpAddresses extends Component
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
             ->chunk(500)
             ->each(fn (LazyCollection $chunk) => $bus->dispatch(
-                new BulkGeolocateJob($chunk->collect())->onQueue('bulk_geolocate')
+                new BulkGeolocateJob($chunk->collect(), $provider)->onQueue('bulk_geolocate')
             ));
 
         Flux::toast('Geolocation has commenced in the background. You may continue using the app.', 'Geoloation started', 10000, 'success');

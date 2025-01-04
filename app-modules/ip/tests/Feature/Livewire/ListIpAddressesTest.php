@@ -18,6 +18,9 @@ use XbNz\Asn\Jobs\BulkAsnLookupJob;
 use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Livewire\ListIpAddresses;
 use XbNz\Ip\Models\IpAddress;
+use XbNz\Location\Enums\Provider as LocationProvider;
+use XbNz\Location\Jobs\BulkGeolocateJob;
+use XbNz\Location\Models\Coordinates;
 use XbNz\Ping\Jobs\BulkPingJob;
 use XbNz\Ping\Models\PingSequence;
 
@@ -280,6 +283,27 @@ final class ListIpAddressesTest extends TestCase
 
         $livewire->call('sort', 'as_number');
         $livewire->assertSeeInOrder(['2', '1']);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function sorting_by_geolocated(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()->create(['ip' => '1.1.1.1'])->refresh()->getData();
+        $ipAddressB = IpAddress::factory()
+            ->has(Coordinates::factory())
+            ->create(['ip' => '8.8.8.8'])
+            ->refresh()
+            ->getData();
+
+        // Act & Assert
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->call('sort', 'geolocated');
+        $livewire->assertSeeInOrder(['1.1.1.1', '8.8.8.8']);
+
+        $livewire->call('sort', 'geolocated');
+        $livewire->assertSeeInOrder(['8.8.8.8', '1.1.1.1']);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
@@ -764,10 +788,11 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function example(): void
+    public function it_geolocates_active_ip_addresses(): void
     {
         // Arrange
-        $ipAddress = IpAddress::factory()
+        Bus::fake();
+        $ipAddressA = IpAddress::factory()
             ->has(
                 PingSequence::factory()
                     ->count(2)
@@ -780,13 +805,31 @@ final class ListIpAddressesTest extends TestCase
             ->refresh()
             ->getData();
 
+        $ipAddressB = IpAddress::factory()
+            ->has(
+                PingSequence::factory()
+                    ->count(2)
+                    ->sequence(
+                        ['round_trip_time' => 3],
+                        ['round_trip_time' => 4],
+                    )
+            )
+            ->create(['ip' => '8.8.8.8'])
+            ->refresh()
+            ->getData();
+
         // Act
-        $livewire = Livewire::test(ListIpAddresses::class);
-        $livewire->call('deleteActive');
+        $livewire = Livewire::test(ListIpAddresses::class)
+            ->set('roundTripTimeFilter.minFloor', 3)
+            ->call('applyFilters');
+
+        $livewire->assertDontSee($ipAddressA->ip);
+        $livewire->assertSee($ipAddressB->ip);
+
+        $livewire->call('geolocateActive', LocationProvider::Fake->value);
 
         // Assert
-        $this->assertDatabaseMissing(IpAddress::class, ['id' => $ipAddress->id]);
-        $this->assertDatabaseMissing(PingSequence::class, ['ip_address_id' => $ipAddress->id]);
+        Bus::assertDispatchedTimes(BulkGeolocateJob::class, 1);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]

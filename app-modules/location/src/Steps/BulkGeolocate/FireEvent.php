@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Location\Steps\BulkGeolocate;
 
 use Illuminate\Contracts\Events\Dispatcher;
+use XbNz\Location\Events\BulkGeolocationCompleted;
 
 final class FireEvent
 {
@@ -16,7 +17,7 @@ final class FireEvent
     {
         $transporter->completedCount = $transporter->ipAddressDtos->count();
 
-        $this->dispatcher->dispatch(new BulkPingCompleted($transporter->completedCount));
+        $this->dispatcher->dispatch(new BulkGeolocationCompleted($transporter->completedCount));
 
         return $transporter;
     }

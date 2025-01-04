@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\ViewModels;
 
+use Illuminate\Support\Str;
 use Spatie\LaravelData\Data;
 use XbNz\Ip\Models\IpAddress;
 
@@ -17,6 +18,7 @@ final class ListIpAddressesTableViewModel extends Data
         public readonly string $loss_percent,
         public readonly int $total_sequences,
         public readonly int $lost_sequences,
+        public readonly bool $geolocated,
         public readonly ?string $organization,
         public readonly ?int $as_number,
         public readonly ?string $average_rtt,
@@ -40,7 +42,10 @@ final class ListIpAddressesTableViewModel extends Data
                 ),
             $ipAddress->pingSequences->count(),
             $ipAddress->pingSequences->where('loss', true)->count(),
-            $ipAddress->asn?->organization,
+            $ipAddress->coordinates?->exists() ?? false,
+            $ipAddress->asn?->organization
+                ? Str::limit($ipAddress->asn->organization, 20)
+                : null,
             $ipAddress->asn?->as_number,
             $ipAddress->pingSequences->avg('round_trip_time') === null
                 ? null

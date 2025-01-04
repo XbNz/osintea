@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f93be515191101b90a31c366518d624e",
+    "content-hash": "1767946f115d04561cb3a7052fc83ca3",
     "packages": [
         {
             "name": "amphp/amp",
@@ -4623,10 +4623,16 @@
         {
             "name": "nativephp/electron",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NativePHP/electron.git",
+                "reference": "f5d9dc6f1476db4bb309161e10fc30dc98e16a2a"
+            },
             "dist": {
-                "type": "path",
-                "url": "../nativephp-electron",
-                "reference": "c787b4c44f1afe6f834468f9a5aaccb4e1a00708"
+                "type": "zip",
+                "url": "https://api.github.com/repos/NativePHP/electron/zipball/f5d9dc6f1476db4bb309161e10fc30dc98e16a2a",
+                "reference": "f5d9dc6f1476db4bb309161e10fc30dc98e16a2a",
+                "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^10.0|^11.0",
@@ -4649,15 +4655,16 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.26"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Native\\Electron\\ElectronServiceProvider"
-                    ],
                     "aliases": {
                         "Updater": "Native\\Electron\\Facades\\Updater"
-                    }
+                    },
+                    "providers": [
+                        "Native\\Electron\\ElectronServiceProvider"
+                    ]
                 }
             },
             "autoload": {
@@ -4665,33 +4672,7 @@
                     "Native\\Electron\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Native\\Electron\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "qa": [
-                    "@composer format",
-                    "@composer analyse",
-                    "@composer test"
-                ],
-                "post-autoload-dump": [
-                    "@php ./vendor/bin/testbench package:discover --ansi"
-                ],
-                "analyse": [
-                    "vendor/bin/phpstan analyse"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ],
-                "test-coverage": [
-                    "vendor/bin/pest --coverage"
-                ],
-                "format": [
-                    "vendor/bin/pint"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4714,28 +4695,34 @@
                 "laravel",
                 "nativephp"
             ],
+            "support": {
+                "source": "https://github.com/NativePHP/electron/tree/main"
+            },
             "funding": [
                 {
-                    "type": "github",
-                    "url": "https://github.com/sponsors/simonhamp"
+                    "url": "https://github.com/sponsors/simonhamp",
+                    "type": "github"
                 },
                 {
-                    "type": "opencollective",
-                    "url": "https://opencollective.com/nativephp"
+                    "url": "https://opencollective.com/nativephp",
+                    "type": "opencollective"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "time": "2025-01-02T22:48:15+00:00"
         },
         {
             "name": "nativephp/laravel",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NativePHP/laravel.git",
+                "reference": "15b01f51d2fbbe849cba0d5c9d7619b1e9f9f1d0"
+            },
             "dist": {
-                "type": "path",
-                "url": "../nativephp-laravel",
-                "reference": "3c8dd3dc656d9cf7e98fbf6da2c292d57bc5cf6b"
+                "type": "zip",
+                "url": "https://api.github.com/repos/NativePHP/laravel/zipball/15b01f51d2fbbe849cba0d5c9d7619b1e9f9f1d0",
+                "reference": "15b01f51d2fbbe849cba0d5c9d7619b1e9f9f1d0",
+                "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^10.0|^11.0",
@@ -4757,19 +4744,20 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.26"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
+                    "aliases": {
+                        "Dock": "Native\\Laravel\\Facades\\Dock",
+                        "Window": "Native\\Laravel\\Facades\\Window",
+                        "Process": "Native\\Laravel\\Facades\\Process",
+                        "Clipboard": "Native\\Laravel\\Facades\\Clipboard",
+                        "ContextMenu": "Native\\Laravel\\Facades\\ContextMenu"
+                    },
                     "providers": [
                         "Native\\Laravel\\NativeServiceProvider"
-                    ],
-                    "aliases": {
-                        "ContextMenu": "Native\\Laravel\\Facades\\ContextMenu",
-                        "Dock": "Native\\Laravel\\Facades\\Dock",
-                        "Process": "Native\\Laravel\\Facades\\Process",
-                        "Window": "Native\\Laravel\\Facades\\Window",
-                        "Clipboard": "Native\\Laravel\\Facades\\Clipboard"
-                    }
+                    ]
                 }
             },
             "autoload": {
@@ -4777,33 +4765,7 @@
                     "Native\\Laravel\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Native\\Laravel\\Tests\\": "tests/"
-                }
-            },
-            "scripts": {
-                "qa": [
-                    "@composer format",
-                    "@composer analyse",
-                    "@composer test"
-                ],
-                "post-autoload-dump": [
-                    "@php ./vendor/bin/testbench package:discover --ansi"
-                ],
-                "analyse": [
-                    "vendor/bin/phpstan analyse"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ],
-                "test-coverage": [
-                    "vendor/bin/pest --coverage"
-                ],
-                "format": [
-                    "vendor/bin/pint"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4826,20 +4788,21 @@
                 "nativephp",
                 "nativephp-laravel"
             ],
+            "support": {
+                "issues": "https://github.com/NativePHP/laravel/issues",
+                "source": "https://github.com/NativePHP/laravel/tree/main"
+            },
             "funding": [
                 {
-                    "type": "github",
-                    "url": "https://github.com/sponsors/simonhamp"
+                    "url": "https://github.com/sponsors/simonhamp",
+                    "type": "github"
                 },
                 {
-                    "type": "opencollective",
-                    "url": "https://opencollective.com/nativephp"
+                    "url": "https://opencollective.com/nativephp",
+                    "type": "opencollective"
                 }
             ],
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "time": "2024-12-30T20:53:34+00:00"
         },
         {
             "name": "nativephp/php-bin",

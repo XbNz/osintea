@@ -7,6 +7,7 @@ namespace XbNz\MaxmindIntegration;
 use MaxMind\Db\Reader;
 use Psl\Type;
 use XbNz\Location\Contracts\IpToCoordinatesInterface;
+use XbNz\Location\Enums\Provider;
 use XbNz\Shared\IpValidator;
 use XbNz\Shared\ValueObjects\Coordinates;
 use XbNz\Shared\ValueObjects\IpType;
@@ -53,5 +54,10 @@ final class MaxmindIpToCoordinates implements IpToCoordinatesInterface
             $sanitized['latitude'],
             $sanitized['longitude']
         );
+    }
+
+    public function supports(Provider $provider): bool
+    {
+        return $provider === Provider::Maxmind;
     }
 }

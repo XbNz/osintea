@@ -202,6 +202,17 @@
                         ASN
                     </span>
                 </flux:column>
+                <flux:column
+                    sortable
+                    :sorted="$sortBy === 'geolocated'"
+                    :direction="$sortDirection"
+                    wire:click="sort('geolocated')"
+                >
+                    <span class="flex gap-2">
+                        @svg('fad-map-pin', 'h-5 w-5')
+                        Geolocated
+                    </span>
+                </flux:column>
             </flux:columns>
 
             <flux:rows>
@@ -224,6 +235,11 @@
                         <flux:cell class="whitespace-nowrap">{{ $ipAddress->loss_percent }}% ({{ $ipAddress->lost_sequences }}/{{ $ipAddress->total_sequences }})</flux:cell>
                         <flux:cell class="whitespace-nowrap">{{ $ipAddress->organization }}</flux:cell>
                         <flux:cell class="whitespace-nowrap">{{ $ipAddress->as_number }}</flux:cell>
+                        <flux:cell class="whitespace-nowrap">
+                            @if($ipAddress->geolocated === true)
+                                @svg('fad-circle-check', 'h-5 w-5')
+                            @endif
+                        </flux:cell>
                     </flux:row>
                 @endforeach
             </flux:rows>

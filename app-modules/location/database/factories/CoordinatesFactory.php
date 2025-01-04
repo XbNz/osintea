@@ -16,6 +16,7 @@ final class CoordinatesFactory extends Factory
     {
         return [
             'ip_address_id' => IpAddress::factory(),
+            'coordinates' => "POINT({$this->faker->longitude}, {$this->faker->latitude})",
         ];
     }
 }
