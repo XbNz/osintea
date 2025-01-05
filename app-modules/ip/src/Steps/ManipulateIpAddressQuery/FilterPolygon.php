@@ -24,10 +24,11 @@ final class FilterPolygon
 
         $multiPolygonStatement = Collection::make($transporter->polygonFilter->geoJsons)
             ->map(fn (array $geoJson) => GeoJson::jsonUnserialize($geoJson))
+            ->filter(fn (mixed $geoJson) => $geoJson instanceof FeatureCollection)
             ->map(fn (FeatureCollection $featureCollection) => $featureCollection->getFeatures())
             ->flatten(1)
-            ->filter(fn (Feature $feature) => $feature->getGeometry() instanceof Polygon)
             ->map(fn (Feature $feature) => $feature->getGeometry())
+            ->filter(fn (mixed $polygon) => $polygon instanceof Polygon)
             ->map(function (Polygon $polygon) {
                 $coordinates = Collection::make($polygon->getCoordinates())->flatten(1)
                     ->map(function (array $coordinate) {

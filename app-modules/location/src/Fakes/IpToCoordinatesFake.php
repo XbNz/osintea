@@ -18,7 +18,7 @@ final class IpToCoordinatesFake implements IpToCoordinatesInterface
      */
     public array $providers = [];
 
-    public function execute(string $ip): ?Coordinates
+    public function execute(string $ip): Coordinates
     {
         $this->executeCount++;
 
