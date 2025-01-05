@@ -9,8 +9,11 @@ use Livewire\Wireable;
 
 final class PolygonFilter implements Wireable
 {
+    /**
+     * @param  array<int, array<mixed>>|null  $geoJsons
+     */
     public function __construct(
-        public ?array $geoJson = null,
+        public ?array $geoJsons = null,
     ) {}
 
     public function canBeApplied(): bool

@@ -345,6 +345,7 @@ final class ListIpAddresses extends Component
             FilterRoundTripTime::class,
             FilterPacketLoss::class,
             FilterOrganization::class,
+            FilterPolygon::class,
         ];
 
         $this->manipulations = array_filter($this->manipulations, fn (string $manipulation) => in_array($manipulation, $toRemove) === false);

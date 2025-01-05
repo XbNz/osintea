@@ -81,7 +81,7 @@
                             </flux:menu.submenu>
 
                             <flux:menu.submenu heading="Geolocation">
-                                <div id="map" class="w-[30rem] h-96"></div>
+                                <div id="map" wire:ignore class="w-[30rem] h-96"></div>
                             </flux:menu.submenu>
 
                             <div class="flex justify-between gap-2">
@@ -278,7 +278,7 @@
 
     const draw = new Draw({
         source: vectorSource,
-        type: 'MultiPolygon',
+        type: 'Polygon',
     });
 
     map.addInteraction(draw);
@@ -290,7 +290,9 @@
             featureProjection: 'EPSG:3857',
         });
 
-        $wire.polygonFilter.geoJson = featureGeojson;
+        $wire.polygonFilter.geoJsons = $wire.polygonFilter.geoJsons === null ?
+            [featureGeojson]
+            : $wire.polygonFilter.geoJsons.concat([featureGeojson]);
     });
 
 </script>

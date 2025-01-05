@@ -18,6 +18,8 @@ use XbNz\Asn\Jobs\BulkAsnLookupJob;
 use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Livewire\ListIpAddresses;
 use XbNz\Ip\Models\IpAddress;
+use XbNz\Location\Actions\CreateCoordinatesAction;
+use XbNz\Location\DTOs\CreateCoordinatesDto;
 use XbNz\Location\Enums\Provider as LocationProvider;
 use XbNz\Location\Jobs\BulkGeolocateJob;
 use XbNz\Location\Models\Coordinates;
@@ -561,6 +563,55 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function filter_by_geolocation(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $ipAddressB = IpAddress::factory()
+            ->create()
+            ->refresh()
+            ->getData();
+
+        $createCoordinatesAction = $this->app->make(CreateCoordinatesAction::class);
+        $createCoordinatesAction->handle(new CreateCoordinatesDto($ipAddressA, new \XbNz\Shared\ValueObjects\Coordinates(1, 2)));
+        $createCoordinatesAction->handle(new CreateCoordinatesDto($ipAddressB, new \XbNz\Shared\ValueObjects\Coordinates(50, 51)));
+
+        // Act
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->set('polygonFilter.geoJsons', [
+            [
+                'type' => 'FeatureCollection',
+                'features' => [
+                    [
+                        'type' => 'Feature',
+                        'geometry' => [
+                            'type' => 'Polygon',
+                            'coordinates' => [
+                                [
+                                    [0, 0],
+                                    [0, 5],
+                                    [5, 5],
+                                    [5, 0],
+                                    [0, 0],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ])->call('applyFilters');
+
+        // Assert
+        $livewire->assertSee($ipAddressA->ip);
+        $livewire->assertDontSee($ipAddressB->ip);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function clearing_filters_works(): void
     {
         // Arrange
@@ -748,6 +799,7 @@ final class ListIpAddressesTest extends TestCase
                         ['round_trip_time' => 2],
                     )
             )
+            ->has(Coordinates::factory())
             ->has(Asn::factory())
             ->create(['ip' => '1.1.1.1'])
             ->refresh()
@@ -762,6 +814,7 @@ final class ListIpAddressesTest extends TestCase
                         ['round_trip_time' => 4],
                     )
             )
+            ->has(Coordinates::factory())
             ->has(Asn::factory())
             ->create(['ip' => '8.8.8.8'])
             ->refresh()
@@ -781,10 +834,12 @@ final class ListIpAddressesTest extends TestCase
         $this->assertDatabaseMissing(IpAddress::class, ['id' => $ipAddressB->id]);
         $this->assertDatabaseMissing(PingSequence::class, ['ip_address_id' => $ipAddressB->id]);
         $this->assertDatabaseMissing(Asn::class, ['ip_address_id' => $ipAddressB->id]);
+        $this->assertDatabaseMissing(Coordinates::class, ['ip_address_id' => $ipAddressB->id]);
 
         $this->assertDatabaseHas(IpAddress::class, ['id' => $ipAddressA->id]);
         $this->assertDatabaseHas(PingSequence::class, ['ip_address_id' => $ipAddressA->id]);
         $this->assertDatabaseHas(Asn::class, ['ip_address_id' => $ipAddressA->id]);
+        $this->assertDatabaseHas(Coordinates::class, ['ip_address_id' => $ipAddressA->id]);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
