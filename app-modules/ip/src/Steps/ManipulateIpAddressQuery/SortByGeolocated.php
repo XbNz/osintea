@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Steps\ManipulateIpAddressQuery;
 
-
-use XbNz\Location\Models\Coordinates;
-
 final class SortByGeolocated
 {
     public function handle(Transporter $transporter): Transporter

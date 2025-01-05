@@ -11,7 +11,6 @@ use App\Steps\OnBooted\EnableDefaultFpingPreferences;
 use App\Steps\OnBooted\Transporter;
 use Chefhasteeth\Pipeline\Pipeline;
 use Native\Laravel\Events\App\ApplicationBooted;
-use Native\Laravel\Events\App\ProjectFileChanged;
 use Native\Laravel\Events\Windows\WindowBlurred;
 use Native\Laravel\Events\Windows\WindowClosed;
 use Native\Laravel\Events\Windows\WindowFocused;
@@ -79,7 +78,6 @@ final class NativePhpSubscriber
             //            CreateDefaultMasscanPreferences::class,
             //            EnableDefaultMasscanPreferences::class,
         ];
-
 
         Pipeline::make()
             ->send(new Transporter())

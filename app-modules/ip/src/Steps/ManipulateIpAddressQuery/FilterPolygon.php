@@ -7,12 +7,10 @@ namespace XbNz\Ip\Steps\ManipulateIpAddressQuery;
 use GeoJson\Feature\Feature;
 use GeoJson\Feature\FeatureCollection;
 use GeoJson\GeoJson;
-use GeoJson\Geometry\MultiPolygon;
 use GeoJson\Geometry\Polygon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Psl\Type;
-use Webmozart\Assert\Assert;
 
 final class FilterPolygon
 {
