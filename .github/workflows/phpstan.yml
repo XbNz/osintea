@@ -28,6 +28,10 @@ jobs:
           composer config http-basic.composer.fluxui.dev "${{ secrets.FLUXUI_USERNAME }}" "${{ secrets.FLUXUI_LICENCE_KEY }}"
           composer install --prefer-dist --no-interaction
 
+      - name: Environment
+        run: |
+          touch database/database.sqlite
+
       - name: Execute PHPStan
         run: |
           php vendor/bin/phpstan
