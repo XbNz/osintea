@@ -20,7 +20,7 @@ final class LocationServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $spatialitePath = \Safe\realpath(__DIR__.'/../../bin/mod_spatialite.dylib');
+        $spatialitePath = \Safe\realpath(__DIR__ . '/../../spatialite_libs/darwin_arm64/mod_spatialite.dylib');
 
         Assert::methodExists($pdo = $this->app->make(DatabaseManager::class)->connection()->getPdo(), 'loadExtension');
         $pdo->loadExtension($spatialitePath);
