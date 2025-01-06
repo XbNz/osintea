@@ -1,0 +1,37 @@
+name: Download Maxmind GeoLite2 mmdb
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+    download-maxmind-mmdb:
+        permissions:
+          contents: write
+          pull-requests: write
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Download Maxmind Geolite2 mmdb
+              run: |
+                wget https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv4.mmdb
+                wget https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv6.mmdb
+
+            - name: Move to databases directory
+              run: |
+                rm -rf app-modules/maxmind-integration/database/geolite2-city-ipv4.mmdb
+                rm -rf app-modules/maxmind-integration/database/geolite2-city-ipv6.mmdb
+                mv geolite2-city-ipv4.mmdb app-modules/maxmind-integration/database/
+                mv geolite2-city-ipv6.mmdb app-modules/maxmind-integration/database/
+
+            - name: Create a pull request
+              uses: peter-evans/create-pull-request@v7
+              with:
+                branch: update-maxmind-geolite2-mmdb
+                title: "Update Maxmind GeoLite2 mmdb"
+                commit-message: "update maxmind geolite2 mmdb"
+                base: main
+
+
