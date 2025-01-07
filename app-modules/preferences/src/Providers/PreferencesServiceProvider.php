@@ -6,6 +6,8 @@ namespace XbNz\Preferences\Providers;
 
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use XbNz\MaxmindIntegration\Updaters\Geolite2CityIpv4MmdbUpdater;
+use XbNz\MaxmindIntegration\Updaters\Geolite2CityIpv6MmdbUpdater;
 use XbNz\MaxmindIntegration\Updaters\UnifiedSqliteUpdater as MaxmindUnifiedSqliteUpdater;
 use XbNz\Preferences\Subscribers\FpingSubscriber;
 use XbNz\RouteviewsIntegration\Updaters\Ipv4MmdbUpdater;
@@ -29,6 +31,8 @@ final class PreferencesServiceProvider extends ServiceProvider
             MaxmindUnifiedSqliteUpdater::class,
             Ipv4MmdbUpdater::class,
             Ipv6MmdbUpdater::class,
+            Geolite2CityIpv4MmdbUpdater::class,
+            Geolite2CityIpv6MmdbUpdater::class,
         ], 'database-updaters');
     }
 

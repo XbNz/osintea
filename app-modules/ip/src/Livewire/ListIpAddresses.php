@@ -119,7 +119,7 @@ final class ListIpAddresses extends Component
      */
     private function query(): Builder
     {
-        $query = IpAddress::query()->with(['pingSequences']);
+        $query = IpAddress::query()->with(['pingSequences', 'asn', 'coordinates']);
 
         $pipes = $this->manipulations;
 
