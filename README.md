@@ -40,7 +40,8 @@
 <img src="/art/database_preferences.png" width="379">
 
 ### Demo video
-<video src="/art/osintea.mp4" width="379" controls></video>
+https://github.com/user-attachments/assets/06c4f73a-8b4b-45ae-922c-e1eef6b8f4c9
+
 
 ## Download & Installation
 > The application is still in development and awaiting an upcoming beta release of NativePHP to become downloadable to all! Contributors can run the app in test mode.
