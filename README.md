@@ -13,12 +13,51 @@
 ## Supported Platforms
 - MacOS (Darwin)
 
-## Download & Installation
-[Download the latest release](https://github.com/XbNz/osintea/releases)
-
 ## Features
 
-### ICMP Ping (powered by [fping](https://fping.org/))
+### We have command palettes!
+<img src="/art/command_palette.png" width="379">
 
-<img src="/art/ping_window.png" width="379">
+### And even light mode for the psychopaths
 <img src="/art/ping_window_light.png" width="379" style="margin-left: 10px;">
+
+### ICMP Ping (powered by [fping](https://fping.org/))
+<img src="/art/ping_window.png" width="379">
+
+### Really fast range to IP conversion
+<img src="/art/range_to_ip.png" width="379">
+
+### Organization to range with support for multiple database vendors
+<img src="/art/organization_to_range.png" width="379">
+
+### Polygon to range with support for multiple database vendors
+<img src="/art/polygon_to_range.png" width="379">
+
+### Fping is great in the terminal, but it's even better with a GUI
+<img src="/art/fping_preferences.png" width="379">
+
+### Database update manager
+<img src="/art/database_preferences.png" width="379">
+
+### Demo video
+<video src="/art/osintea.mp4" width="379" controls></video>
+
+## Download & Installation
+> The application is still in development and awaiting an upcoming beta release of NativePHP to become downloadable to all! Contributors can run the app in test mode.
+
+## Contributing
+
+### Authentication for `livewire/flux`
+```bash
+composer config http-basic.composer.fluxui.dev "${FLUX_USERNAME}" "${FLUX_LICENSE_KEY}"
+```
+
+### Installation
+
+```bash
+composer install
+npx vite build
+npm run dev
+php artisan native:migrate
+php artisan native:serve
+```

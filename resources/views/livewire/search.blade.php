@@ -32,7 +32,7 @@
             <flux:command.item wire:click="openLocationToRange">
                 <div class="flex items-center">
                     @svg('fad-map-pin', 'h-5 w-5')
-                    <span class="ml-2">Location to IP</span>
+                    <span class="ml-2">Location to Range</span>
                 </div>
             </flux:command.item>
         </flux:command.items>
