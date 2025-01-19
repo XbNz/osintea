@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace XbNz\Location\ValueObjects;
 
+use XbNz\Shared\Enums\IpType;
 use XbNz\Shared\IpValidator;
 use XbNz\Shared\ValueObjects\Coordinates;
-use XbNz\Shared\ValueObjects\IpType;
 
 final class IpRange
 {

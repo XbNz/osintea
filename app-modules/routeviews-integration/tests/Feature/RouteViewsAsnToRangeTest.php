@@ -12,7 +12,7 @@ use XbNz\Asn\Contracts\AsnToRangeInterface;
 use XbNz\Asn\ValueObject\IpRange;
 use XbNz\RouteviewsIntegration\RouteViewsAsnToRange;
 use XbNz\RouteviewsIntegration\RouteViewsIpToAsn;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 final class RouteViewsAsnToRangeTest extends TestCase
 {

@@ -15,7 +15,7 @@ use XbNz\Ip\Database\Factories\IpAddressFactory;
 use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Location\Models\Coordinates;
 use XbNz\Ping\Models\PingSequence;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 /**
  * @mixin IdeHelperIpAddress

@@ -15,7 +15,7 @@ use XbNz\Asn\Contracts\AsnToRangeInterface;
 use XbNz\Asn\Enums\Provider;
 use XbNz\Asn\ValueObject\Asn;
 use XbNz\Asn\ValueObject\IpRange;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 final class RouteViewsAsnToRange implements AsnToRangeInterface
 {

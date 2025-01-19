@@ -12,7 +12,7 @@ use Webmozart\Assert\Assert;
 use XbNz\Asn\DTOs\AsnDto;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\DTOs\PingSequenceDto;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 final class IpAddressDto extends Data
 {

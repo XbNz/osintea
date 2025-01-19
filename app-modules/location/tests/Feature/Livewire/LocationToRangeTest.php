@@ -16,8 +16,8 @@ use XbNz\Location\Enums\Provider;
 use XbNz\Location\Fakes\PolygonToRangeFake;
 use XbNz\Location\Livewire\LocationToRange;
 use XbNz\Location\ValueObjects\IpRange;
+use XbNz\Shared\Enums\IpType;
 use XbNz\Shared\ValueObjects\Coordinates;
-use XbNz\Shared\ValueObjects\IpType;
 
 final class LocationToRangeTest extends TestCase
 {

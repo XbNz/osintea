@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use XbNz\Ip\Actions\CreateIpAddressAction;
 use XbNz\Ip\Models\IpAddress;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 final class CreateIpAddressActionTest extends TestCase
 {

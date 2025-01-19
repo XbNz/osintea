@@ -15,7 +15,7 @@ use XbNz\Location\Enums\Provider;
 use Psl\Type;
 use XbNz\Location\ValueObjects\IpRange;
 use XbNz\Shared\ValueObjects\Coordinates;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 final class MaxmindPolygonToRange implements PolygonToRangeInterface
 {

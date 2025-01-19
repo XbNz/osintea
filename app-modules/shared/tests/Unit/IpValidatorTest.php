@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace XbNz\Shared\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
+use XbNz\Shared\Enums\IpType;
 use XbNz\Shared\Exceptions\InvalidIpAddressException;
 use XbNz\Shared\IpValidator;
-use XbNz\Shared\ValueObjects\IpType;
 
 final class IpValidatorTest extends TestCase
 {

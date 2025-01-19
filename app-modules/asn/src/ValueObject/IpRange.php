@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace XbNz\Asn\ValueObject;
 
+use XbNz\Shared\Enums\IpType;
 use XbNz\Shared\IpValidator;
-use XbNz\Shared\ValueObjects\IpType;
 
 final class IpRange
 {

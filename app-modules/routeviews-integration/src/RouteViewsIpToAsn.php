@@ -9,8 +9,8 @@ use Psl\Type;
 use XbNz\Asn\Contracts\IpToAsnInterface;
 use XbNz\Asn\Enums\Provider;
 use XbNz\Asn\ValueObject\Asn;
+use XbNz\Shared\Enums\IpType;
 use XbNz\Shared\IpValidator;
-use XbNz\Shared\ValueObjects\IpType;
 
 final class RouteViewsIpToAsn implements IpToAsnInterface
 {

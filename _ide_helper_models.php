@@ -13,7 +13,7 @@
 
 namespace XbNz\Asn\Model{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $ip_address_id
@@ -38,11 +38,11 @@ namespace XbNz\Asn\Model{
 
 namespace XbNz\Ip\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $ip
- * @property \XbNz\Shared\ValueObjects\IpType|null $type
+ * @property \XbNz\Shared\Enums\IpType|null $type
  * @property \Carbon\CarbonImmutable $created_at
  * @property-read \XbNz\Asn\Model\Asn|null $asn
  * @property-read \XbNz\Location\Models\Coordinates|null $coordinates
@@ -64,7 +64,7 @@ namespace XbNz\Ip\Models{
 
 namespace XbNz\Location\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $coordinates
@@ -87,7 +87,7 @@ namespace XbNz\Location\Models{
 
 namespace XbNz\Ping\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $ip_address_id
@@ -112,7 +112,7 @@ namespace XbNz\Ping\Models{
 
 namespace XbNz\Preferences\Models{
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name

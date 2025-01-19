@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Ping\DTOs;
 
 use XbNz\Ping\ValueObjects\Sequence;
-use XbNz\Shared\ValueObjects\IpType;
+use XbNz\Shared\Enums\IpType;
 
 final class PingResultDto
 {

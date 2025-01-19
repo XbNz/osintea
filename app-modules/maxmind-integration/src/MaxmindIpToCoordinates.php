@@ -8,9 +8,9 @@ use MaxMind\Db\Reader;
 use Psl\Type;
 use XbNz\Location\Contracts\IpToCoordinatesInterface;
 use XbNz\Location\Enums\Provider;
+use XbNz\Shared\Enums\IpType;
 use XbNz\Shared\IpValidator;
 use XbNz\Shared\ValueObjects\Coordinates;
-use XbNz\Shared\ValueObjects\IpType;
 
 final class MaxmindIpToCoordinates implements IpToCoordinatesInterface
 {

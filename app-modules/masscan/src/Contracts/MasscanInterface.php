@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace XbNz\Masscan\Contracts;
 
-use XbNz\Masscan\ValueObjects\Port;
+use XbNz\Shared\ValueObjects\Port;
 
 interface MasscanInterface
 {
