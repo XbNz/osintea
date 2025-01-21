@@ -29,6 +29,8 @@ final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
     public private(set) int $rate;
     public private(set) int $timeToLive = 55;
     public private(set) int $timeout = 60;
+    public private(set) int $retries = 0;
+    public private(set) ?string $adapter = null;
 
     public function __construct(
         private readonly PendingProcess $process,
@@ -74,6 +76,15 @@ final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
         return $this;
     }
 
+    public function adapter(string $adapter): self
+    {
+        Assert::string($adapter, 'The adapter must be a string');
+
+        $this->adapter = $adapter;
+
+        return $this;
+    }
+
     public function timeToLive(int $ttl): self
     {
         Assert::positiveInteger($ttl, 'The time to live must be a positive integer');
@@ -106,6 +117,13 @@ final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
         );
     }
 
+    public function retries(int $retries): MasscanIcmpScannerInterface
+    {
+        $this->retries = $retries;
+
+        return $this;
+    }
+
     private function pendingProcess(): PendingProcess
     {
         $masscanPrefix = $this->config->get('masscan.binaries.prefix');
@@ -127,6 +145,8 @@ final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
             $this->rate,
             '--ttl',
             $this->timeToLive,
+            '--retries',
+            $this->retries,
             '--output-filename',
             $this->outputFilePath,
             '--output-format',
@@ -135,6 +155,11 @@ final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
             '--wait',
             '0',
         ];
+
+        if ($this->adapter !== null) {
+            $command[] = '--adapter';
+            $command[] = $this->adapter;
+        }
 
         return $this->process
             ->timeout($this->timeout)

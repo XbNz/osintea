@@ -14,6 +14,14 @@ interface MasscanIcmpScannerInterface
 
     public function rate(int $rate): self;
 
+    public function timeToLive(int $timeToLive): self;
+
+    public function retries(int $retries): self;
+
+    public function timeout(int $timeout): self;
+
+    public function adapter(string $adapter): self;
+
     /**
      * @return array<int, PortScanResultDto>
      */
