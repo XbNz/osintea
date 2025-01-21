@@ -131,23 +131,8 @@ return [
             'timeout' => 600,
             'memory_limit' => 2048,
         ],
-        'bulk_ping_2' => [
-            'queues' => ['bulk_ping'],
-            'timeout' => 600,
-            'memory_limit' => 2048,
-        ],
-        'bulk_ping_3' => [
-            'queues' => ['bulk_ping'],
-            'timeout' => 600,
-            'memory_limit' => 2048,
-        ],
-        'bulk_ping_4' => [
-            'queues' => ['bulk_ping'],
-            'timeout' => 600,
-            'memory_limit' => 2048,
-        ],
-        'bulk_ping_5' => [
-            'queues' => ['bulk_ping'],
+        'bulk_icmp_scan' => [
+            'queues' => ['bulk_icmp_scan'],
             'timeout' => 600,
             'memory_limit' => 2048,
         ],

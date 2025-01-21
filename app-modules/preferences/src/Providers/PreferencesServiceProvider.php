@@ -10,6 +10,7 @@ use XbNz\MaxmindIntegration\Updaters\Geolite2CityIpv4MmdbUpdater;
 use XbNz\MaxmindIntegration\Updaters\Geolite2CityIpv6MmdbUpdater;
 use XbNz\MaxmindIntegration\Updaters\UnifiedSqliteUpdater as MaxmindUnifiedSqliteUpdater;
 use XbNz\Preferences\Subscribers\FpingSubscriber;
+use XbNz\Preferences\Subscribers\MasscanSubscriber;
 use XbNz\RouteviewsIntegration\Updaters\Ipv4MmdbUpdater;
 use XbNz\RouteviewsIntegration\Updaters\Ipv6MmdbUpdater;
 use XbNz\RouteviewsIntegration\Updaters\UnifiedSqliteUpdater as RouteviewsUnifiedSqliteUpdater;
@@ -22,6 +23,7 @@ final class PreferencesServiceProvider extends ServiceProvider
      */
     private array $subscribers = [
         FpingSubscriber::class,
+        MasscanSubscriber::class
     ];
 
     public function register(): void

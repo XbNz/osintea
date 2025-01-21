@@ -242,6 +242,25 @@ final class ListIpAddresses extends Component
         Flux::toast('Pinging has commenced in the background. You may continue using the app.', 'Ping started', 10000, 'success');
     }
 
+    public function icmpScanActive(): void
+    {
+        $bus = app(Dispatcher::class);
+
+        $query = $this->query()->clone();
+
+        $query->getQuery()->orders = null;
+
+        $query
+            ->lazyById(10_000)
+            ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
+            ->chunk(10_000)
+            ->each(fn (LazyCollection $chunk) => $bus->dispatch(
+                new BulkIcmpScanJob($chunk->pluck('id')->toArray())->onQueue('bulk_icmp_scan')
+            ));
+
+        Flux::toast('ICMP scanning has commenced in the background. You may continue using the app.', 'ICMP scan started', 10000, 'success');
+    }
+
     public function lookupActiveAsn(string $provider): void
     {
         $provider = AsnProvider::from($provider);
