@@ -9,6 +9,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use XbNz\Port\Steps\BulkIcmpScan\BulkIcmpScan;
+use XbNz\Port\Steps\BulkIcmpScan\FireEvent;
 use XbNz\Port\Steps\BulkIcmpScan\Transporter;
 
 final class BulkIcmpScanJob implements ShouldQueue
