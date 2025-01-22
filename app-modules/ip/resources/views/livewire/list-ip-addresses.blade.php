@@ -84,6 +84,13 @@
                                 <div id="map" wire:ignore class="w-[30rem] h-96"></div>
                             </flux:menu.submenu>
 
+                            <flux:menu.submenu heading="ICMP">
+                                <div class="flex flex-col gap-2">
+                                    <flux:switch label="Alive" wire:model="icmpFilter.alive" />
+                                    <flux:switch label="Dead" wire:model="icmpFilter.dead" />
+                                </div>
+                            </flux:menu.submenu>
+
                             <div class="flex justify-between gap-2">
                                 <flux:button type="submit" size="sm" class="my-2">
                                     @svg('fad-filter', 'h-5 w-5')
@@ -92,12 +99,6 @@
                                     @svg('fad-filter-slash', 'h-5 w-5')
                                 </flux:button>
                             </div>
-
-                            <flux:menu.submenu heading="ICMP alive">
-                                <div class="flex flex-col gap-2">
-                                    <flux:switch label="Alive" wire:model="icmpAliveFilter.apply" />
-                                </div>
-                            </flux:menu.submenu>
 
                         </form>
                     </flux:menu.group>

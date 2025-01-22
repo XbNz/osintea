@@ -200,4 +200,45 @@ final class LocationToRangeTest extends TestCase
         $fake->assertExecuteCount(1);
         $fake->assertFilterIpType(PolygonToRangeInterface::FILTER_IPV4 | PolygonToRangeInterface::FILTER_IPV6);
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_limits_results_to_sample_size(): void
+    {
+        // Arrange
+        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake());
+
+        $this->app->tag([PolygonToRangeFake::class], 'polygon-to-range');
+
+        $fake = $this->app->make(PolygonToRangeFake::class);
+
+        $fake->forceRangeReturn(Collection::make([
+            new IpRange('1.1.1.0', '1.1.1.255', new Coordinates(1.1, 1.1), IpType::IPv4),
+        ]));
+
+        $featureCollections = [
+            'type' => 'FeatureCollection',
+            'features' => [
+                [
+                    'type' => 'Feature',
+                    'properties' => [],
+                    'geometry' => [
+                        'type' => 'Polygon',
+                        'coordinates' => [
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        // Act
+        $this->assertDatabaseCount(IpAddress::class, 0);
+        $response = Livewire::test(LocationToRange::class)
+            ->set('selectedProvider', 'Fake')
+            ->set('sampleSizeTotal', 10)
+            ->call('addPolygon', $featureCollections)
+            ->call('addToMyIpAddresses');
+
+        // Assert
+        $this->assertDatabaseCount(IpAddress::class, 10);
+    }
 }

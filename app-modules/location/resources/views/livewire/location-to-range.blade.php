@@ -31,13 +31,19 @@
         rows="7"
     />
 
-    <div class="flex flex-row gap-3" x-show="$wire.ipTypeMask === {{ \XbNz\Asn\Contracts\AsnToRangeInterface::FILTER_IPV4 }}">
-        <flux:button wire:click="addToMyIpAddresses" class="w-full mt-3">
-                <span class="flex gap-3">
+    <div x-show="$wire.ipTypeMask === {{ \XbNz\Asn\Contracts\AsnToRangeInterface::FILTER_IPV4 }}">
+        <div class="flex gap-2 mt-3">
+            <flux:field>
+                <flux:input type="number" wire:model.live.debounce.500ms="sampleSizeTotal" placeholder="Sample size" />
+                <flux:error name="sampleSizeTotal" />
+            </flux:field>
+            <flux:button wire:click="addToMyIpAddresses" class="w-full">
+                <span class="flex justify-between items-center gap-2">
                     Add to database
                     @svg('fad-database', 'h-5 w-5')
                 </span>
-        </flux:button>
+            </flux:button>
+        </div>
     </div>
 </div>
 

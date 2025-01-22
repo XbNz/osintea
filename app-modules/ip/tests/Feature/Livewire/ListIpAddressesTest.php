@@ -25,6 +25,9 @@ use XbNz\Location\Jobs\BulkGeolocateJob;
 use XbNz\Location\Models\Coordinates;
 use XbNz\Ping\Jobs\BulkPingJob;
 use XbNz\Ping\Models\PingSequence;
+use XbNz\Port\Models\Port;
+use XbNz\Shared\Enums\PortState;
+use XbNz\Shared\Enums\ProtocolType;
 
 final class ListIpAddressesTest extends TestCase
 {
@@ -609,6 +612,40 @@ final class ListIpAddressesTest extends TestCase
         // Assert
         $livewire->assertSee($ipAddressA->ip);
         $livewire->assertDontSee($ipAddressB->ip);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function filter_by_icmp_alive(): void
+    {
+        // Arrange
+        $ipAddressA = IpAddress::factory()
+            ->has(
+                Port::factory()
+                    ->state([
+                        'protocol' => ProtocolType::ICMP->value,
+                        'state' => PortState::Open->value,
+                        'port' => 0,
+                    ])
+            )
+            ->create();
+
+        $ipAddressB = IpAddress::factory()->create();
+
+        // Act & Assert
+        $livewire = Livewire::test(ListIpAddresses::class);
+
+        $livewire->set('icmpFilter.alive', true)
+            ->call('applyFilters');
+
+        $livewire->assertSee($ipAddressA->ip);
+        $livewire->assertDontSee($ipAddressB->ip);
+
+        $livewire->set('icmpFilter.alive', false)
+            ->set('icmpFilter.dead', true)
+            ->call('applyFilters');
+
+        $livewire->assertDontSee($ipAddressA->ip);
+        $livewire->assertSee($ipAddressB->ip);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]

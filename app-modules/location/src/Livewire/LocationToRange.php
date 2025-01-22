@@ -32,6 +32,8 @@ final class LocationToRange extends Component
     #[Locked]
     public string $ranges = '';
 
+    public int $sampleSizeTotal;
+
     #[Locked]
     public string $inputFile;
 
@@ -44,6 +46,7 @@ final class LocationToRange extends Component
     {
         return [
             'selectedProvider' => ['required', Rule::enum(Provider::class)],
+            'sampleSizeTotal' => ['nullable', 'integer', 'min:1'],
         ];
     }
 
@@ -52,7 +55,7 @@ final class LocationToRange extends Component
      */
     public function addPolygon(array $geoJson): void
     {
-        $this->validate();
+        $this->validateOnly('selectedProvider');
 
         if (isset($this->inputFile) === false) {
             $this->inputFile = TemporaryDirectory::make()
@@ -85,7 +88,15 @@ final class LocationToRange extends Component
         ImportIpAddressesAction $importIpAddressesAction,
         RapidParserInterface $rapidParser
     ): void {
-        $importIpAddressesAction->handle($rapidParser->inputFilePath($this->inputFile)->parse());
+        $this->validateOnly('sampleSizeTotal');
+
+        if (isset($this->sampleSizeTotal) === true) {
+            $rapidParser->sampleSize($this->sampleSizeTotal);
+        }
+
+        $importIpAddressesAction->handle(
+            $rapidParser->inputFilePath($this->inputFile)->parse()
+        );
     }
 
     public function limitV4(): void
@@ -96,6 +107,15 @@ final class LocationToRange extends Component
     public function limitV6(): void
     {
         $this->ipTypeMask = AsnToRangeInterface::FILTER_IPV6;
+    }
+
+    public function updated(string $name, mixed $value): void
+    {
+        $liveFields = ['sampleSizeTotal'];
+
+        if (in_array($name, $liveFields, true)) {
+            $this->validateOnly($name);
+        }
     }
 
     public function clearIpTypeLimits(): void

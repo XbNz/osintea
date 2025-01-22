@@ -12,5 +12,7 @@ interface RapidParserInterface
 
     public function timeout(int $seconds): self;
 
+    public function sampleSize(int $totalCount): self;
+
     public function parse(): string;
 }

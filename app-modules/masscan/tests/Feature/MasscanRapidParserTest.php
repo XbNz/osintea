@@ -100,6 +100,36 @@ final class MasscanRapidParserTest extends TestCase
         $this->fail('An exception should have been thrown');
     }
 
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function sample_sizing_works(): void
+    {
+        // Arrange
+        $masscanRapidParser = $this->app->make(MasscanRapidParser::class);
+
+        file_put_contents(
+            $this->inputFilePath,
+            implode(PHP_EOL, [
+                '1.1.1.0/24',
+            ]),
+        );
+
+        // Act
+        $masscanRapidParser
+            ->inputFilePath($this->inputFilePath)
+            ->outputFilePath($this->outputFilePath)
+            ->sampleSize(128)
+            ->parse();
+
+        // Assert
+        $this->assertFileExists($this->outputFilePath);
+        $ips = $this->app->make(Filesystem::class)
+            ->lines($this->outputFilePath)
+            ->reject(fn (string $line) => empty($line))
+            ->toArray();
+
+        $this->assertCount(128, $ips);
+    }
+
     protected function tearDown(): void
     {
         parent::tearDown();

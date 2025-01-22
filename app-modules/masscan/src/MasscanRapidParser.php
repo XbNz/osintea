@@ -18,11 +18,13 @@ use function Psl\Filesystem\canonicalize;
 
 final class MasscanRapidParser implements RapidParserInterface
 {
-    private string $inputFilePath;
+    public private(set) string $inputFilePath;
 
-    private string $outputFilePath;
+    public private(set) string $outputFilePath;
 
-    private int $timeout = 15;
+    public private(set) int $timeout = 15;
+
+    public private(set) ?int $sampleSize = null;
 
     public function __construct(
         private readonly Repository $config,
@@ -67,6 +69,15 @@ final class MasscanRapidParser implements RapidParserInterface
         return $this;
     }
 
+    public function sampleSize(int $totalCount): self
+    {
+        Assert::greaterThan($totalCount, 0, 'The sample size must be greater than 0');
+
+        $this->sampleSize = $totalCount;
+
+        return $this;
+    }
+
     public function parse(): string
     {
         $masscanPrefix = $this->config->get('masscan.binaries.prefix');
@@ -85,6 +96,11 @@ final class MasscanRapidParser implements RapidParserInterface
             $this->inputFilePath,
             '-sL',
         ];
+
+        if ($this->sampleSize !== null) {
+            $command[] = '--resume-count';
+            $command[] = $this->sampleSize;
+        }
 
         try {
             $this->process

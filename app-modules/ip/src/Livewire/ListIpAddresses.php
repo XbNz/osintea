@@ -26,13 +26,13 @@ use XbNz\Asn\Jobs\BulkAsnLookupJob;
 use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
-use XbNz\Ip\Filters\IcmpAliveFilter;
+use XbNz\Ip\Filters\IcmpFilter;
 use XbNz\Ip\Filters\OrganizationFilter;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\PolygonFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
-use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterIcmpAlive;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterIcmp;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPacketLoss;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPolygon;
@@ -90,7 +90,7 @@ final class ListIpAddresses extends Component
 
     public PolygonFilter $polygonFilter;
 
-    public IcmpAliveFilter $icmpAliveFilter;
+    public IcmpFilter $icmpFilter;
 
     /**
      * @return array<string, mixed>
@@ -153,7 +153,7 @@ final class ListIpAddresses extends Component
                 $this->packetLossFilter,
                 $this->organizationFilter,
                 $this->polygonFilter,
-                $this->icmpAliveFilter
+                $this->icmpFilter
             ))
             ->through($pipes)
             ->thenReturn()
@@ -354,7 +354,7 @@ final class ListIpAddresses extends Component
             FilterPacketLoss::class => $this->packetLossFilter->canBeApplied(),
             FilterOrganization::class => $this->organizationFilter->canBeApplied(),
             FilterPolygon::class => $this->polygonFilter->canBeApplied(),
-            FilterIcmpAlive::class => $this->icmpAliveFilter->canBeApplied(),
+            FilterIcmp::class => $this->icmpFilter->canBeApplied(),
         ];
 
         Collection::make($toApply)
@@ -395,7 +395,7 @@ final class ListIpAddresses extends Component
         $this->packetLossFilter = new PacketLossFilter();
         $this->organizationFilter = new OrganizationFilter();
         $this->polygonFilter = new PolygonFilter();
-        $this->icmpAliveFilter = new IcmpAliveFilter(false);
+        $this->icmpFilter = new IcmpFilter();
     }
 
     public function render(): View
