@@ -29,7 +29,6 @@
         "maxmind-db/reader": "^1.12",
         "nativephp/electron": "dev-main",
         "nativephp/laravel": "dev-main",
-        "nativephp/php-bin": "0.5.6",
         "react/async": "^4.3",
         "react/event-loop": "^1.5",
         "react/stream": "^1.4",

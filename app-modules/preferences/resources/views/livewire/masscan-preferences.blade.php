@@ -24,14 +24,6 @@
                                 />
                                 <flux:label>Enabled</flux:label>
                             </flux:field>
-                            <flux:field>
-                                <flux:switch wire:model.boolean.live.debounce.500ms.live="form.dont_fragment"/>
-                                <flux:label>Dont fragment</flux:label>
-                            </flux:field>
-                            <flux:field>
-                                <flux:switch wire:model.boolean.live.debounce.500ms.live="form.send_random_data"/>
-                                <flux:label>Send random data</flux:label>
-                            </flux:field>
                         </div>
                         <flux:button wire:click="delete" :disabled="isset($form->enabled) && $form->enabled === true">
                             <span class="flex gap-2">
@@ -47,57 +39,11 @@
                 </flux:card>
                 <div class="grid grid-cols-3 gap-4 mt-7">
                     <flux:field>
-                        <flux:label>Size</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.size"/>
-                            <flux:input.group.suffix>bytes</flux:input.group.suffix>
-                        </flux:input.group>
-                        <flux:error name="form.size"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>Exponential back-off</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.backoff"/>
-                            <flux:input.group.suffix>x</flux:input.group.suffix>
-                        </flux:input.group>
-                        <flux:error name="form.backoff"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>Count per target</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.count" type="number"/>
-                        </flux:input.group>
-                        <flux:error name="form.count"/>
-                    </flux:field>
-                    <flux:field>
                         <flux:label>Time to live</flux:label>
                         <flux:input.group>
                             <flux:input wire:model.live.debounce.500ms="form.ttl" type="number"/>
                         </flux:input.group>
                         <flux:error name="form.ttl"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>Interval</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.interval"/>
-                            <flux:input.group.suffix>ms</flux:input.group.suffix>
-                        </flux:input.group>
-                        <flux:error name="form.interval"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>Interval per target</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.interval_per_target"/>
-                            <flux:input.group.suffix>ms</flux:input.group.suffix>
-                        </flux:input.group>
-                        <flux:error name="form.interval_per_target"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>Service type</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.type_of_service"/>
-                        </flux:input.group>
-                        <flux:error name="form.type_of_service"/>
                     </flux:field>
                     <flux:field>
                         <flux:label>Retries</flux:label>
@@ -107,12 +53,18 @@
                         <flux:error name="form.retries"/>
                     </flux:field>
                     <flux:field>
-                        <flux:label>Timeout</flux:label>
+                        <flux:label>Rate</flux:label>
                         <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.timeout"/>
-                            <flux:input.group.suffix>ms</flux:input.group.suffix>
+                            <flux:input wire:model.live.debounce.500ms="form.rate" type="number"/>
                         </flux:input.group>
-                        <flux:error name="form.timeout"/>
+                        <flux:error name="form.rate"/>
+                    </flux:field>
+                    <flux:field>
+                        <flux:label>Adapter</flux:label>
+                        <flux:input.group>
+                            <flux:input wire:model.live.debounce.500ms="form.adapter"/>
+                        </flux:input.group>
+                        <flux:error name="form.adapter"/>
                     </flux:field>
                 </div>
             </flux:tab.panel>
