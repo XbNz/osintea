@@ -13,7 +13,7 @@
 
 namespace XbNz\Asn\Model{
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $ip_address_id
@@ -38,7 +38,7 @@ namespace XbNz\Asn\Model{
 
 namespace XbNz\Ip\Models{
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $ip
@@ -64,7 +64,7 @@ namespace XbNz\Ip\Models{
 
 namespace XbNz\Location\Models{
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $coordinates
@@ -87,7 +87,7 @@ namespace XbNz\Location\Models{
 
 namespace XbNz\Ping\Models{
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $ip_address_id
@@ -110,9 +110,26 @@ namespace XbNz\Ping\Models{
 	final class IdeHelperPingSequence {}
 }
 
+namespace XbNz\Port\Models{
+/**
+ * 
+ *
+ * @property \XbNz\Shared\Enums\PortState $state
+ * @property \XbNz\Shared\Enums\ProtocolType $protocol
+ * @property-read \XbNz\Ip\Models\IpAddress|null $ipAddress
+ * @method static \XbNz\Port\Database\Factories\PortFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port query()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	final class IdeHelperPort {}
+}
+
 namespace XbNz\Preferences\Models{
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -154,5 +171,19 @@ namespace XbNz\Preferences\Models{
  */
 	#[\AllowDynamicProperties]
 	final class IdeHelperFpingPreferences {}
+}
+
+namespace XbNz\Preferences\Models{
+/**
+ * 
+ *
+ * @method static \XbNz\Preferences\Database\Factories\MasscanPreferencesFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences query()
+ * @mixin \Eloquent
+ */
+	#[\AllowDynamicProperties]
+	final class IdeHelperMasscanPreferences {}
 }
 

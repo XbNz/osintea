@@ -12,6 +12,9 @@ use XbNz\Preferences\Database\Factories\FpingPreferencesFactory;
 use XbNz\Preferences\Database\Factories\MasscanPreferencesFactory;
 use XbNz\Preferences\DTOs\MasscanPreferencesDto;
 
+/**
+ * @mixin IdeHelperMasscanPreferences
+ */
 final class MasscanPreferences extends Model
 {
     /**

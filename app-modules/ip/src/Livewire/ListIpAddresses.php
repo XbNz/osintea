@@ -26,11 +26,13 @@ use XbNz\Asn\Jobs\BulkAsnLookupJob;
 use XbNz\Asn\Model\Asn;
 use XbNz\Ip\Actions\ImportIpAddressesAction;
 use XbNz\Ip\Contracts\RapidParserInterface;
+use XbNz\Ip\Filters\IcmpAliveFilter;
 use XbNz\Ip\Filters\OrganizationFilter;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\PolygonFilter;
 use XbNz\Ip\Filters\RoundTripTimeFilter;
 use XbNz\Ip\Models\IpAddress;
+use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterIcmpAlive;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterOrganization;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPacketLoss;
 use XbNz\Ip\Steps\ManipulateIpAddressQuery\FilterPolygon;
@@ -49,6 +51,8 @@ use XbNz\Location\Events\BulkGeolocationCompleted;
 use XbNz\Location\Jobs\BulkGeolocateJob;
 use XbNz\Ping\Events\BulkPingCompleted;
 use XbNz\Ping\Jobs\BulkPingJob;
+use XbNz\Port\Events\BulkIcmpScanCompleted;
+use XbNz\Port\Jobs\BulkIcmpScanJob;
 use XbNz\Shared\Enums\NativePhpWindow;
 
 #[Layout('components.layouts.secondary-window')]
@@ -86,6 +90,8 @@ final class ListIpAddresses extends Component
 
     public PolygonFilter $polygonFilter;
 
+    public IcmpAliveFilter $icmpAliveFilter;
+
     /**
      * @return array<string, mixed>
      */
@@ -112,6 +118,12 @@ final class ListIpAddresses extends Component
     public function notifyGeolocationResultsReady(int $completedCount): void
     {
         Flux::toast("{$completedCount} geolocation results are ready for viewing", 'Geolocation completed', 1000, 'success');
+    }
+
+    #[On('native:'.BulkIcmpScanCompleted::class)]
+    public function notifyIcmpScanResultsReady(int $completedCount): void
+    {
+        Flux::toast("{$completedCount} ICMP scan results are ready for viewing", 'ICMP scan completed', 1000, 'success');
     }
 
     /**
@@ -141,6 +153,7 @@ final class ListIpAddresses extends Component
                 $this->packetLossFilter,
                 $this->organizationFilter,
                 $this->polygonFilter,
+                $this->icmpAliveFilter
             ))
             ->through($pipes)
             ->thenReturn()
@@ -251,9 +264,9 @@ final class ListIpAddresses extends Component
         $query->getQuery()->orders = null;
 
         $query
-            ->lazyById(10_000)
+            ->lazyById(20_000)
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
-            ->chunk(10_000)
+            ->chunk(20_000)
             ->each(fn (LazyCollection $chunk) => $bus->dispatch(
                 new BulkIcmpScanJob($chunk->pluck('id')->toArray())->onQueue('bulk_icmp_scan')
             ));
@@ -341,6 +354,7 @@ final class ListIpAddresses extends Component
             FilterPacketLoss::class => $this->packetLossFilter->canBeApplied(),
             FilterOrganization::class => $this->organizationFilter->canBeApplied(),
             FilterPolygon::class => $this->polygonFilter->canBeApplied(),
+            FilterIcmpAlive::class => $this->icmpAliveFilter->canBeApplied(),
         ];
 
         Collection::make($toApply)
@@ -381,6 +395,7 @@ final class ListIpAddresses extends Component
         $this->packetLossFilter = new PacketLossFilter();
         $this->organizationFilter = new OrganizationFilter();
         $this->polygonFilter = new PolygonFilter();
+        $this->icmpAliveFilter = new IcmpAliveFilter(false);
     }
 
     public function render(): View

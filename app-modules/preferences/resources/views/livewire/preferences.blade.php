@@ -34,7 +34,7 @@
             @livewire('preferences::database-preferences')
         </flux:tab.panel>
         <flux:tab.panel name="masscan">
-            Todo
+            @livewire('preferences::masscan-preferences')
         </flux:tab.panel>
     </flux:tab.group>
 </div>

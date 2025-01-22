@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Ip\Steps\ManipulateIpAddressQuery;
 
 use Illuminate\Database\Eloquent\Builder;
+use XbNz\Ip\Filters\IcmpAliveFilter;
 use XbNz\Ip\Filters\OrganizationFilter;
 use XbNz\Ip\Filters\PacketLossFilter;
 use XbNz\Ip\Filters\PolygonFilter;
@@ -23,5 +24,6 @@ final class Transporter
         public PacketLossFilter $packetLossFilter,
         public OrganizationFilter $organizationFilter,
         public PolygonFilter $polygonFilter,
+        public IcmpAliveFilter $icmpAliveFilter,
     ) {}
 }

@@ -15,6 +15,7 @@ use XbNz\Ip\Database\Factories\IpAddressFactory;
 use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Location\Models\Coordinates;
 use XbNz\Ping\Models\PingSequence;
+use XbNz\Port\Models\Port;
 use XbNz\Shared\Enums\IpType;
 
 /**
@@ -67,6 +68,14 @@ final class IpAddress extends Model
     public function coordinates(): HasOne
     {
         return $this->hasOne(Coordinates::class);
+    }
+
+    /**
+     * @return HasMany<Port>
+     */
+    public function ports(): HasMany
+    {
+        return $this->hasMany(Port::class);
     }
 
     protected static function newFactory(): IpAddressFactory

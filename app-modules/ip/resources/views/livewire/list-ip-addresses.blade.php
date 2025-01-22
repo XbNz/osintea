@@ -93,6 +93,12 @@
                                 </flux:button>
                             </div>
 
+                            <flux:menu.submenu heading="ICMP alive">
+                                <div class="flex flex-col gap-2">
+                                    <flux:switch label="Alive" wire:model="icmpAliveFilter.apply" />
+                                </div>
+                            </flux:menu.submenu>
+
                         </form>
                     </flux:menu.group>
                     <flux:menu.group heading="Tools">
@@ -121,6 +127,7 @@
                                 <flux:menu.item wire:click="geolocateActive('{{ $provider }}')">{{ $provider }}</flux:menu.item>
                             @endforeach
                         </flux:menu.submenu>
+                        <flux:menu.item wire:click="icmpScanActive">ICMP Scan (masscan)</flux:menu.item>
                     </flux:menu.group>
 
                     <flux:menu.item wire:click="fileImport">Import from file</flux:menu.item>

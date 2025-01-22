@@ -15,6 +15,9 @@ use XbNz\Port\DTOs\PortDto;
 use XbNz\Shared\Enums\PortState;
 use XbNz\Shared\Enums\ProtocolType;
 
+/**
+ * @mixin IdeHelperPort
+ */
 final class Port extends Model
 {
     /**

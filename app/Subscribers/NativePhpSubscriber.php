@@ -7,7 +7,9 @@ namespace App\Subscribers;
 use App\Events\OpenCommandPaletteEvent;
 use App\Events\OpenPreferencesEvent;
 use App\Steps\OnBooted\CreateDefaultFpingPreferences;
+use App\Steps\OnBooted\CreateDefaultMasscanPreferences;
 use App\Steps\OnBooted\EnableDefaultFpingPreferences;
+use App\Steps\OnBooted\EnableDefaultMasscanPreferences;
 use App\Steps\OnBooted\Transporter;
 use Chefhasteeth\Pipeline\Pipeline;
 use Native\Laravel\Events\App\ApplicationBooted;
@@ -75,8 +77,8 @@ final class NativePhpSubscriber
         $pipes = [
             CreateDefaultFpingPreferences::class,
             EnableDefaultFpingPreferences::class,
-            //            CreateDefaultMasscanPreferences::class,
-            //            EnableDefaultMasscanPreferences::class,
+            CreateDefaultMasscanPreferences::class,
+            EnableDefaultMasscanPreferences::class,
         ];
 
         Pipeline::make()

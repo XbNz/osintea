@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Native\Laravel\Events\App\ApplicationBooted;
 use Tests\TestCase;
 use XbNz\Preferences\Models\FpingPreferences;
+use XbNz\Preferences\Models\MasscanPreferences;
 
 final class OnBootedTest extends TestCase
 {
@@ -39,6 +40,23 @@ final class OnBootedTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function it_create_a_sensible_default_masscan_preferences_record_when_the_application_is_booted_for_the_first_time(): void
+    {
+        // Act
+        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted());
+
+        // Assert
+        $this->assertDatabaseCount(MasscanPreferences::class, 1);
+        $this->assertDatabaseHas(MasscanPreferences::class, [
+            'id' => 1,
+            'ttl' => 55,
+            'rate' => 10000,
+            'adapter' => null,
+            'retries' => 0,
+        ]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function nothing_happens_if_there_is_already_an_fping_preferences_record(): void
     {
         // Arrange
@@ -49,5 +67,18 @@ final class OnBootedTest extends TestCase
 
         // Assert
         $this->assertDatabaseCount(FpingPreferences::class, 1);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function nothing_happens_if_there_is_already_a_masscan_preferences_record(): void
+    {
+        // Arrange
+        MasscanPreferences::factory()->create();
+
+        // Act
+        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted());
+
+        // Assert
+        $this->assertDatabaseCount(MasscanPreferences::class, 1);
     }
 }
