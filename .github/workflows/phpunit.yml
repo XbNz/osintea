@@ -32,6 +32,7 @@ jobs:
       - name: Frontend assets
         run: |
           npm install
+          npx vite build
           npm run build
 
       - name: Environment
@@ -44,4 +45,4 @@ jobs:
       - name: Execute tests
         run: |
           cp phpunit.xml.dist phpunit.xml
-          php vendor/bin/phpunit
+          sudo php vendor/bin/phpunit
