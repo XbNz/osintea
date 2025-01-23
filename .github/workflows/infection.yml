@@ -21,6 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          touch database/database.sqlite
           composer config http-basic.composer.fluxui.dev "${{ secrets.FLUXUI_USERNAME }}" "${{ secrets.FLUXUI_LICENCE_KEY }}"
           composer install --prefer-dist --no-interaction
 
@@ -32,7 +33,6 @@ jobs:
       - name: Environment
         run: |
           cp .env.testing.example .env.testing
-          touch database/database.sqlite
           php artisan key:generate --env=testing
           php artisan icons:cache
 
