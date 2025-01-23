@@ -7,7 +7,6 @@ namespace XbNz\Preferences\Events;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
-use XbNz\Preferences\DTOs\FpingPreferencesDto;
 use XbNz\Preferences\DTOs\MasscanPreferencesDto;
 
 final class MasscanPreferencesInsertedEvent implements ShouldBroadcastNow

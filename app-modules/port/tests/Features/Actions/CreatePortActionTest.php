@@ -13,10 +13,10 @@ use XbNz\Port\Actions\CreatePortAction;
 use XbNz\Port\DTOs\CreatePortDto;
 use XbNz\Port\DTOs\PortDto;
 use XbNz\Port\Events\PortInsertedEvent;
+use XbNz\Port\Models\Port as PortModel;
 use XbNz\Shared\Enums\PortState;
 use XbNz\Shared\Enums\ProtocolType;
 use XbNz\Shared\ValueObjects\Port;
-use XbNz\Port\Models\Port as PortModel;
 
 final class CreatePortActionTest extends TestCase
 {

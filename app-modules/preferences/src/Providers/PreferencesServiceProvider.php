@@ -23,7 +23,7 @@ final class PreferencesServiceProvider extends ServiceProvider
      */
     private array $subscribers = [
         FpingSubscriber::class,
-        MasscanSubscriber::class
+        MasscanSubscriber::class,
     ];
 
     public function register(): void
