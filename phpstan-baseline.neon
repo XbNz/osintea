@@ -43,16 +43,40 @@ parameters:
 			path: app-modules/ip/src/Models/IpAddress.php
 
 		-
+			message: '#^Method XbNz\\Ip\\Models\\IpAddress\:\:coordinates\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasOne\<XbNz\\Location\\Models\\Coordinates, XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasOne\<XbNz\\Location\\Models\\Coordinates, \$this\(XbNz\\Ip\\Models\\IpAddress\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app-modules/ip/src/Models/IpAddress.php
+
+		-
 			message: '#^Method XbNz\\Ip\\Models\\IpAddress\:\:pingSequences\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<XbNz\\Ping\\Models\\PingSequence, XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<XbNz\\Ping\\Models\\PingSequence, \$this\(XbNz\\Ip\\Models\\IpAddress\)\>\.$#'
 			identifier: return.type
 			count: 1
 			path: app-modules/ip/src/Models/IpAddress.php
 
 		-
-			message: '#^Cannot access property \$value on XbNz\\Shared\\ValueObjects\\IpType\|null\.$#'
+			message: '#^Method XbNz\\Ip\\Models\\IpAddress\:\:ports\(\) should return Illuminate\\Database\\Eloquent\\Relations\\HasMany\<XbNz\\Port\\Models\\Port, XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Database\\Eloquent\\Relations\\HasMany\<XbNz\\Port\\Models\\Port, \$this\(XbNz\\Ip\\Models\\IpAddress\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app-modules/ip/src/Models/IpAddress.php
+
+		-
+			message: '#^Cannot access property \$value on XbNz\\Shared\\Enums\\IpType\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app-modules/ip/src/ViewModels/ListIpAddressesTableViewModel.php
+
+		-
+			message: '#^Method XbNz\\Location\\Models\\Coordinates\:\:ipAddress\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, XbNz\\Location\\Models\\Coordinates\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, \$this\(XbNz\\Location\\Models\\Coordinates\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app-modules/location/src/Models/Coordinates.php
+
+		-
+			message: '#^Parameter \#1 \$command of method Illuminate\\Process\\PendingProcess\:\:command\(\) expects array\<string\>\|string, list\<int\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app-modules/masscan/src/MasscanIcmpScanner.php
 
 		-
 			message: '#^Access to an undefined property Spatie\\LaravelData\\Lazy\|XbNz\\Ip\\DTOs\\IpAddressDto\:\:\$ip\.$#'
@@ -97,10 +121,22 @@ parameters:
 			path: app-modules/ping/src/Livewire/Ping.php
 
 		-
+			message: '#^Cannot call method message\(\) on Native\\Laravel\\ChildProcess\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app-modules/ping/src/Livewire/Ping.php
+
+		-
 			message: '#^Method XbNz\\Ping\\Models\\PingSequence\:\:ipAddress\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, XbNz\\Ping\\Models\\PingSequence\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, \$this\(XbNz\\Ping\\Models\\PingSequence\)\>\.$#'
 			identifier: return.type
 			count: 1
 			path: app-modules/ping/src/Models/PingSequence.php
+
+		-
+			message: '#^Method XbNz\\Port\\Models\\Port\:\:ipAddress\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, XbNz\\Port\\Models\\Port\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, \$this\(XbNz\\Port\\Models\\Port\)\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app-modules/port/src/Models/Port.php
 
 		-
 			message: '#^Parameter \#15 \$created_at of class XbNz\\Preferences\\DTOs\\FpingPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
@@ -113,6 +149,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app-modules/preferences/src/DTOs/FpingPreferencesDto.php
+
+		-
+			message: '#^Parameter \#8 \$created_at of class XbNz\\Preferences\\DTOs\\MasscanPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app-modules/preferences/src/DTOs/MasscanPreferencesDto.php
+
+		-
+			message: '#^Parameter \#9 \$updated_at of class XbNz\\Preferences\\DTOs\\MasscanPreferencesDto constructor expects Carbon\\CarbonImmutable, Carbon\\CarbonImmutable\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app-modules/preferences/src/DTOs/MasscanPreferencesDto.php
 
 		-
 			message: '#^Property XbNz\\RouteviewsIntegration\\RouteViewsAsnToRange\:\:\$asNumber \(int\|null\) is never assigned null so it can be removed from the property type\.$#'

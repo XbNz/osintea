@@ -22,7 +22,7 @@ final class IcmpFilter implements Wireable
     }
 
     /**
-     * @return array<string, int|null>
+     * @return array<string, bool|null>
      */
     public function toLivewire(): array
     {

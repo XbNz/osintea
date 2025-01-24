@@ -13,11 +13,6 @@ use function Psl\Filesystem\canonicalize;
 
 final class FakeMasscanIcmpScanner implements MasscanIcmpScannerInterface
 {
-    /**
-     * @var array<int, string>
-     */
-    private array $targets = [];
-
     private string $inputFilePath = '';
 
     /**

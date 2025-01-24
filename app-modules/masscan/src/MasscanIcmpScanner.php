@@ -78,8 +78,6 @@ final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
 
     public function adapter(string $adapter): self
     {
-        Assert::string($adapter, 'The adapter must be a string');
-
         $this->adapter = $adapter;
 
         return $this;

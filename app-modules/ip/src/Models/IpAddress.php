@@ -71,7 +71,7 @@ final class IpAddress extends Model
     }
 
     /**
-     * @return HasMany<Port>
+     * @return HasMany<Port, IpAddress>
      */
     public function ports(): HasMany
     {

@@ -20,6 +20,7 @@ namespace XbNz\Asn\Model{
  * @property string $organization
  * @property int $as_number
  * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Asn\Model\TFactory|null $use_factory
  * @property-read \XbNz\Ip\Models\IpAddress $ipAddress
  * @method static \XbNz\Asn\Database\Factories\AsnFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Asn newModelQuery()
@@ -46,8 +47,11 @@ namespace XbNz\Ip\Models{
  * @property \Carbon\CarbonImmutable $created_at
  * @property-read \XbNz\Asn\Model\Asn|null $asn
  * @property-read \XbNz\Location\Models\Coordinates|null $coordinates
+ * @property-read \XbNz\Ip\Models\TFactory|null $use_factory
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \XbNz\Ping\Models\PingSequence> $pingSequences
  * @property-read int|null $ping_sequences_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \XbNz\Port\Models\Port> $ports
+ * @property-read int|null $ports_count
  * @method static \XbNz\Ip\Database\Factories\IpAddressFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|IpAddress newQuery()
@@ -70,6 +74,7 @@ namespace XbNz\Location\Models{
  * @property string $coordinates
  * @property int $ip_address_id
  * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Location\Models\TFactory|null $use_factory
  * @property-read \XbNz\Ip\Models\IpAddress $ipAddress
  * @method static \XbNz\Location\Database\Factories\CoordinatesFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Coordinates newModelQuery()
@@ -94,6 +99,7 @@ namespace XbNz\Ping\Models{
  * @property float|null $round_trip_time
  * @property bool $loss
  * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Ping\Models\TFactory|null $use_factory
  * @property-read \XbNz\Ip\Models\IpAddress $ipAddress
  * @method static \XbNz\Ping\Database\Factories\PingSequenceFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|PingSequence newModelQuery()
@@ -114,13 +120,24 @@ namespace XbNz\Port\Models{
 /**
  * 
  *
- * @property \XbNz\Shared\Enums\PortState $state
+ * @property int $id
+ * @property int $ip_address_id
  * @property \XbNz\Shared\Enums\ProtocolType $protocol
- * @property-read \XbNz\Ip\Models\IpAddress|null $ipAddress
+ * @property int $port
+ * @property \XbNz\Shared\Enums\PortState $state
+ * @property \Carbon\CarbonImmutable $created_at
+ * @property-read \XbNz\Port\Models\TFactory|null $use_factory
+ * @property-read \XbNz\Ip\Models\IpAddress $ipAddress
  * @method static \XbNz\Port\Database\Factories\PortFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Port newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Port newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Port query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port whereIpAddressId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port wherePort($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port whereProtocol($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Port whereState($value)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
@@ -147,6 +164,7 @@ namespace XbNz\Preferences\Models{
  * @property bool $enabled
  * @property \Carbon\CarbonImmutable|null $created_at
  * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \XbNz\Preferences\Models\TFactory|null $use_factory
  * @method static \XbNz\Preferences\Database\Factories\FpingPreferencesFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|FpingPreferences newQuery()
@@ -177,10 +195,29 @@ namespace XbNz\Preferences\Models{
 /**
  * 
  *
+ * @property int $id
+ * @property string $name
+ * @property int $rate
+ * @property string|null $adapter
+ * @property int $retries
+ * @property int $ttl
+ * @property bool $enabled
+ * @property \Carbon\CarbonImmutable|null $created_at
+ * @property \Carbon\CarbonImmutable|null $updated_at
+ * @property-read \XbNz\Preferences\Models\TFactory|null $use_factory
  * @method static \XbNz\Preferences\Database\Factories\MasscanPreferencesFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereAdapter($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereEnabled($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereRetries($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereTtl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|MasscanPreferences whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]
