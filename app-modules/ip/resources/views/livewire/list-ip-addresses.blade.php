@@ -74,7 +74,7 @@
                                     <flux:menu.separator />
                                     <flux:select label="Organization" variant="listbox" searchable clearable placeholder="Organization..." wire:model="organizationFilter.name">
                                         @foreach($this->organizationNames as $organization)
-                                            <flux:option value="{{ $organization }}">{{ $organization }}</flux:option>
+                                            <flux:select.option value="{{ $organization }}">{{ $organization }}</flux:select.option>
                                         @endforeach
                                     </flux:select>
                                 </div>
@@ -138,8 +138,8 @@
         </div>
 
         <flux:table class="mt-5">
-            <flux:columns>
-                <flux:column
+            <flux:table.columns>
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'ip'"
                     :direction="$sortDirection"
@@ -149,9 +149,9 @@
                         @svg('fad-network-wired', 'h-5 w-5')
                         IP Address
                     </span>
-                </flux:column>
+                </flux:table.column>
 
-                <flux:column
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'created_at'"
                     :direction="$sortDirection"
@@ -161,9 +161,9 @@
                         @svg('fad-calendar', 'h-5 w-5')
                         Created
                     </span>
-                </flux:column>
+                </flux:table.column>
 
-                <flux:column
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'average_rtt'"
                     :direction="$sortDirection"
@@ -173,9 +173,9 @@
                         @svg('fad-calculator', 'h-5 w-5')
                         Average RTT
                     </span>
-                </flux:column>
+                </flux:table.column>
 
-                <flux:column
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'loss_percent'"
                     :direction="$sortDirection"
@@ -185,9 +185,9 @@
                         @svg('fad-badge-percent', 'h-5 w-5')
                         Loss
                     </span>
-                </flux:column>
+                </flux:table.column>
 
-                <flux:column
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'organization'"
                     :direction="$sortDirection"
@@ -197,9 +197,9 @@
                         @svg('fad-building', 'h-5 w-5')
                         Organization
                     </span>
-                </flux:column>
+                </flux:table.column>
 
-                <flux:column
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'as_number'"
                     :direction="$sortDirection"
@@ -209,8 +209,8 @@
                         @svg('fad-globe', 'h-5 w-5')
                         ASN
                     </span>
-                </flux:column>
-                <flux:column
+                </flux:table.column>
+                <flux:table.column
                     sortable
                     :sorted="$sortBy === 'geolocated'"
                     :direction="$sortDirection"
@@ -220,17 +220,17 @@
                         @svg('fad-map-pin', 'h-5 w-5')
                         Geolocated
                     </span>
-                </flux:column>
-            </flux:columns>
+                </flux:table.column>
+            </flux:table.columns>
 
-            <flux:rows>
+            <flux:table.rows>
                 @foreach ($this->ipAddresses as $ipAddress)
-                    <flux:row :key="$ipAddress->id">
-                        <flux:cell class="flex items-center gap-3">
+                    <flux:table.row :key="$ipAddress->id">
+                        <flux:table.cell class="flex items-center gap-3">
                             {{ $ipAddress->ip }}
-                        </flux:cell>
-                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->created_at }}</flux:cell>
-                        <flux:cell class="whitespace-nowrap">
+                        </flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">{{ $ipAddress->created_at }}</flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">
                             <flux:button variant="ghost" wire:click="goToPingWindow('{{ $ipAddress->ip }}')" size="sm" wire:target="goToPingWindow('{{ $ipAddress->ip }}')">
                                 <span class="flex gap-2">
                                     @svg('fad-wifi', 'h-5 w-5')
@@ -239,18 +239,18 @@
                                     @endif
                                 </span>
                             </flux:button>
-                        </flux:cell>
-                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->loss_percent }}% ({{ $ipAddress->lost_sequences }}/{{ $ipAddress->total_sequences }})</flux:cell>
-                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->organization }}</flux:cell>
-                        <flux:cell class="whitespace-nowrap">{{ $ipAddress->as_number }}</flux:cell>
-                        <flux:cell class="whitespace-nowrap">
+                        </flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">{{ $ipAddress->loss_percent }}% ({{ $ipAddress->lost_sequences }}/{{ $ipAddress->total_sequences }})</flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">{{ $ipAddress->organization }}</flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">{{ $ipAddress->as_number }}</flux:table.cell>
+                        <flux:table.cell class="whitespace-nowrap">
                             @if($ipAddress->geolocated === true)
                                 @svg('fad-circle-check', 'h-5 w-5')
                             @endif
-                        </flux:cell>
-                    </flux:row>
+                        </flux:table.cell>
+                    </flux:table.row>
                 @endforeach
-            </flux:rows>
+            </flux:table.rows>
         </flux:table>
     </div>
 

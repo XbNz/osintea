@@ -18,11 +18,5 @@ export default {
                 sans: ['Inter', 'sans-serif'],
             },
         },
-    },
-    safelist: [
-        'scrollbar-hide',
-    ],
-    plugins: [
-        require('tailwind-scrollbar-hide')
-    ],
+    }
 };

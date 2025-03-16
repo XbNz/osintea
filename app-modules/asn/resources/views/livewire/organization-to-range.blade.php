@@ -5,7 +5,7 @@
                 <flux:select.input wire:model.live.debouce="searchTerm" class="mb-2" />
 
                 @foreach ($this->organizations as $organization)
-                    <flux:option value="{{ $organization->asNumber }}">{{ $organization->organization }} (AS{{ $organization->asNumber }})</flux:option>
+                    <flux:select.option value="{{ $organization->asNumber }}">{{ $organization->organization }} (AS{{ $organization->asNumber }})</flux:select.option>
                 @endforeach
             </flux:select>
 
@@ -17,7 +17,7 @@
                 </flux:tabs>
                 <flux:select variant="listbox" placeholder="Providers..." wire:model.live="selectedProvider">
                     @foreach ($providers as $provider)
-                        <flux:option value="{{ $provider }}">{{ $provider }}</flux:option>
+                        <flux:select.option value="{{ $provider }}">{{ $provider }}</flux:select.option>
                     @endforeach
                 </flux:select>
             </div>

@@ -13,7 +13,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-    @fluxStyles
+    @fluxAppearance
     @stack('styles')
 </head>
 <body>

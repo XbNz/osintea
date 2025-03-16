@@ -13,7 +13,7 @@
         <div class="flex items-center gap-3 mt-3">
             <flux:select variant="listbox" placeholder="Providers..." wire:model.live="selectedProvider">
                 @foreach ($providers as $provider)
-                    <flux:option value="{{ $provider }}">{{ $provider }}</flux:option>
+                    <flux:select.option value="{{ $provider }}">{{ $provider }}</flux:select.option>
                 @endforeach
             </flux:select>
             <flux:tabs variant="segmented">
