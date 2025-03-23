@@ -27,7 +27,7 @@
         "livewire/flux-pro": "^2.0",
         "livewire/livewire": "^3.5",
         "maxmind-db/reader": "^1.12",
-        "nativephp/electron": "^1.0",
+        "nativephp/electron": "dev-main as 1.0.0-beta.5",
         "nativephp/laravel": "^1.0",
         "react/async": "^4.3",
         "react/event-loop": "^1.5",
@@ -35,6 +35,7 @@
         "spatie/laravel-data": "^4.11",
         "spatie/temporary-directory": "^2.2",
         "symfony/finder": "^7.0",
+        "thecodingmachine/safe": "^3.0",
         "webmozart/assert": "^1.1",
         "xbnz/asn": "*",
         "xbnz/fping": "*",
@@ -129,6 +130,13 @@
         "0": {
             "type": "path",
             "url": "app-modules/*",
+            "options": {
+                "symlink": true
+            }
+        },
+        "1": {
+            "type": "path",
+            "url": "../nativephp-electron",
             "options": {
                 "symlink": true
             }

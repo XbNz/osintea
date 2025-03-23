@@ -65,14 +65,23 @@ return [
         '.env.example',
         '.env.testing',
         '.env.testing.example',
-        'auth.json',
-        'art/*',
+        //        'auth.json',
+        //        'art/*',
         'content',
         'infection.html',
-        'composer.*',
-        '*.sqlite*',
+        //        'composer.*',
+        //        '*.sqlite*',
         'storage/app/framework/{sessions,testing,cache}',
-        'storage/logs/laravel.log',
+        //        'storage/logs/laravel.log',
+    ],
+
+    'prebuild' => [
+        'php artisan icons:cache',
+    ],
+
+    'postbuild' => [
+        'php artisan migrate --force',
+        'php artisan icons:cache',
     ],
 
     /**
