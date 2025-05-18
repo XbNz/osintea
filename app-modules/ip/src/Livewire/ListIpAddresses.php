@@ -51,6 +51,7 @@ use XbNz\Location\Events\BulkGeolocationCompleted;
 use XbNz\Location\Jobs\BulkGeolocateJob;
 use XbNz\Ping\Events\BulkPingCompleted;
 use XbNz\Ping\Jobs\BulkPingJob;
+use XbNz\Ping\Models\PingSequence;
 use XbNz\Port\Events\BulkIcmpScanCompleted;
 use XbNz\Port\Jobs\BulkIcmpScanJob;
 use XbNz\Shared\Enums\NativePhpWindow;
@@ -314,6 +315,11 @@ final class ListIpAddresses extends Component
     public function deleteActive(): void
     {
         $this->query()->delete();
+    }
+
+    public function resetIcmp(): void
+    {
+        PingSequence::query()->delete();
     }
 
     public function goToPingWindow(string $ipAddress): void

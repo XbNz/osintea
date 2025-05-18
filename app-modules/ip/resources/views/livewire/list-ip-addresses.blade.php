@@ -133,6 +133,7 @@
 
                     <flux:menu.item wire:click="fileImport">Import from file</flux:menu.item>
                     <flux:menu.item wire:click="deleteActive">Delete selected</flux:menu.item>
+                    <flux:menu.item wire:click="resetIcmp">Reset ICMP results</flux:menu.item>
                 </flux:menu>
             </flux:dropdown>
         </div>

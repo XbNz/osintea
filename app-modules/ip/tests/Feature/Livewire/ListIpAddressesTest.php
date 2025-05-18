@@ -880,6 +880,31 @@ final class ListIpAddressesTest extends TestCase
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
+    public function it_deletes_all_ping_sequences(): void
+    {
+        // Arrange
+        $ipAddress = IpAddress::factory()
+            ->has(
+                PingSequence::factory()
+                    ->count(2)
+                    ->sequence(
+                        ['round_trip_time' => 1],
+                        ['round_trip_time' => 2],
+                    )
+            )
+            ->create(['ip' => '1.1.1.1'])
+            ->refresh()
+            ->getData();
+
+        // Act
+        $livewire = Livewire::test(ListIpAddresses::class)
+            ->call('resetIcmp');
+
+        // Assert
+        $this->assertDatabaseMissing(PingSequence::class, ['ip_address_id' => $ipAddress->id]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_geolocates_active_ip_addresses(): void
     {
         // Arrange
