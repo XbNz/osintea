@@ -17,7 +17,7 @@
             </div>
 
             <flux:heading>
-                {{ $this->ipAddressCount }}
+                {{ $this->ipAddressCount }} with an average RTT of {{ $this->averageRoundTripTime() }} ms
             </flux:heading>
 
             <flux:dropdown>

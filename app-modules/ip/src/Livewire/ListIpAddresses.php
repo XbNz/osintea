@@ -179,6 +179,30 @@ final class ListIpAddresses extends Component
         return number_format($this->query()->count(), thousands_separator: ',').' '.$ipAddress;
     }
 
+    #[Computed]
+    public function averageRoundTripTime(): string
+    {
+        $filteredIpsSub = $this->query()->select('id');
+
+        $avgOfAverages = \DB::table('ping_sequences')
+            ->select(\DB::raw('AVG(avg_rtt) as avg_of_averages'))
+            ->fromSub(
+                \DB::table('ping_sequences')
+                    ->select('ip_address_id', \DB::raw('AVG(round_trip_time) as avg_rtt'))
+                    ->where('loss', false)
+                    ->whereIn('ip_address_id', $filteredIpsSub) // <- uses subquery, NOT array
+                    ->groupBy('ip_address_id'),
+                'per_ip_averages'
+            )
+            ->value('avg_of_averages');
+
+        if ($avgOfAverages === null) {
+            return '0';
+        }
+
+        return number_format($avgOfAverages, 2);
+    }
+
     /**
      * @return array<int, string>
      */
@@ -265,9 +289,9 @@ final class ListIpAddresses extends Component
         $query->getQuery()->orders = null;
 
         $query
-            ->lazyById(20_000)
+            ->lazyById(5_000)
             ->map(fn (IpAddress $ipAddress) => $ipAddress->getData())
-            ->chunk(20_000)
+            ->chunk(5_000)
             ->each(fn (LazyCollection $chunk) => $bus->dispatch(
                 new BulkIcmpScanJob($chunk->pluck('id')->toArray())->onQueue('bulk_icmp_scan')
             ));
