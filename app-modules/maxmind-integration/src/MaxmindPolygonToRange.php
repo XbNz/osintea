@@ -9,13 +9,13 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Psl\Type;
 use stdClass;
 use XbNz\Location\Contracts\PolygonToRangeInterface;
 use XbNz\Location\Enums\Provider;
-use Psl\Type;
 use XbNz\Location\ValueObjects\IpRange;
-use XbNz\Shared\ValueObjects\Coordinates;
 use XbNz\Shared\Enums\IpType;
+use XbNz\Shared\ValueObjects\Coordinates;
 
 final class MaxmindPolygonToRange implements PolygonToRangeInterface
 {
@@ -134,7 +134,7 @@ final class MaxmindPolygonToRange implements PolygonToRangeInterface
     {
         $coordinates = Str::of($coordinatesString)->after('POINT(')->before(')')
             ->explode(' ')
-            ->map(fn(string $coordinate) => (float)$coordinate)
+            ->map(fn (string $coordinate) => (float) $coordinate)
             ->toArray();
 
         $sanitizedCoordinates = Type\shape([

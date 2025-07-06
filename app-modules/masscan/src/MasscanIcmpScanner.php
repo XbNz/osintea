@@ -10,14 +10,9 @@ use Illuminate\Process\PendingProcess;
 use Illuminate\Support\Str;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Webmozart\Assert\Assert;
-use Psl\Type;
-
 use XbNz\Masscan\Contracts\MasscanIcmpScannerInterface;
-
 use XbNz\Masscan\Mappers\PortScanResultMapper;
 use XbNz\Shared\BinFinder;
-
-use XbNz\Shared\Enums\PortState;
 use XbNz\Shared\Enums\ProtocolType;
 
 use function Psl\Filesystem\canonicalize;
@@ -25,11 +20,17 @@ use function Psl\Filesystem\canonicalize;
 final class MasscanIcmpScanner implements MasscanIcmpScannerInterface
 {
     public private(set) string $inputFilePath;
+
     public private(set) string $outputFilePath;
+
     public private(set) int $rate;
+
     public private(set) int $timeToLive = 55;
+
     public private(set) int $timeout = 60;
+
     public private(set) int $retries = 0;
+
     public private(set) ?string $adapter = null;
 
     public function __construct(

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace XbNz\Ip\Livewire;
 
 use Chefhasteeth\Pipeline\Pipeline;
+use DB;
 use Flux\Flux;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Pagination\CursorPaginator;
@@ -184,11 +185,11 @@ final class ListIpAddresses extends Component
     {
         $filteredIpsSub = $this->query()->select('id');
 
-        $avgOfAverages = \DB::table('ping_sequences')
-            ->select(\DB::raw('AVG(avg_rtt) as avg_of_averages'))
+        $avgOfAverages = DB::table('ping_sequences')
+            ->select(DB::raw('AVG(avg_rtt) as avg_of_averages'))
             ->fromSub(
-                \DB::table('ping_sequences')
-                    ->select('ip_address_id', \DB::raw('AVG(round_trip_time) as avg_rtt'))
+                DB::table('ping_sequences')
+                    ->select('ip_address_id', DB::raw('AVG(round_trip_time) as avg_rtt'))
                     ->where('loss', false)
                     ->whereIn('ip_address_id', $filteredIpsSub) // <- uses subquery, NOT array
                     ->groupBy('ip_address_id'),

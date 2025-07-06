@@ -7,12 +7,12 @@ namespace XbNz\Location\Fakes;
 use Closure;
 use GeoJson\Geometry\Polygon;
 use Illuminate\Support\Collection;
+use PHPUnit\Framework\Assert as PHPUnit;
 use XbNz\Location\Contracts\PolygonToRangeInterface;
 use XbNz\Location\Enums\Provider;
 use XbNz\Location\ValueObjects\IpRange;
-use PHPUnit\Framework\Assert as PHPUnit;
 
-class PolygonToRangeFake implements PolygonToRangeInterface
+final class PolygonToRangeFake implements PolygonToRangeInterface
 {
     public private(set) int $executeCount = 0;
 
