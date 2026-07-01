@@ -49,7 +49,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.2",
-        "brianium/paratest": "^7.6",
+        "brianium/paratest": "^7.23",
         "fakerphp/faker": "^1.23",
         "infection/infection": "^0.34",
         "jetbrains/phpstorm-attributes": "^1.2",
@@ -62,7 +62,7 @@
         "php-standard-library/phpstan-extension": "^2.0",
         "phpstan/extension-installer": "^1.4",
         "phpstan/phpstan-webmozart-assert": "^2.0",
-        "phpunit/phpunit": "^11.0.1",
+        "phpunit/phpunit": "^13.0",
         "spatie/invade": "^2.1"
     },
     "autoload": {
