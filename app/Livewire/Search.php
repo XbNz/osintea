@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
-use Native\Laravel\Facades\Window;
+use Native\Desktop\Facades\Window;
 use XbNz\Shared\Enums\NativePhpWindow;
 
 #[Layout('components.layouts.transparent')]

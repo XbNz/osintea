@@ -6,8 +6,8 @@ namespace Tests\Feature\Subscribers\NativePhpSubscriber;
 
 use App\Events\OpenPreferencesEvent;
 use Illuminate\Contracts\Events\Dispatcher;
-use Native\Laravel\Events\Windows\WindowFocused;
-use Native\Laravel\Facades\GlobalShortcut;
+use Native\Desktop\Events\Windows\WindowFocused;
+use Native\Desktop\Facades\GlobalShortcut;
 use Tests\TestCase;
 
 final class OnWindowFocusedTest extends TestCase

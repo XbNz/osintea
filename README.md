@@ -60,5 +60,5 @@ composer install
 npx vite build
 npm run dev
 php artisan native:migrate
-php artisan native:serve
+php artisan native:run
 ```

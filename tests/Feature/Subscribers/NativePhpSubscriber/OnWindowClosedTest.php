@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Feature\Subscribers\NativePhpSubscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Native\Laravel\Events\Windows\WindowClosed;
-use Native\Laravel\Facades\GlobalShortcut;
+use Native\Desktop\Events\Windows\WindowClosed;
+use Native\Desktop\Facades\GlobalShortcut;
 use Tests\TestCase;
 
 final class OnWindowClosedTest extends TestCase

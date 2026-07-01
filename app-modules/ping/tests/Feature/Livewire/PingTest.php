@@ -7,7 +7,7 @@ namespace XbNz\Ping\Tests\Feature\Livewire;
 use Generator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Native\Laravel\Facades\ChildProcess;
+use Native\Desktop\Facades\ChildProcess;
 use Tests\TestCase;
 use XbNz\Ip\Models\IpAddress;
 use XbNz\Ping\Events\PingSequenceInsertedEvent;

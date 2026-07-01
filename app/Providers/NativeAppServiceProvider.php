@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Providers;
 
 use App\Events\OpenCommandPaletteEvent;
-use Native\Laravel\Contracts\ProvidesPhpIni;
-use Native\Laravel\Facades\ChildProcess;
-use Native\Laravel\Facades\GlobalShortcut;
+use Native\Desktop\Contracts\ProvidesPhpIni;
+use Native\Desktop\Facades\ChildProcess;
+use Native\Desktop\Facades\GlobalShortcut;
 use XbNz\Shared\Enums\NativePhpChildProcess;
 
 final class NativeAppServiceProvider implements ProvidesPhpIni

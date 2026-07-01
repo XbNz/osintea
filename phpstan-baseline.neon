@@ -115,12 +115,6 @@ parameters:
 			path: app-modules/ping/src/Livewire/Ping.php
 
 		-
-			message: '#^Cannot call method message\(\) on Native\\Laravel\\ChildProcess\|null\.$#'
-			identifier: method.nonObject
-			count: 2
-			path: app-modules/ping/src/Livewire/Ping.php
-
-		-
 			message: '#^Method XbNz\\Ping\\Models\\PingSequence\:\:ipAddress\(\) should return Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, XbNz\\Ping\\Models\\PingSequence\> but returns Illuminate\\Database\\Eloquent\\Relations\\BelongsTo\<XbNz\\Ip\\Models\\IpAddress, \$this\(XbNz\\Ping\\Models\\PingSequence\)\>\.$#'
 			identifier: return.type
 			count: 1

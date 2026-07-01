@@ -6,7 +6,7 @@ namespace Tests\Feature\Subscribers\NativePhpSubscriber;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Native\Laravel\Events\App\ApplicationBooted;
+use Native\Desktop\Events\App\ApplicationBooted;
 use Tests\TestCase;
 use XbNz\Preferences\Models\FpingPreferences;
 use XbNz\Preferences\Models\MasscanPreferences;

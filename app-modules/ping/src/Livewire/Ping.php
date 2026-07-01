@@ -11,8 +11,8 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
-use Native\Laravel\Facades\ChildProcess;
-use Native\Laravel\Facades\Notification;
+use Native\Desktop\Facades\ChildProcess;
+use Native\Desktop\Facades\Notification;
 use Psl\Type;
 use Webmozart\Assert\Assert;
 use XbNz\Ip\Actions\CreateIpAddressAction;
@@ -239,7 +239,7 @@ final class Ping extends Component
 
         $result = $createIpAddress->handle($this->target);
 
-        ChildProcess::get(NativePhpChildProcess::PingWorker->value)->message('target-add:'.$this->ipAddress()->ip.'::'.$this->interval);
+        ChildProcess::get(NativePhpChildProcess::PingWorker->value)?->message('target-add:'.$this->ipAddress()->ip.'::'.$this->interval);
     }
 
     private function ipAddress(): IpAddressDto
@@ -359,7 +359,7 @@ final class Ping extends Component
             return;
         }
 
-        ChildProcess::get(NativePhpChildProcess::PingWorker->value)->message('target-remove:'.$this->ipAddress()->ip);
+        ChildProcess::get(NativePhpChildProcess::PingWorker->value)?->message('target-remove:'.$this->ipAddress()->ip);
     }
 
     public function mount(Request $request): void

@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Mockery;
-use Native\Laravel\Facades\Window;
-use Native\Laravel\Windows\Window as WindowImplementation;
+use Native\Desktop\Facades\Window;
+use Native\Desktop\Windows\Window as WindowImplementation;
 use Tests\TestCase;
 use XbNz\Shared\Enums\NativePhpWindow;
 
