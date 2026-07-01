@@ -28,13 +28,13 @@
             </flux:radio.group>
         </div>
         <flux:tab.panel name="fping">
-            @livewire('preferences::fping-preferences')
+            @livewire(\XbNz\Preferences\Livewire\FpingPreferences::class)
         </flux:tab.panel>
         <flux:tab.panel name="databases">
-            @livewire('preferences::database-preferences')
+            @livewire(\XbNz\Preferences\Livewire\DatabasePreferences::class)
         </flux:tab.panel>
         <flux:tab.panel name="masscan">
-            @livewire('preferences::masscan-preferences')
+            @livewire(\XbNz\Preferences\Livewire\MasscanPreferences::class)
         </flux:tab.panel>
     </flux:tab.group>
 </div>
