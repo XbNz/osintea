@@ -19,7 +19,7 @@
         "blade-ui-kit/blade-icons": "^1.7",
         "internachi/modular": "^3.0",
         "jmikola/geojson": "^1.0",
-        "laravel/framework": "^12.0",
+        "laravel/framework": "^13.0",
         "laravel/reverb": "^1.4",
         "laravel/tinker": "^3.0",
         "livewire/flux": "^2.0",

@@ -16,6 +16,7 @@ final class Transporter
 {
     /**
      * @param  Builder<IpAddress>  $query
+     * @param  'asc'|'desc'  $direction
      */
     public function __construct(
         public readonly string $direction,

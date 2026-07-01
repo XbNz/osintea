@@ -7,7 +7,6 @@ namespace XbNz\MaxmindIntegration\Updaters;
 use GuzzleHttp\RequestOptions;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\DatabaseManager;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\Pool;
@@ -122,11 +121,11 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
                 ->map(fn (Collection $line) => [
                     'start_ip' => $line[0],
                     'end_ip' => $line[1],
-                    'coordinates' => new Expression("ST_GeomFromText('POINT({$line[7]} {$line[8]})', 4326)"),
+                    'coordinates' => "POINT({$line[7]} {$line[8]})",
                 ])
                 ->chunk(2000)
                 ->each(function (LazyCollection $chunk): void {
-                    $this->database->table('maxmind_v4_geolocations')->insertOrIgnore($chunk->toArray());
+                    $this->insertGeolocations('maxmind_v4_geolocations', $chunk);
                 });
 
             $this->filesystem->lines($temporaryIpv6Csv)
@@ -135,11 +134,11 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
                 ->map(fn (Collection $line) => [
                     'start_ip' => $line[0],
                     'end_ip' => $line[1],
-                    'coordinates' => new Expression("ST_GeomFromText('POINT({$line[7]} {$line[8]})', 4326)"),
+                    'coordinates' => "POINT({$line[7]} {$line[8]})",
                 ])
                 ->chunk(2000)
                 ->each(function (LazyCollection $chunk): void {
-                    $this->database->table('maxmind_v6_geolocations')->insertOrIgnore($chunk->toArray());
+                    $this->insertGeolocations('maxmind_v6_geolocations', $chunk);
                 });
 
         } catch (Throwable $e) {
@@ -155,6 +154,28 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
     public function supports(UpdatableDatabase $database): bool
     {
         return $database === UpdatableDatabase::MaxmindGeoLite2CityUnifiedSqlite;
+    }
+
+    /**
+     * @param  LazyCollection<int|string, array{start_ip: string|null, end_ip: string|null, coordinates: string}>  $chunk
+     */
+    private function insertGeolocations(string $table, LazyCollection $chunk): void
+    {
+        $rows = $chunk->values();
+
+        if ($rows->isEmpty()) {
+            return;
+        }
+
+        $placeholders = $rows
+            ->map(fn (): string => '(?, ?, ST_GeomFromText(?, 4326))')
+            ->join(', ');
+
+        $bindings = $rows
+            ->flatMap(fn (array $row): array => [$row['start_ip'], $row['end_ip'], $row['coordinates']])
+            ->all();
+
+        $this->database->insert("INSERT OR IGNORE INTO {$table} (start_ip, end_ip, coordinates) VALUES {$placeholders}", $bindings);
     }
 
     private function bodyFromResponse(mixed $response): StreamInterface

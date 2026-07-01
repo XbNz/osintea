@@ -140,7 +140,7 @@ final class ListIpAddresses extends Component
         if (array_key_exists($this->sortBy, self::SORT_MAP)) {
             $pipes[] = self::SORT_MAP[$this->sortBy];
         } else {
-            $query->orderBy($this->sortBy, $this->sortDirection);
+            $query->orderBy($this->sortBy, $this->sortDirection());
         }
 
         if (empty($pipes) === true) {
@@ -149,7 +149,7 @@ final class ListIpAddresses extends Component
 
         return Pipeline::make()
             ->send(new Transporter(
-                $this->sortDirection,
+                $this->sortDirection(),
                 $query,
                 $this->roundTripTimeFilter,
                 $this->packetLossFilter,
@@ -170,6 +170,14 @@ final class ListIpAddresses extends Component
             $this->sortBy = $column;
             $this->sortDirection = 'asc';
         }
+    }
+
+    /**
+     * @return 'asc'|'desc'
+     */
+    private function sortDirection(): string
+    {
+        return $this->sortDirection === 'asc' ? 'asc' : 'desc';
     }
 
     #[Computed]

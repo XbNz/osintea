@@ -70,11 +70,11 @@ final class MaxmindPolygonToRange implements PolygonToRangeInterface
 
         $v4Query = $this->database->table('maxmind_v4_geolocations')
             ->selectRaw('start_ip, end_ip, ST_AsText(coordinates) as coordinates')
-            ->whereRaw("ST_CONTAINS(ST_GeomFromText('MULTIPOLYGON({$multiPolygonStatement})', 4326), coordinates)");
+            ->whereRaw('ST_CONTAINS(ST_GeomFromText(?, 4326), coordinates)', ["MULTIPOLYGON({$multiPolygonStatement})"]);
 
         $v6Query = $this->database->table('maxmind_v6_geolocations')
             ->selectRaw('start_ip, end_ip, ST_AsText(coordinates) as coordinates')
-            ->whereRaw("ST_CONTAINS(ST_GeomFromText('MULTIPOLYGON({$multiPolygonStatement})', 4326), coordinates)");
+            ->whereRaw('ST_CONTAINS(ST_GeomFromText(?, 4326), coordinates)', ["MULTIPOLYGON({$multiPolygonStatement})"]);
 
         $requestedIpType = match ($this->ipTypeMask) {
             PolygonToRangeInterface::FILTER_IPV4 => [IpType::IPv4],

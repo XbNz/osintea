@@ -46,7 +46,7 @@ final class FilterPolygon
         $transporter->query
             ->where(function (Builder $query) use ($multiPolygonStatement): void {
                 $query->whereHas('coordinates', function (Builder $query) use ($multiPolygonStatement): void {
-                    $query->whereRaw("ST_Contains(ST_GeomFromText('MULTIPOLYGON({$multiPolygonStatement})'), coordinates)");
+                    $query->whereRaw('ST_Contains(ST_GeomFromText(?), coordinates)', ["MULTIPOLYGON({$multiPolygonStatement})"]);
                 });
             });
 
