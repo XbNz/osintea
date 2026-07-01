@@ -17,7 +17,7 @@
         "ext-zlib": "*",
         "azjezz/psl": "^3.0",
         "blade-ui-kit/blade-icons": "^1.7",
-        "internachi/modular": "^2.2",
+        "internachi/modular": "^3.0",
         "jmikola/geojson": "^1.0",
         "laravel/framework": "^12.0",
         "laravel/reverb": "^1.4",
