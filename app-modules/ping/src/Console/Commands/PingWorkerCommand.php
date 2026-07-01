@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace XbNz\Ping\Console\Commands;
 
 use Carbon\CarbonImmutable;
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -20,6 +19,7 @@ use XbNz\Ping\Models\PingSequence;
 use XbNz\Ping\Steps\LoopingStandardInPingWorker\GatherTargetToAdd;
 use XbNz\Ping\Steps\LoopingStandardInPingWorker\GatherTargetToRemove;
 use XbNz\Ping\Steps\LoopingStandardInPingWorker\Transporter;
+use XbNz\Shared\Pipeline;
 
 final class PingWorkerCommand extends Command
 {

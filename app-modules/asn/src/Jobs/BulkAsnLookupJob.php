@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Asn\Jobs;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,6 +14,7 @@ use XbNz\Asn\Steps\BulkAsnLookup\BulkAsnLookup;
 use XbNz\Asn\Steps\BulkAsnLookup\FireEvent;
 use XbNz\Asn\Steps\BulkAsnLookup\Transporter;
 use XbNz\Ip\DTOs\IpAddressDto;
+use XbNz\Shared\Pipeline;
 
 final class BulkAsnLookupJob implements ShouldQueue
 {

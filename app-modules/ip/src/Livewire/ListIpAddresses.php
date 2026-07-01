@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Ip\Livewire;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use DB;
 use Flux\Flux;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -56,6 +55,7 @@ use XbNz\Ping\Models\PingSequence;
 use XbNz\Port\Events\BulkIcmpScanCompleted;
 use XbNz\Port\Jobs\BulkIcmpScanJob;
 use XbNz\Shared\Enums\NativePhpWindow;
+use XbNz\Shared\Pipeline;
 
 #[Layout('components.layouts.secondary-window')]
 final class ListIpAddresses extends Component
@@ -226,12 +226,14 @@ final class ListIpAddresses extends Component
     }
 
     /**
-     * @return CursorPaginator<IpAddress>
+     * @return CursorPaginator<int, ListIpAddressesTableViewModel>
      */
     #[Computed]
     public function ipAddresses(): CursorPaginator
     {
-        return ListIpAddressesTableViewModel::collect($this->query()->cursorPaginate($this->rowAmount));
+        return $this->query()
+            ->cursorPaginate($this->rowAmount)
+            ->through(fn (IpAddress $ipAddress): ListIpAddressesTableViewModel => ListIpAddressesTableViewModel::fromModel($ipAddress));
     }
 
     public function geolocateActive(string $provider): void

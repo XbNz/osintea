@@ -25,12 +25,6 @@ parameters:
 			path: app-modules/ip/src/DTOs/IpAddressDto.php
 
 		-
-			message: '#^Method XbNz\\Ip\\Livewire\\ListIpAddresses\:\:ipAddresses\(\) should return Illuminate\\Contracts\\Pagination\\CursorPaginator\<XbNz\\Ip\\Models\\IpAddress\> but returns Illuminate\\Contracts\\Pagination\\Paginator\|Illuminate\\Pagination\\AbstractCursorPaginator\|Illuminate\\Support\\Enumerable\<\(int\|string\), XbNz\\Ip\\ViewModels\\ListIpAddressesTableViewModel\>\.$#'
-			identifier: return.type
-			count: 1
-			path: app-modules/ip/src/Livewire/ListIpAddresses.php
-
-		-
 			message: '#^Property XbNz\\Ip\\Livewire\\ListIpAddresses\:\:\$manipulations \(array\<int, class\-string\>\) does not accept array\<int, string\>\.$#'
 			identifier: assign.propertyType
 			count: 1

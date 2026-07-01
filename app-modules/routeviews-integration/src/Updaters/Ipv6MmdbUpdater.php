@@ -61,8 +61,10 @@ final class Ipv6MmdbUpdater implements UpdaterInterface
             ->get('https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn-mmdb/asn-ipv6.mmdb')
             ->throw();
 
-        while ($response->getBody()->eof() === false) {
-            file_put_contents($temporaryIpv6Mmdb, $response->getBody()->read(4096), FILE_APPEND);
+        $body = $response->toPsrResponse()->getBody();
+
+        while ($body->eof() === false) {
+            file_put_contents($temporaryIpv6Mmdb, $body->read(4096), FILE_APPEND);
         }
 
         $this->filesystem->move($temporaryIpv6Mmdb, $this->config->get('routeviews-integration.asn_mmdb.ipv6'));

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Preferences\Jobs;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,6 +13,7 @@ use XbNz\Preferences\DTOs\MasscanPreferencesDto;
 use XbNz\Preferences\Steps\ToggleMasscanPreferencesEnabledStatus\DisableAllPreferences;
 use XbNz\Preferences\Steps\ToggleMasscanPreferencesEnabledStatus\EnableRequestedPreferencesRecord;
 use XbNz\Preferences\Steps\ToggleMasscanPreferencesEnabledStatus\Transporter;
+use XbNz\Shared\Pipeline;
 
 final class EnableMasscanPreferencesJob implements ShouldQueue
 {

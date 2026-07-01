@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Ping\Jobs;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,6 +13,7 @@ use XbNz\Ip\DTOs\IpAddressDto;
 use XbNz\Ping\Steps\BulkPing\BulkPing;
 use XbNz\Ping\Steps\BulkPing\FireEvent;
 use XbNz\Ping\Steps\BulkPing\Transporter;
+use XbNz\Shared\Pipeline;
 
 final class BulkPingJob implements ShouldQueue
 {

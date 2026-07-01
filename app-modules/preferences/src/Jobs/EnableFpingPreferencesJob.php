@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Preferences\Jobs;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,6 +13,7 @@ use XbNz\Preferences\DTOs\FpingPreferencesDto;
 use XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus\DisableAllPreferences;
 use XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus\EnableRequestedPreferencesRecord;
 use XbNz\Preferences\Steps\ToggleFpingPreferencesEnabledStatus\Transporter;
+use XbNz\Shared\Pipeline;
 
 final class EnableFpingPreferencesJob implements ShouldQueue
 {

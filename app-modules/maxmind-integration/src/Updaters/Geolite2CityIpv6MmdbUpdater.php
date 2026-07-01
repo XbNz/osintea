@@ -61,8 +61,10 @@ final class Geolite2CityIpv6MmdbUpdater implements UpdaterInterface
             ->get('https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv6.mmdb')
             ->throw();
 
-        while ($response->getBody()->eof() === false) {
-            file_put_contents($temporaryIpv6Mmdb, $response->getBody()->read(4096), FILE_APPEND);
+        $body = $response->toPsrResponse()->getBody();
+
+        while ($body->eof() === false) {
+            file_put_contents($temporaryIpv6Mmdb, $body->read(4096), FILE_APPEND);
         }
 
         $this->filesystem->move($temporaryIpv6Mmdb, $this->config->get('maxmind-integration.geolite2_city_mmdb.ipv6'));

@@ -10,12 +10,15 @@ use Illuminate\Database\DatabaseManager;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\Pool;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Lottery;
 use Illuminate\Support\Str;
+use Psr\Http\Message\StreamInterface;
 use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Throwable;
+use UnexpectedValueException;
 use XbNz\Shared\Contracts\UpdaterInterface;
 use XbNz\Shared\Enums\UpdatableDatabase;
 use XbNz\Shared\Events\UpdateProgressReportEvent;
@@ -70,15 +73,15 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
             ];
         });
 
-        $responses[0]->throw();
-        $responses[1]->throw();
+        $ipv4Body = $this->bodyFromResponse($responses[0]);
+        $ipv6Body = $this->bodyFromResponse($responses[1]);
 
-        while ($responses[0]->getBody()->eof() === false) {
-            file_put_contents($temporaryIpv4Csv, $responses[0]->getBody()->read(4096), FILE_APPEND);
+        while ($ipv4Body->eof() === false) {
+            file_put_contents($temporaryIpv4Csv, $ipv4Body->read(4096), FILE_APPEND);
         }
 
-        while ($responses[1]->getBody()->eof() === false) {
-            file_put_contents($temporaryIpv6Csv, $responses[1]->getBody()->read(4096), FILE_APPEND);
+        while ($ipv6Body->eof() === false) {
+            file_put_contents($temporaryIpv6Csv, $ipv6Body->read(4096), FILE_APPEND);
         }
 
         $this->database->beginTransaction();
@@ -127,5 +130,18 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
     public function supports(UpdatableDatabase $database): bool
     {
         return $database === UpdatableDatabase::RouteViewsAsnUnifiedSqlite;
+    }
+
+    private function bodyFromResponse(mixed $response): StreamInterface
+    {
+        if ($response instanceof Throwable) {
+            throw $response;
+        }
+
+        if ( ! $response instanceof Response) {
+            throw new UnexpectedValueException('Expected an HTTP response from the download pool');
+        }
+
+        return $response->throw()->toPsrResponse()->getBody();
     }
 }

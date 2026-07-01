@@ -61,8 +61,10 @@ final class Geolite2CityIpv4MmdbUpdater implements UpdaterInterface
             ->get('https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv4.mmdb')
             ->throw();
 
-        while ($response->getBody()->eof() === false) {
-            file_put_contents($temporaryIpv4Mmdb, $response->getBody()->read(4096), FILE_APPEND);
+        $body = $response->toPsrResponse()->getBody();
+
+        while ($body->eof() === false) {
+            file_put_contents($temporaryIpv4Mmdb, $body->read(4096), FILE_APPEND);
         }
 
         $this->filesystem->move($temporaryIpv4Mmdb, $this->config->get('maxmind-integration.geolite2_city_mmdb.ipv4'));

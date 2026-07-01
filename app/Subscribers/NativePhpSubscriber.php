@@ -11,7 +11,6 @@ use App\Steps\OnBooted\CreateDefaultMasscanPreferences;
 use App\Steps\OnBooted\EnableDefaultFpingPreferences;
 use App\Steps\OnBooted\EnableDefaultMasscanPreferences;
 use App\Steps\OnBooted\Transporter;
-use Chefhasteeth\Pipeline\Pipeline;
 use Native\Laravel\Events\App\ApplicationBooted;
 use Native\Laravel\Events\Windows\WindowBlurred;
 use Native\Laravel\Events\Windows\WindowClosed;
@@ -21,6 +20,7 @@ use Native\Laravel\Facades\GlobalShortcut;
 use Native\Laravel\Facades\Window;
 use XbNz\Shared\Attributes\ListensTo;
 use XbNz\Shared\Enums\NativePhpWindow;
+use XbNz\Shared\Pipeline;
 
 final class NativePhpSubscriber
 {

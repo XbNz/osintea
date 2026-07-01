@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Port\Jobs;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -12,6 +11,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use XbNz\Port\Steps\BulkIcmpScan\BulkIcmpScan;
 use XbNz\Port\Steps\BulkIcmpScan\FireEvent;
 use XbNz\Port\Steps\BulkIcmpScan\Transporter;
+use XbNz\Shared\Pipeline;
 
 final class BulkIcmpScanJob implements ShouldQueue
 {

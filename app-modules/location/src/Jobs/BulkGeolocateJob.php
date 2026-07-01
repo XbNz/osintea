@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace XbNz\Location\Jobs;
 
-use Chefhasteeth\Pipeline\Pipeline;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,6 +14,7 @@ use XbNz\Location\Enums\Provider;
 use XbNz\Location\Steps\BulkGeolocate\BulkGeolocate;
 use XbNz\Location\Steps\BulkGeolocate\FireEvent;
 use XbNz\Location\Steps\BulkGeolocate\Transporter;
+use XbNz\Shared\Pipeline;
 
 final class BulkGeolocateJob implements ShouldQueue
 {
