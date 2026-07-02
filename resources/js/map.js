@@ -7,11 +7,25 @@ import { Vector as VectorSource } from 'ol/source';
 import { Vector as VectorLayer } from 'ol/layer';
 import 'ol/ol.css';
 
-window.Map = Map;
-window.View = View;
-window.TileLayer = TileLayer;
-window.OSM = OSM;
-window.GeoJSON = GeoJSON;
-window.Draw = Draw;
-window.VectorSource = VectorSource;
-window.VectorLayer = VectorLayer;
+window.OsinteaMap = {
+    Draw,
+    GeoJSON,
+    Map,
+    OSM,
+    TileLayer,
+    VectorLayer,
+    VectorSource,
+    View,
+};
+
+window.withOsinteaMap = (callback) => {
+    if (window.OsinteaMap !== undefined) {
+        callback(window.OsinteaMap);
+
+        return;
+    }
+
+    window.addEventListener('osintea-map-ready', () => callback(window.OsinteaMap), { once: true });
+};
+
+window.dispatchEvent(new Event('osintea-map-ready'));
