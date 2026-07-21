@@ -58,7 +58,7 @@ final class Geolite2CityIpv6MmdbUpdater implements UpdaterInterface
 
         $response = $this->laravelHttp
             ->withOptions($options)
-            ->get('https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv6.mmdb')
+            ->get('https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv6.mmdb')
             ->throw();
 
         $body = $response->toPsrResponse()->getBody();

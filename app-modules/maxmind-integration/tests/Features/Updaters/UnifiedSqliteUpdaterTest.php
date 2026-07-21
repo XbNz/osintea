@@ -20,8 +20,8 @@ final class UnifiedSqliteUpdaterTest extends TestCase
     {
         // Arrange
         Http::fake([
-            '*ipv4.csv.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv4.csv.gz')),
-            '*ipv6.csv.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv6.csv.gz')),
+            '*ipv4.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv4.csv.gz')),
+            '*ipv6.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv6.csv.gz')),
         ]);
 
         $updater = $this->app->make(UnifiedSqliteUpdater::class);
@@ -61,8 +61,8 @@ final class UnifiedSqliteUpdaterTest extends TestCase
     {
         // Arrange
         Http::fake([
-            '*ipv4.csv.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv4.csv.gz')),
-            '*ipv6.csv.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv6.csv.gz')),
+            '*ipv4.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv4.csv.gz')),
+            '*ipv6.gz' => Http::response(file_get_contents(__DIR__.'/../../Fixtures/geolite2-city-ipv6.csv.gz')),
         ]);
 
         $updater = $this->app->make(UnifiedSqliteUpdater::class);

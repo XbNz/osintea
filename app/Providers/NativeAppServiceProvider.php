@@ -22,7 +22,14 @@ final class NativeAppServiceProvider implements ProvidesPhpIni
             ->event(OpenCommandPaletteEvent::class)
             ->register();
 
-        ChildProcess::artisan('ping:work', NativePhpChildProcess::PingWorker->value, persistent: true);
+        ChildProcess::artisan(
+            'ping:work',
+            NativePhpChildProcess::PingWorker->value,
+            persistent: true,
+            iniSettings: [
+                'max_execution_time' => '0',
+            ],
+        );
     }
 
     /**

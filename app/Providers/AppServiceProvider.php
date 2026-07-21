@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Native\QueueWorker;
 use App\Subscribers\NativePhpSubscriber;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use Native\Desktop\Contracts\QueueWorker as QueueWorkerContract;
 use XbNz\Shared\Actions\ResolveListenersAction;
 
 final class AppServiceProvider extends ServiceProvider
@@ -22,7 +24,10 @@ final class AppServiceProvider extends ServiceProvider
     /**
      * Register any application services.
      */
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->app->bind(QueueWorkerContract::class, QueueWorker::class);
+    }
 
     /**
      * Bootstrap any application services.

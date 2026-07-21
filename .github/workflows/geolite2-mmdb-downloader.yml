@@ -16,8 +16,8 @@ jobs:
 
             - name: Download Maxmind Geolite2 mmdb
               run: |
-                wget https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv4.mmdb
-                wget https://github.com/sapics/ip-location-db/raw/refs/heads/main/geolite2-city-mmdb/geolite2-city-ipv6.mmdb
+                wget https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv4.mmdb
+                wget https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv6.mmdb
 
             - name: Move to databases directory
               run: |
@@ -33,5 +33,4 @@ jobs:
                 title: "Update Maxmind GeoLite2 mmdb"
                 commit-message: "update maxmind geolite2 mmdb"
                 base: main
-
 

@@ -16,8 +16,8 @@ jobs:
 
             - name: Download Routeviews ASN mmdb
               run: |
-                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn-mmdb/asn-ipv4.mmdb
-                wget https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn-mmdb/asn-ipv6.mmdb
+                wget -O asn-ipv4.mmdb https://github.com/sapics/ip-location-db/releases/download/latest/origin-asn-ipv4.mmdb
+                wget -O asn-ipv6.mmdb https://github.com/sapics/ip-location-db/releases/download/latest/origin-asn-ipv6.mmdb
 
             - name: Move to databases directory
               run: |
@@ -33,5 +33,4 @@ jobs:
                 title: "Update Routeview ASN mmdb"
                 commit-message: "update routeview asn mmdb"
                 base: main
-
 

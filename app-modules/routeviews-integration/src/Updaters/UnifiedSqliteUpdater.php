@@ -68,8 +68,8 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
             ];
 
             return [
-                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/raw/refs/heads/main/asn/asn-ipv4.csv'),
-                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/raw/refs/heads/main/asn/asn-ipv6.csv'),
+                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/releases/download/latest/origin-asn-ipv4.csv'),
+                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/releases/download/latest/origin-asn-ipv6.csv'),
             ];
         });
 

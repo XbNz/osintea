@@ -58,7 +58,7 @@ final class Ipv4MmdbUpdater implements UpdaterInterface
 
         $response = $this->laravelHttp
             ->withOptions($options)
-            ->get('https://raw.githubusercontent.com/sapics/ip-location-db/refs/heads/main/asn-mmdb/asn-ipv4.mmdb')
+            ->get('https://github.com/sapics/ip-location-db/releases/download/latest/origin-asn-ipv4.mmdb')
             ->throw();
 
         $body = $response->toPsrResponse()->getBody();
