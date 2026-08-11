@@ -17,6 +17,7 @@ use XbNz\Preferences\Events\Intentions\DeleteMasscanPreferencesIntention;
 use XbNz\Preferences\Events\Intentions\EnableMasscanPreferencesIntention;
 use XbNz\Preferences\Events\Intentions\UpdateMasscanPreferencesIntention;
 use XbNz\Preferences\Models\MasscanPreferences;
+use XbNz\Preferences\Support\NetworkAdapters;
 
 final class MasscanPreferencesForm extends Form
 {
@@ -29,7 +30,7 @@ final class MasscanPreferencesForm extends Form
 
     public int $rate;
 
-    public ?string $adapter;
+    public ?string $adapter = null;
 
     public int $retries;
 
@@ -40,11 +41,21 @@ final class MasscanPreferencesForm extends Form
      */
     public function rules(): array
     {
+        $adapters = app(NetworkAdapters::class)->options()->keys();
+
+        if ($this->adapter !== null) {
+            $adapters->push($this->adapter);
+        }
+
         return [
             'id' => ['required', 'integer', Rule::exists(MasscanPreferences::class, 'id')],
             'ttl' => ['required', 'integer'],
             'rate' => ['required', 'integer'],
-            'adapter' => ['sometimes', 'string'],
+            'adapter' => [
+                'nullable',
+                'string',
+                Rule::in($adapters->unique()),
+            ],
             'retries' => ['required', 'integer'],
             'enabled' => ['required', 'boolean'],
             'name' => ['required', 'string'],
@@ -99,6 +110,8 @@ final class MasscanPreferencesForm extends Form
 
     public function update(): void
     {
+        $this->adapter = filled($this->adapter) ? $this->adapter : null;
+
         $this->validate();
 
         app(Dispatcher::class)->dispatch(new UpdateMasscanPreferencesIntention(
@@ -107,9 +120,10 @@ final class MasscanPreferencesForm extends Form
                 $this->name,
                 $this->ttl,
                 $this->rate,
-                $this->adapter ?? null,
+                $this->adapter,
                 $this->retries,
                 $this->enabled,
+                true,
             )
         ));
     }

@@ -12,6 +12,7 @@ use Livewire\Component;
 use XbNz\Preferences\DTOs\MasscanPreferencesDto;
 use XbNz\Preferences\Livewire\Forms\MasscanPreferencesForm;
 use XbNz\Preferences\Models\MasscanPreferences as MasscanPreferencesModel;
+use XbNz\Preferences\Support\NetworkAdapters;
 
 final class MasscanPreferences extends Component
 {
@@ -24,6 +25,15 @@ final class MasscanPreferences extends Component
     public function masscanPreferencesRecords(): Collection
     {
         return MasscanPreferencesDto::collect(MasscanPreferencesModel::query()->get());
+    }
+
+    /**
+     * @return Collection<string, string>
+     */
+    #[Computed]
+    public function networkAdapters(): Collection
+    {
+        return app(NetworkAdapters::class)->options();
     }
 
     public function createNewPreferencesRecord(): void

@@ -56,7 +56,7 @@ final class BulkIcmpScanAction
             ->retries($activeMasscanPreferences->retries)
             ->timeToLive($activeMasscanPreferences->ttl);
 
-        if ($activeMasscanPreferences->adapter !== null) {
+        if (filled($activeMasscanPreferences->adapter)) {
             $masscanIcmp->adapter($activeMasscanPreferences->adapter);
         }
 

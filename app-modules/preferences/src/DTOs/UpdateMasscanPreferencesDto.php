@@ -16,6 +16,7 @@ final class UpdateMasscanPreferencesDto extends Data
         public readonly ?string $adapter = null,
         public readonly ?int $retries = null,
         public readonly ?bool $enabled = null,
+        public readonly bool $updateAdapter = false,
     ) {}
 
     public static function sampleData(): self

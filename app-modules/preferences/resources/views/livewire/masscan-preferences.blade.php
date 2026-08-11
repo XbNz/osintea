@@ -61,9 +61,15 @@
                     </flux:field>
                     <flux:field>
                         <flux:label>Adapter</flux:label>
-                        <flux:input.group>
-                            <flux:input wire:model.live.debounce.500ms="form.adapter"/>
-                        </flux:input.group>
+                        <flux:select variant="listbox" wire:model.live="form.adapter" placeholder="Automatic">
+                            <flux:select.option value="">Automatic</flux:select.option>
+                            @foreach($this->networkAdapters as $adapter => $label)
+                                <flux:select.option :value="$adapter">{{ $label }}</flux:select.option>
+                            @endforeach
+                            @if(filled($form->adapter) && !$this->networkAdapters->has($form->adapter))
+                                <flux:select.option :value="$form->adapter">{{ $form->adapter }} (unavailable)</flux:select.option>
+                            @endif
+                        </flux:select>
                         <flux:error name="form.adapter"/>
                     </flux:field>
                 </div>

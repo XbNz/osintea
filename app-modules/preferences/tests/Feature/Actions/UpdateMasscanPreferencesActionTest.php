@@ -28,6 +28,7 @@ final class UpdateMasscanPreferencesActionTest extends TestCase
             'eth0',
             3,
             true,
+            true,
         );
 
         // Act
@@ -42,6 +43,29 @@ final class UpdateMasscanPreferencesActionTest extends TestCase
             'adapter' => 'eth0',
             'retries' => 3,
             'enabled' => true,
+        ]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_can_clear_the_adapter(): void
+    {
+        $action = $this->app->make(UpdateMasscanPreferencesAction::class);
+        $preferences = MasscanPreferences::factory()->create(['adapter' => 'eth0'])->getData();
+
+        $action->handle(new UpdateMasscanPreferencesDto(
+            $preferences->id,
+            $preferences->name,
+            $preferences->ttl,
+            $preferences->rate,
+            null,
+            $preferences->retries,
+            $preferences->enabled,
+            true,
+        ));
+
+        $this->assertDatabaseHas(MasscanPreferences::class, [
+            'id' => $preferences->id,
+            'adapter' => null,
         ]);
     }
 }

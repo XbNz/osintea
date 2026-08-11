@@ -13,10 +13,21 @@ use XbNz\Preferences\DTOs\MasscanPreferencesDto;
 use XbNz\Preferences\Events\Intentions\EnableMasscanPreferencesIntention;
 use XbNz\Preferences\Livewire\MasscanPreferences;
 use XbNz\Preferences\Models\MasscanPreferences as MasscanPreferencesModel;
+use XbNz\Preferences\Support\NetworkAdapters;
 
 final class MasscanPreferencesTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->app->instance(NetworkAdapters::class, new NetworkAdapters([
+            'en0' => ['unicast' => [['address' => '192.168.1.10'], ['address' => 'fe80::1']]],
+            'eth0' => ['unicast' => [['address' => '10.0.0.10']]],
+        ]));
+    }
 
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_renders_with_the_first_preference_as_the_active_tab(): void
@@ -77,6 +88,32 @@ final class MasscanPreferencesTest extends TestCase
             'rate' => 100,
             'adapter' => 'eth0',
             'retries' => 6,
+        ]);
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_lists_adapter_names_with_their_local_addresses(): void
+    {
+        MasscanPreferencesModel::factory()->create(['adapter' => null]);
+
+        Livewire::test(MasscanPreferences::class)
+            ->assertSee('en0 (192.168.1.10, fe80::1)')
+            ->assertSee('eth0 (10.0.0.10)');
+    }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function the_automatic_adapter_can_be_selected_without_blocking_updates(): void
+    {
+        $preferences = MasscanPreferencesModel::factory()->create(['adapter' => 'eth0']);
+
+        Livewire::test(MasscanPreferences::class)
+            ->set('form.adapter', '')
+            ->set('form.name', 'Updated');
+
+        $this->assertDatabaseHas(MasscanPreferencesModel::class, [
+            'id' => $preferences->id,
+            'name' => 'Updated',
+            'adapter' => null,
         ]);
     }
 

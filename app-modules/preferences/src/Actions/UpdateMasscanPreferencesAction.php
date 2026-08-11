@@ -15,14 +15,19 @@ final class UpdateMasscanPreferencesAction
         $masscanPreferences = MasscanPreferences::query()->findOrFail($dto->id);
         $beforeUpdate = $masscanPreferences->getData();
 
-        $masscanPreferences->update($updated = array_filter([
+        $updated = array_filter([
             'name' => $dto->name,
             'ttl' => $dto->ttl,
             'rate' => $dto->rate,
-            'adapter' => $dto->adapter,
             'retries' => $dto->retries,
             'enabled' => $dto->enabled,
-        ], fn (mixed $value) => $value !== null));
+        ], fn (mixed $value) => $value !== null);
+
+        if ($dto->updateAdapter) {
+            $updated['adapter'] = $dto->adapter;
+        }
+
+        $masscanPreferences->update($updated);
 
         if (empty($updated) === true) {
             return $beforeUpdate;
