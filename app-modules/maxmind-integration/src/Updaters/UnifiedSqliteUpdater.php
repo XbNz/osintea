@@ -72,8 +72,8 @@ final class UnifiedSqliteUpdater implements UpdaterInterface
             ];
 
             return [
-                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv4.gz'),
-                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv6.gz'),
+                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv4.csv.gz'),
+                $pool->withOptions($options)->get('https://github.com/sapics/ip-location-db/releases/download/latest/geolite2-city-ipv6.csv.gz'),
             ];
         });
 

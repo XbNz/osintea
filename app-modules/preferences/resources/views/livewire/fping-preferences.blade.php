@@ -90,6 +90,7 @@
                             <flux:input wire:model.live.debounce.500ms="form.interval_per_target"/>
                             <flux:input.group.suffix>ms</flux:input.group.suffix>
                         </flux:input.group>
+                        <flux:description>Time to wait between consecutive probes to the same target.</flux:description>
                         <flux:error name="form.interval_per_target"/>
                     </flux:field>
                     <flux:field>

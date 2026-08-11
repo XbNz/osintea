@@ -10,8 +10,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
+use Throwable;
 use XbNz\Shared\Contracts\UpdaterInterface;
 use XbNz\Shared\Enums\UpdatableDatabase;
+use XbNz\Shared\Events\DatabaseUpdateStatusEvent;
 
 final class DatabaseUpdaterJob implements ShouldQueue
 {
@@ -25,9 +27,19 @@ final class DatabaseUpdaterJob implements ShouldQueue
 
     public function handle(Container $container): void
     {
-        $updater = Collection::make(iterator_to_array($container->tagged('database-updaters')))
-            ->sole(fn (UpdaterInterface $updater) => $updater->supports($this->database));
+        DatabaseUpdateStatusEvent::dispatch($this->database, 'running');
 
-        $updater->update();
+        try {
+            $updater = Collection::make(iterator_to_array($container->tagged('database-updaters')))
+                ->sole(fn (UpdaterInterface $updater) => $updater->supports($this->database));
+
+            $updater->update();
+        } catch (Throwable $exception) {
+            DatabaseUpdateStatusEvent::dispatch($this->database, 'failed', $exception->getMessage());
+
+            throw $exception;
+        }
+
+        DatabaseUpdateStatusEvent::dispatch($this->database, 'completed');
     }
 }
