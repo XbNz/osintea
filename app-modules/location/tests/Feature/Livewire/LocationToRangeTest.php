@@ -27,7 +27,7 @@ final class LocationToRangeTest extends TestCase
     public function it_accepts_a_geojson_object_and_finds_ip_addresses_within_its_polygon(): void
     {
         // Arrange
-        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake());
+        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake);
         $this->app->tag([PolygonToRangeFake::class], 'polygon-to-range');
         $fake = $this->app->make(PolygonToRangeFake::class);
 
@@ -97,7 +97,7 @@ final class LocationToRangeTest extends TestCase
     public function it_retrieves_ipv4_only(): void
     {
         // Arrange
-        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake());
+        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake);
         $this->app->tag([PolygonToRangeFake::class], 'polygon-to-range');
         $fake = $this->app->make(PolygonToRangeFake::class);
 
@@ -135,7 +135,7 @@ final class LocationToRangeTest extends TestCase
     public function it_retrieves_ipv6_only(): void
     {
         // Arrange
-        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake());
+        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake);
         $this->app->tag([PolygonToRangeFake::class], 'polygon-to-range');
         $fake = $this->app->make(PolygonToRangeFake::class);
 
@@ -170,7 +170,7 @@ final class LocationToRangeTest extends TestCase
     public function it_retrieves_both(): void
     {
         // Arrange
-        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake());
+        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake);
         $this->app->tag([PolygonToRangeFake::class], 'polygon-to-range');
         $fake = $this->app->make(PolygonToRangeFake::class);
 
@@ -205,7 +205,7 @@ final class LocationToRangeTest extends TestCase
     public function it_limits_results_to_sample_size(): void
     {
         // Arrange
-        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake());
+        $this->app->singleton(PolygonToRangeFake::class, fn () => new PolygonToRangeFake);
 
         $this->app->tag([PolygonToRangeFake::class], 'polygon-to-range');
 

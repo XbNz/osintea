@@ -19,7 +19,7 @@ final class OnBootedTest extends TestCase
     public function it_create_a_sensible_default_fping_preferences_record_when_the_application_is_booted_for_the_first_time(): void
     {
         // Act
-        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted());
+        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted);
 
         // Assert
         $this->assertDatabaseCount(FpingPreferences::class, 1);
@@ -43,7 +43,7 @@ final class OnBootedTest extends TestCase
     public function it_create_a_sensible_default_masscan_preferences_record_when_the_application_is_booted_for_the_first_time(): void
     {
         // Act
-        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted());
+        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted);
 
         // Assert
         $this->assertDatabaseCount(MasscanPreferences::class, 1);
@@ -63,7 +63,7 @@ final class OnBootedTest extends TestCase
         FpingPreferences::factory()->create();
 
         // Act
-        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted());
+        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted);
 
         // Assert
         $this->assertDatabaseCount(FpingPreferences::class, 1);
@@ -76,7 +76,7 @@ final class OnBootedTest extends TestCase
         MasscanPreferences::factory()->create();
 
         // Act
-        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted());
+        $this->app->make(Dispatcher::class)->dispatch(new ApplicationBooted);
 
         // Assert
         $this->assertDatabaseCount(MasscanPreferences::class, 1);

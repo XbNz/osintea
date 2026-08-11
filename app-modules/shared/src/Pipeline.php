@@ -22,7 +22,7 @@ final class Pipeline
 
     public static function make(): self
     {
-        return new self();
+        return new self;
     }
 
     public function withTransaction(): self

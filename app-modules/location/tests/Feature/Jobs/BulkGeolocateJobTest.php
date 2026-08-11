@@ -23,7 +23,7 @@ final class BulkGeolocateJobTest extends TestCase
     {
         // Arrange
         Event::fake([BulkGeolocationCompleted::class]);
-        $this->app->singleton(IpToCoordinatesFake::class, fn () => new IpToCoordinatesFake());
+        $this->app->singleton(IpToCoordinatesFake::class, fn () => new IpToCoordinatesFake);
         $this->app->tag([IpToCoordinatesFake::class], 'ip-to-coordinates');
         $fake = $this->app->make(IpToCoordinatesFake::class);
 

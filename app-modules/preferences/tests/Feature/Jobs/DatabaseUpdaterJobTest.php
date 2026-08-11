@@ -22,7 +22,7 @@ final class DatabaseUpdaterJobTest extends TestCase
 
         $this->app->singleton(
             FakeUpdater::class,
-            fn () => new FakeUpdater(),
+            fn () => new FakeUpdater,
         );
 
         $this->app->tag([

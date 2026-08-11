@@ -51,7 +51,7 @@ final class BulkAsnLookupJobTest extends TestCase
     public function it_uses_the_requested_provider_fetched_from_the_container_tags(): void
     {
         // Arrange
-        $this->app->singleton(IpToAsnFake::class, fn () => new IpToAsnFake());
+        $this->app->singleton(IpToAsnFake::class, fn () => new IpToAsnFake);
         $this->app->tag([IpToAsnFake::class], 'ip-to-asn');
         $fake = $this->app->make(IpToAsnFake::class);
 

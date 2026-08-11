@@ -125,7 +125,7 @@ final class Ping extends Component
     public function rules(): array
     {
         return [
-            'target' => ['required', 'string', new StringResolvesToIpAddressRule()],
+            'target' => ['required', 'string', new StringResolvesToIpAddressRule],
             'interval' => ['required', 'integer', 'min:100'],
         ];
     }

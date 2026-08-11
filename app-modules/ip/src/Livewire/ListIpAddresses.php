@@ -432,11 +432,11 @@ final class ListIpAddresses extends Component
 
     public function mount(): void
     {
-        $this->roundTripTimeFilter = new RoundTripTimeFilter();
-        $this->packetLossFilter = new PacketLossFilter();
-        $this->organizationFilter = new OrganizationFilter();
-        $this->polygonFilter = new PolygonFilter();
-        $this->icmpFilter = new IcmpFilter();
+        $this->roundTripTimeFilter = new RoundTripTimeFilter;
+        $this->packetLossFilter = new PacketLossFilter;
+        $this->organizationFilter = new OrganizationFilter;
+        $this->polygonFilter = new PolygonFilter;
+        $this->icmpFilter = new IcmpFilter;
     }
 
     public function render(): View

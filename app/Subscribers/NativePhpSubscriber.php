@@ -82,7 +82,7 @@ final class NativePhpSubscriber
         ];
 
         Pipeline::make()
-            ->send(new Transporter())
+            ->send(new Transporter)
             ->through($pipes)
             ->thenReturn();
     }

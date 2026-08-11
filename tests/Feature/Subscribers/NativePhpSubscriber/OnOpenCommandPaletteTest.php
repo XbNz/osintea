@@ -26,7 +26,7 @@ final class OnOpenCommandPaletteTest extends TestCase
         ]);
 
         // Act
-        $this->app->make(Dispatcher::class)->dispatch(new OpenCommandPaletteEvent());
+        $this->app->make(Dispatcher::class)->dispatch(new OpenCommandPaletteEvent);
 
         // Assert
         Window::assertOpened(NativePhpWindow::CommandPalette->value);
